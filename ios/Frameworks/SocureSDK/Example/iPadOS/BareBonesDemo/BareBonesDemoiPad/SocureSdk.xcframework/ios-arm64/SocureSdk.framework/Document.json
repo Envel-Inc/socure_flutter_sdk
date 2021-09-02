@@ -1,0 +1,93 @@
+{
+    "main_buttons": {
+        "icon_help": {
+            "icon_name":"question",
+            "overlay_color":{"R":255,"G":255,"B":255,"A":1.0}
+        },
+        "icon_torch_off":{
+            "icon_name":"torchOff",
+            "overlay_color":{"R":255,"G":255,"B":255,"A":1.0}
+        },
+        "icon_torch_on":{
+            "icon_name":"torchOn",
+            "overlay_color":{"R":255,"G":255,"B":255,"A":1.0}
+        },
+        "icon_back":{
+            "icon_name":"back",
+            "overlay_color":{"R":255,"G":255,"B":255,"A":1.0}
+        },
+        "icon_close":{
+            "icon_name":"close" ,
+            "overlay_color":{"R":255,"G":255,"B":255,"A":1.0}
+        }
+    },
+    "help":{
+        "tutorial_images":{
+            "passport_image_name":"Passport",
+            "front_id_image_name":"ID",
+            "back_id_image_name":"ID Back",
+            "selfie_image_name":"Selfie",
+        },
+        "action_icons":{
+            "icon_caret_up": {
+                "icon_name":"whiteUpCaret",
+                "overlay_color":{"R":255,"G":130,"B":0,"A":1.0}
+            },
+            "icon_caret_down": {
+                "icon_name":"whiteDownCaret",
+                "overlay_color":{"R":255,"G":130,"B":0,"A":1.0}
+            }
+        }
+    },
+    "manual_overlay":{
+        "border_width": 3,
+        "border_color": {"R":255,"G":130,"B":0,"A":1.0},
+        "background_color": {"R":216,"G":216,"B":216,"A":0.5},
+        "textFont":"Inter-Bold",
+        "textColor":{"R":255,"G":255,"B":255,"A":1.0},
+        "textSize:":16
+    },
+    "segmented_control":{
+        "textFont-selected":"Inter-Bold",
+        "textFont-default":"Inter-Regular",
+        "textSize-selected":14,
+        "textSize-default":14,
+        "textColor-selected":{"R":255,"G":130,"B":0,"A":1.0},
+        "textColor-default":{"R":255,"G":255,"B":255,"A":1.0},
+    },
+    "status_display":{
+        "text_display":{
+            "textFont":"Inter-Bold",
+            "textColor":{"R":255,"G":255,"B":255,"A":1.0},
+            "textSize":20,
+            },
+        "countdown_display":{
+            "highlight-color":{"R":255,"G":130,"B":0,"A":1.0},
+            "textFont":"Inter-Bold",
+            "textSize":40,
+            "textColor":{"R":255,"G":255,"B":255,"A":1.0},
+        }
+    },
+    "confirmation_display":{
+        "textFont":"Inter-Bold",
+        "textColor":{"R":255,"G":255,"B":255,"A":1.0},
+        "textSize":20,
+        "textFont-accepted":"Inter-Bold",
+        "textColor-accepted":{"R":255,"G":255,"B":255,"A":1.0},
+        "textSize-accepted":35,
+        "action_icons":{
+            "icon_accept": {
+                "icon_name":"preview-accept",
+            },
+            "icon_accept_pressed": {
+                "icon_name":"preview-accept-pressed",
+            },
+            "icon_reject": {
+                "icon_name":"preview-reject",
+            },
+            "icon_reject_pressed": {
+                "icon_name":"preview-reject-pressed",
+            }
+        }
+    }
+}

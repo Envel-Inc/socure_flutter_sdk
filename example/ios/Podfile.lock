@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - socure_sdk (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - socure_sdk (from `.symlinks/plugins/socure_sdk/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  socure_sdk:
+    :path: ".symlinks/plugins/socure_sdk/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  socure_sdk: 97ad395130e3eca589aa84779422682ea2edf962
+
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
+
+COCOAPODS: 1.10.1

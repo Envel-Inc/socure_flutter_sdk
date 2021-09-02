@@ -1,0 +1,1526 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.2.4 effective-4.2 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
+// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -Osize -module-name SocureSdk
+import AVFoundation
+import Accelerate
+import Combine
+import CoreGraphics
+import CoreImage
+import CoreLocation
+import CoreVideo
+import Foundation
+import ImageIO
+import Metal
+import MetalKit
+import MetalPerformanceShaders
+import QuartzCore
+import Swift
+import SystemConfiguration
+import TrustKit
+import UIKit
+import VideoToolbox
+import Vision
+@_hasMissingDesignatedInitializers final public class ConstraintItem {
+  @objc deinit
+}
+public func == (lhs: SocureSdk.ConstraintItem, rhs: SocureSdk.ConstraintItem) -> Swift.Bool
+public protocol ConstraintDirectionalInsetTarget : SocureSdk.ConstraintConstantTarget {
+}
+@available(iOS 11.0, tvOS 11.0, *)
+extension NSDirectionalEdgeInsets : SocureSdk.ConstraintDirectionalInsetTarget {
+}
+public enum TorchMode {
+  case on
+  case off
+  public static func == (a: SocureSdk.TorchMode, b: SocureSdk.TorchMode) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public protocol LayoutConstraintItem : AnyObject {
+}
+@available(iOS 9.0, OSX 10.11, *)
+extension UILayoutGuide : SocureSdk.LayoutConstraintItem {
+}
+extension UIView : SocureSdk.LayoutConstraintItem {
+}
+extension String {
+  public var r: SocureSdk.Regex? {
+    get
+  }
+  public func split(using regex: SocureSdk.RegexProtocol?) -> [Swift.String]
+}
+infix operator =~ : ComparisonPrecedence
+infix operator !~ : ComparisonPrecedence
+public func =~ (source: Swift.String, regex: SocureSdk.RegexProtocol?) -> Swift.Bool
+public func =~ (source: Swift.String, pattern: Swift.String) -> Swift.Bool
+public func !~ (source: Swift.String, regex: SocureSdk.RegexProtocol?) -> Swift.Bool
+public func !~ (source: Swift.String, pattern: Swift.String) -> Swift.Bool
+public func ~= (regex: SocureSdk.RegexProtocol?, source: Swift.String) -> Swift.Bool
+public enum SDKEnvironment {
+}
+public enum Compliance : Swift.String {
+  case fullyCompliant
+  case materiallyCompliant
+  case nonCompliant
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+  public typealias AllCases = [SocureSdk.Compliance]
+  public static var allCases: [SocureSdk.Compliance] {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class UploadResult : ObjectiveC.NSObject {
+  public var referenceId: Swift.String?
+  public var uuid: Swift.String?
+  @objc deinit
+  @objc override dynamic public init()
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class ConstraintMakerExtendable : SocureSdk.ConstraintMakerRelatable {
+  public var left: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var top: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var bottom: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var right: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var leading: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var trailing: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var width: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var height: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var centerX: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var centerY: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(*, deprecated, renamed: "lastBaseline")
+  public var baseline: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var lastBaseline: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  public var firstBaseline: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leftMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var rightMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var topMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var bottomMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leadingMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var trailingMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerXWithinMargins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerYWithinMargins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var edges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var horizontalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var verticalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalHorizontalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalVerticalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var size: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var margins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var directionalMargins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerWithinMargins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @objc deinit
+}
+public enum Race : Swift.String {
+  case americanIndian
+  case asian
+  case black
+  case hispanic
+  case nonHispanic
+  case unknown
+  case white
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+  public typealias AllCases = [SocureSdk.Race]
+  public static var allCases: [SocureSdk.Race] {
+    get
+  }
+}
+public func createPixelBuffer(width: Swift.Int, height: Swift.Int) -> CoreVideo.CVPixelBuffer?
+public func resizePixelBuffer(_ srcPixelBuffer: CoreVideo.CVPixelBuffer, cropX: Swift.Int, cropY: Swift.Int, cropWidth: Swift.Int, cropHeight: Swift.Int, scaleWidth: Swift.Int, scaleHeight: Swift.Int) -> CoreVideo.CVPixelBuffer?
+public func resizePixelBuffer(_ pixelBuffer: CoreVideo.CVPixelBuffer, width: Swift.Int, height: Swift.Int) -> CoreVideo.CVPixelBuffer?
+public func resizePixelBuffer(_ pixelBuffer: CoreVideo.CVPixelBuffer, width: Swift.Int, height: Swift.Int, output: CoreVideo.CVPixelBuffer, context: CoreImage.CIContext)
+public func rotate90PixelBuffer(_ srcPixelBuffer: CoreVideo.CVPixelBuffer, factor: Swift.UInt8) -> CoreVideo.CVPixelBuffer?
+extension CVBuffer {
+  public func copyToMetalCompatible() -> CoreVideo.CVPixelBuffer?
+  public func deepCopy(withAttributes attributes: [Swift.String : Any] = [:]) -> CoreVideo.CVPixelBuffer?
+}
+@objc @_inheritsConvenienceInitializers public class DocScanResult : ObjectiveC.NSObject {
+  public var imageData: Foundation.Data?
+  public var imageDataFlash: Foundation.Data?
+  public var imageDataOriginal: Foundation.Data?
+  public var imageDataFlashOriginal: Foundation.Data?
+  public var metaData: [Swift.String : Swift.Bool]
+  @objc deinit
+  @objc override dynamic public init()
+}
+public struct Weight : Swift.Equatable {
+  public var range: SocureSdk.WeightRange?
+  public var pounds: Swift.Double?
+  public init(range: SocureSdk.WeightRange? = nil, pounds: Swift.Double? = nil)
+  public static func == (a: SocureSdk.Weight, b: SocureSdk.Weight) -> Swift.Bool
+}
+public enum NameSuffix {
+  case junior
+  case senior
+  case first
+  case second
+  case third
+  case fourth
+  case fifth
+  case sixth
+  case seventh
+  case eighth
+  case ninth
+  public static func == (a: SocureSdk.NameSuffix, b: SocureSdk.NameSuffix) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+extension NameSuffix {
+  public typealias AllCases = [SocureSdk.NameSuffix]
+  public static var allCases: [SocureSdk.NameSuffix] {
+    get
+  }
+}
+public typealias StringRange = Swift.Range<Swift.String.Index>
+public enum IssuingCountry : Swift.String {
+  case unitedStates
+  case canada
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+  public typealias AllCases = [SocureSdk.IssuingCountry]
+  public static var allCases: [SocureSdk.IssuingCountry] {
+    get
+  }
+}
+public protocol ConstraintConstantTarget {
+}
+extension CGPoint : SocureSdk.ConstraintConstantTarget {
+}
+extension CGSize : SocureSdk.ConstraintConstantTarget {
+}
+extension UIEdgeInsets : SocureSdk.ConstraintConstantTarget {
+}
+@available(iOS 11.0, tvOS 11.0, *)
+extension NSDirectionalEdgeInsets : SocureSdk.ConstraintConstantTarget {
+}
+@objc @_inheritsConvenienceInitializers public class LayoutConstraint : UIKit.NSLayoutConstraint {
+  public var label: Swift.String? {
+    get
+    set
+  }
+  @objc deinit
+  @objc override dynamic public init()
+}
+public struct BarcodeData {
+  public var firstName: Swift.String?
+  public var state: Swift.String?
+  public var address: Swift.String?
+  public var postalCode: Swift.String?
+  public var city: Swift.String?
+  public var lastName: Swift.String?
+  public var documentNumber: Swift.String?
+  public var issueDate: Swift.String?
+  public var expirationDate: Swift.String?
+  public var fullName: Swift.String?
+  public var dob: Swift.String?
+  public var formattedDob: SocureSdk.FormattedDate
+}
+public struct RegexOptions : Swift.OptionSet {
+  public let rawValue: Swift.UInt
+  public init(rawValue: Swift.UInt)
+  public static let caseInsensitive: SocureSdk.RegexOptions
+  public static let allowCommentsAndWhitespace: SocureSdk.RegexOptions
+  public static let ignoreMetacharacters: SocureSdk.RegexOptions
+  public static let dotMatchesLineSeparators: SocureSdk.RegexOptions
+  public static let anchorsMatchLines: SocureSdk.RegexOptions
+  public static let useUnixLineSeparators: SocureSdk.RegexOptions
+  public static let useUnicodeWordBoundaries: SocureSdk.RegexOptions
+  public static let `default`: SocureSdk.RegexOptions
+  public typealias Element = SocureSdk.RegexOptions
+  public typealias ArrayLiteralElement = SocureSdk.RegexOptions
+  public typealias RawValue = Swift.UInt
+}
+extension NSRegularExpression.Options : Swift.Hashable {
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension RegexOptions : Swift.Hashable {
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension LayoutConstraint {
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+}
+@available(iOS 9.0, OSX 10.11, *)
+public struct ConstraintLayoutGuideDSL : SocureSdk.ConstraintAttributesDSL {
+  @discardableResult
+  public func prepareConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void) -> [SocureSdk.Constraint]
+  public func makeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func remakeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func updateConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func removeConstraints()
+  public var target: Swift.AnyObject? {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class ImageUploader : ObjectiveC.NSObject {
+  public var socurePublicKey: Swift.String?
+  public init(_ clientApiKey: Swift.String)
+  @objc convenience override dynamic public init()
+  public func uploadLicense(UploadCallback: SocureSdk.UploadCallback, front: Foundation.Data, back: Foundation.Data, selfie: Foundation.Data)
+  public func uploadLicense(UploadCallback: SocureSdk.UploadCallback, front: Foundation.Data, back: Foundation.Data)
+  public func uploadPassport(UploadCallback: SocureSdk.UploadCallback, front: Foundation.Data, selfie: Foundation.Data)
+  public func uploadPassport(UploadCallback: SocureSdk.UploadCallback, front: Foundation.Data)
+  public func uploadSelfie(UploadCallback: SocureSdk.UploadCallback, docUploadResult: SocureSdk.UploadResult, selfie: Foundation.Data)
+  @objc deinit
+}
+public enum HairColor : Swift.String {
+  case bald
+  case black
+  case blond
+  case brown
+  case grey
+  case red
+  case sandy
+  case white
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+  public typealias AllCases = [SocureSdk.HairColor]
+  public static var allCases: [SocureSdk.HairColor] {
+    get
+  }
+}
+public enum DocumentTypes : Swift.Int {
+  case LicenseFront
+  case LicenseBack
+  case Passport
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class DocumentScanner : ObjectiveC.NSObject {
+  weak open var barCodeCallBackDelegate: SocureSdk.BarcodeCallback?
+  public var scanMode: SocureSdk.DocumentTypes! {
+    get
+    set
+  }
+  public var cameraPreviewView: UIKit.UIView? {
+    get
+  }
+  public var turnTorchOn: Swift.Bool {
+    get
+    set
+  }
+  public var pauseScanning: Swift.Bool {
+    get
+    set
+  }
+  open func initiateLicenseScan<T>(ImageCallback: T, BarcodeCallback: SocureSdk.BarcodeCallback? = nil, mode: SocureSdk.DocumentTypes = .LicenseFront) where T : UIKit.UIViewController, T : SocureSdk.ImageCallback
+  open func initiateLicenseFrontScan<T>(ImageCallback: T) where T : UIKit.UIViewController, T : SocureSdk.ImageCallback
+  open func initiateLicenseBackScan<T>(ImageCallback: T, BarcodeCallback: SocureSdk.BarcodeCallback) where T : UIKit.UIViewController, T : SocureSdk.ImageCallback
+  open func initiatePassportScan<T>(ImageCallback: T, MRZCallback: SocureSdk.MRZCallback) where T : UIKit.UIViewController, T : SocureSdk.ImageCallback
+  @objc deinit
+  public func manualCapture()
+  public class func requestCameraPermissions(requestStatus: @escaping (Swift.Bool) -> Swift.Void)
+  @objc override dynamic public init()
+}
+public enum EyeColor : Swift.String {
+  case black
+  case blue
+  case brown
+  case gray
+  case green
+  case hazel
+  case maroon
+  case pink
+  case dichromatic
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [SocureSdk.EyeColor]
+  public static var allCases: [SocureSdk.EyeColor] {
+    get
+  }
+}
+public struct WeightRange : Swift.Equatable {
+  public var rank: Swift.Int
+  public var kilograms: Swift.CountableClosedRange<Swift.Int> {
+    get
+  }
+  public var pounds: Swift.CountableClosedRange<Swift.Int> {
+    get
+  }
+  public init(rank: Swift.Int)
+  public static func == (a: SocureSdk.WeightRange, b: SocureSdk.WeightRange) -> Swift.Bool
+}
+public enum Gender : Swift.String {
+  case unknown
+  case male
+  case female
+  case notSpecified
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [SocureSdk.Gender]
+  public static var allCases: [SocureSdk.Gender] {
+    get
+  }
+}
+extension CGImage {
+  public func pixelBuffer(width: Swift.Int, height: Swift.Int, orientation: ImageIO.CGImagePropertyOrientation) -> CoreVideo.CVPixelBuffer?
+  public func pixelBufferGray(width: Swift.Int, height: Swift.Int, orientation: ImageIO.CGImagePropertyOrientation) -> CoreVideo.CVPixelBuffer?
+}
+extension CGImage {
+  public static func create(pixelBuffer: CoreVideo.CVPixelBuffer) -> CoreGraphics.CGImage?
+  public static func create(pixelBuffer: CoreVideo.CVPixelBuffer, context: CoreImage.CIContext) -> CoreGraphics.CGImage?
+}
+@available(iOS 8.0, *)
+public struct ConstraintLayoutSupportDSL : SocureSdk.ConstraintDSL {
+  public var target: Swift.AnyObject? {
+    get
+  }
+  public var top: SocureSdk.ConstraintItem {
+    get
+  }
+  public var bottom: SocureSdk.ConstraintItem {
+    get
+  }
+  public var height: SocureSdk.ConstraintItem {
+    get
+  }
+}
+public struct ConstraintViewDSL : SocureSdk.ConstraintAttributesDSL {
+  @discardableResult
+  public func prepareConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void) -> [SocureSdk.Constraint]
+  public func makeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func remakeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func updateConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func removeConstraints()
+  public var contentHuggingHorizontalPriority: Swift.Float {
+    get
+    nonmutating set
+  }
+  public var contentHuggingVerticalPriority: Swift.Float {
+    get
+    nonmutating set
+  }
+  public var contentCompressionResistanceHorizontalPriority: Swift.Float {
+    get
+    nonmutating set
+  }
+  public var contentCompressionResistanceVerticalPriority: Swift.Float {
+    get
+    nonmutating set
+  }
+  public var target: Swift.AnyObject? {
+    get
+  }
+}
+public protocol ConstraintPriorityTarget {
+  var constraintPriorityTargetValue: Swift.Float { get }
+}
+extension Int : SocureSdk.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension UInt : SocureSdk.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension Float : SocureSdk.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension Double : SocureSdk.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension CGFloat : SocureSdk.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension UILayoutPriority : SocureSdk.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+public protocol ConstraintOffsetTarget : SocureSdk.ConstraintConstantTarget {
+}
+extension Int : SocureSdk.ConstraintOffsetTarget {
+}
+extension UInt : SocureSdk.ConstraintOffsetTarget {
+}
+extension Float : SocureSdk.ConstraintOffsetTarget {
+}
+extension Double : SocureSdk.ConstraintOffsetTarget {
+}
+extension CGFloat : SocureSdk.ConstraintOffsetTarget {
+}
+extension UIDevice {
+  public var modelName: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class FormattedDate : ObjectiveC.NSObject {
+  public var date: Swift.String?
+  public var month: Swift.String?
+  public var year: Swift.String?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class SocureSDKConfigurator : ObjectiveC.NSObject {
+  public static let shared: SocureSdk.SocureSDKConfigurator
+  public func setPreferences()
+  @objc deinit
+  @objc override dynamic public init()
+}
+public class MrzParser {
+  public init(ocrCorrection: Swift.Bool = false)
+  public func parse(mrzLines: [Swift.String]) -> SocureSdk.MrzData?
+  public func parsehashable(mrzLineshas: [Swift.AnyHashable]) -> SocureSdk.MrzData?
+  public func parse(mrzString: Swift.String) -> SocureSdk.MrzData?
+  @objc deinit
+}
+public protocol ImageCallback : AnyObject {
+  func documentFrontCallBack(docScanResult: SocureSdk.DocScanResult)
+  func documentBackCallBack(docScanResult: SocureSdk.DocScanResult)
+  func selfieCallBack(selfieScanResult: SocureSdk.SelfieScanResult)
+  func onScanCancelled()
+  func onError(errorType: SocureSdk.SocureSDKErrorType, errorMessage: Swift.String)
+}
+public protocol BarcodeCallback : AnyObject {
+  func handleBarcodeData(barcodeData: SocureSdk.BarcodeData?)
+  func onError(errorType: SocureSdk.SocureSDKErrorType, errorMessage: Swift.String)
+}
+public protocol MRZCallback : AnyObject {
+  func handleMRZData(mrzData: SocureSdk.MrzData?)
+  func onError(errorType: SocureSdk.SocureSDKErrorType, errorMessage: Swift.String)
+}
+public protocol OCRCallback : AnyObject {
+  func handleOCRData(ocrData: [Swift.AnyHashable : Any]?)
+}
+public protocol UploadCallback : AnyObject {
+  func documentUploadFinished(uploadResult: SocureSdk.UploadResult)
+  func onError(errorType: SocureSdk.SocureSDKErrorType, errorMessage: Swift.String)
+}
+public protocol MatchGroupsProtocol {
+  subscript(index: Swift.Int) -> Swift.String? { get }
+  subscript(name: Swift.String) -> Swift.String? { get }
+}
+@_hasMissingDesignatedInitializers public class Match {
+  final public let source: Swift.String
+  public var range: SocureSdk.StringRange {
+    get
+  }
+  public var ranges: [SocureSdk.StringRange?] {
+    get
+  }
+  public func range(at index: Swift.Int) -> SocureSdk.StringRange?
+  public func range(named name: Swift.String) -> SocureSdk.StringRange?
+  public var matched: Swift.String {
+    get
+  }
+  public var subgroups: [Swift.String?] {
+    get
+  }
+  public var groups: SocureSdk.MatchGroupsProtocol {
+    get
+  }
+  public func group(at index: Swift.Int) -> Swift.String?
+  public func group(named name: Swift.String) -> Swift.String?
+  @objc deinit
+}
+public enum SocureSDKErrorType {
+  case InternetConnection
+  case DocumentScanError
+  case DocumentScanFailedError
+  case SelfieScanError
+  case SelfieScanFailedError
+  case DocumentUploadError
+  case Error
+  public static func == (a: SocureSdk.SocureSDKErrorType, b: SocureSdk.SocureSDKErrorType) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+@_hasMissingDesignatedInitializers public class MatchSequence : Swift.Sequence {
+  public typealias Iterator = Swift.AnyIterator<SocureSdk.Match>
+  public func makeIterator() -> SocureSdk.MatchSequence.Iterator
+  @objc deinit
+  public typealias Element = SocureSdk.Match
+}
+public protocol RegexProtocol {
+  init(pattern: Swift.String, groupNames: [Swift.String]) throws
+  init(pattern: Swift.String, groupNames: Swift.String...) throws
+  init(pattern: Swift.String, options: SocureSdk.RegexOptions, groupNames: [Swift.String]) throws
+  init(pattern: Swift.String, options: SocureSdk.RegexOptions, groupNames: Swift.String...) throws
+  var pattern: Swift.String { get }
+  var groupNames: [Swift.String] { get }
+  func matches(_ source: Swift.String) -> Swift.Bool
+  func findAll(in source: Swift.String) -> SocureSdk.MatchSequence
+  func findFirst(in source: Swift.String) -> SocureSdk.Match?
+  func replaceAll(in source: Swift.String, with replacement: Swift.String) -> Swift.String
+  func replaceAll(in source: Swift.String, using replacer: (SocureSdk.Match) -> Swift.String?) -> Swift.String
+  func replaceFirst(in source: Swift.String, with replacement: Swift.String) -> Swift.String
+  func replaceFirst(in source: Swift.String, using replacer: (SocureSdk.Match) -> Swift.String?) -> Swift.String
+  func split(_ source: Swift.String) -> [Swift.String]
+}
+public class Regex : SocureSdk.RegexProtocol {
+  final public let pattern: Swift.String
+  final public let groupNames: [Swift.String]
+  required public init(pattern: Swift.String, options: SocureSdk.RegexOptions, groupNames: [Swift.String]) throws
+  required convenience public init(pattern: Swift.String, options: SocureSdk.RegexOptions, groupNames: Swift.String...) throws
+  required convenience public init(pattern: Swift.String, groupNames: [Swift.String]) throws
+  required convenience public init(pattern: Swift.String, groupNames: Swift.String...) throws
+  public func findAll(in source: Swift.String) -> SocureSdk.MatchSequence
+  public func findFirst(in source: Swift.String) -> SocureSdk.Match?
+  public func replaceAll(in source: Swift.String, with replacement: Swift.String) -> Swift.String
+  public func replaceFirst(in source: Swift.String, with replacement: Swift.String) -> Swift.String
+  public func matches(_ source: Swift.String) -> Swift.Bool
+  public func replaceAll(in source: Swift.String, using replacer: (SocureSdk.Match) -> Swift.String?) -> Swift.String
+  public func replaceFirst(in source: Swift.String, using replacer: (SocureSdk.Match) -> Swift.String?) -> Swift.String
+  public func split(_ source: Swift.String) -> [Swift.String]
+  @objc deinit
+}
+public struct ConstraintPriority : Swift.ExpressibleByFloatLiteral, Swift.Equatable, Swift.Strideable {
+  public typealias FloatLiteralType = Swift.Float
+  public let value: Swift.Float
+  public init(floatLiteral value: Swift.Float)
+  public init(_ value: Swift.Float)
+  public static var required: SocureSdk.ConstraintPriority {
+    get
+  }
+  public static var high: SocureSdk.ConstraintPriority {
+    get
+  }
+  public static var medium: SocureSdk.ConstraintPriority {
+    get
+  }
+  public static var low: SocureSdk.ConstraintPriority {
+    get
+  }
+  public static func == (lhs: SocureSdk.ConstraintPriority, rhs: SocureSdk.ConstraintPriority) -> Swift.Bool
+  public func advanced(by n: SocureSdk.ConstraintPriority.FloatLiteralType) -> SocureSdk.ConstraintPriority
+  public func distance(to other: SocureSdk.ConstraintPriority) -> SocureSdk.ConstraintPriority.FloatLiteralType
+  public typealias Stride = SocureSdk.ConstraintPriority.FloatLiteralType
+}
+public enum SelfieTypes : Swift.Int {
+  case Near
+  case Far
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class SelfieScanner : ObjectiveC.NSObject {
+  public var scanMode: SocureSdk.SelfieTypes! {
+    get
+    set
+  }
+  public var turnTorchOn: Swift.Bool {
+    get
+    set
+  }
+  public var cameraPreviewView: UIKit.UIView? {
+    get
+  }
+  open func initiateSelfieScan<T>(imageCallback: T, mode: SocureSdk.SelfieTypes = .Near) where T : UIKit.UIViewController, T : SocureSdk.ImageCallback
+  public class func requestCameraPermissions(requestStatus: @escaping (Swift.Bool) -> Swift.Void)
+  public func manualCapture()
+  @objc deinit
+  @objc override dynamic public init()
+}
+public class AAMVAParser {
+  public init(data: Swift.String)
+  public func parse() -> SocureSdk.AAMVADriversLicense
+  @objc deinit
+}
+@available(iOS 11.0, tvOS 11.0, *)
+public typealias ConstraintDirectionalInsets = UIKit.NSDirectionalEdgeInsets
+@_hasMissingDesignatedInitializers public class ConstraintMakerFinalizable {
+  @discardableResult
+  public func labeled(_ label: Swift.String) -> SocureSdk.ConstraintMakerFinalizable
+  public var constraint: SocureSdk.Constraint {
+    get
+  }
+  @objc deinit
+}
+public typealias ConstraintInsets = UIKit.UIEdgeInsets
+extension UISegmentedControl {
+  public func addUnderlineForSelectedSegment(underlineColor: UIKit.UIColor, normalColor: UIKit.UIColor = .white, selectedFont: UIKit.UIFont, regularFont: UIKit.UIFont)
+  public func changeUnderlinePosition()
+}
+extension UIView {
+  @available(*, deprecated, renamed: "snp.left")
+  public var snp_left: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.top")
+  public var snp_top: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.right")
+  public var snp_right: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.bottom")
+  public var snp_bottom: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.leading")
+  public var snp_leading: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.trailing")
+  public var snp_trailing: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.width")
+  public var snp_width: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.height")
+  public var snp_height: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.centerX")
+  public var snp_centerX: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.centerY")
+  public var snp_centerY: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.baseline")
+  public var snp_baseline: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  @available(*, deprecated, renamed: "snp.lastBaseline")
+  public var snp_lastBaseline: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  @available(iOS, deprecated, renamed: "snp.firstBaseline")
+  public var snp_firstBaseline: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.leftMargin")
+  public var snp_leftMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.topMargin")
+  public var snp_topMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.rightMargin")
+  public var snp_rightMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.bottomMargin")
+  public var snp_bottomMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.leadingMargin")
+  public var snp_leadingMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.trailingMargin")
+  public var snp_trailingMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.centerXWithinMargins")
+  public var snp_centerXWithinMargins: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.centerYWithinMargins")
+  public var snp_centerYWithinMargins: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.edges")
+  public var snp_edges: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.size")
+  public var snp_size: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.center")
+  public var snp_center: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.margins")
+  public var snp_margins: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.centerWithinMargins")
+  public var snp_centerWithinMargins: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.prepareConstraints(_:)")
+  public func snp_prepareConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void) -> [SocureSdk.Constraint]
+  @available(*, deprecated, renamed: "snp.makeConstraints(_:)")
+  public func snp_makeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  @available(*, deprecated, renamed: "snp.remakeConstraints(_:)")
+  public func snp_remakeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  @available(*, deprecated, renamed: "snp.updateConstraints(_:)")
+  public func snp_updateConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  @available(*, deprecated, renamed: "snp.removeConstraints()")
+  public func snp_removeConstraints()
+  public var snp: SocureSdk.ConstraintViewDSL {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class Reachability {
+  public func isConnectedToNetwork() -> Swift.Bool
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class Constraint {
+  final public var layoutConstraints: [SocureSdk.LayoutConstraint]
+  final public var isActive: Swift.Bool {
+    get
+    set
+  }
+  @available(*, deprecated, renamed: "activate()")
+  final public func install()
+  @available(*, deprecated, renamed: "deactivate()")
+  final public func uninstall()
+  final public func activate()
+  final public func deactivate()
+  @discardableResult
+  final public func update(offset: SocureSdk.ConstraintOffsetTarget) -> SocureSdk.Constraint
+  @discardableResult
+  final public func update(inset: SocureSdk.ConstraintInsetTarget) -> SocureSdk.Constraint
+  @available(iOS 11.0, tvOS 11.0, *)
+  @discardableResult
+  final public func update(inset: SocureSdk.ConstraintDirectionalInsetTarget) -> SocureSdk.Constraint
+  @discardableResult
+  final public func update(priority: SocureSdk.ConstraintPriorityTarget) -> SocureSdk.Constraint
+  @discardableResult
+  final public func update(priority: SocureSdk.ConstraintPriority) -> SocureSdk.Constraint
+  @available(*, deprecated, renamed: "update(offset:)")
+  final public func updateOffset(amount: SocureSdk.ConstraintOffsetTarget)
+  @available(*, deprecated, renamed: "update(inset:)")
+  final public func updateInsets(amount: SocureSdk.ConstraintInsetTarget)
+  @available(*, deprecated, renamed: "update(priority:)")
+  final public func updatePriority(amount: SocureSdk.ConstraintPriorityTarget)
+  @available(*, deprecated, message: "Use update(priority: ConstraintPriorityTarget) instead.")
+  final public func updatePriorityRequired()
+  @available(*, deprecated, message: "Use update(priority: ConstraintPriorityTarget) instead.")
+  final public func updatePriorityHigh()
+  @available(*, deprecated, message: "Use update(priority: ConstraintPriorityTarget) instead.")
+  final public func updatePriorityMedium()
+  @available(*, deprecated, message: "Use update(priority: ConstraintPriorityTarget) instead.")
+  final public func updatePriorityLow()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class ConstraintMakerEditable : SocureSdk.ConstraintMakerPriortizable {
+  @discardableResult
+  public func multipliedBy(_ amount: SocureSdk.ConstraintMultiplierTarget) -> SocureSdk.ConstraintMakerEditable
+  @discardableResult
+  public func dividedBy(_ amount: SocureSdk.ConstraintMultiplierTarget) -> SocureSdk.ConstraintMakerEditable
+  @discardableResult
+  public func offset(_ amount: SocureSdk.ConstraintOffsetTarget) -> SocureSdk.ConstraintMakerEditable
+  @discardableResult
+  public func inset(_ amount: SocureSdk.ConstraintInsetTarget) -> SocureSdk.ConstraintMakerEditable
+  @available(iOS 11.0, tvOS 11.0, *)
+  @discardableResult
+  public func inset(_ amount: SocureSdk.ConstraintDirectionalInsetTarget) -> SocureSdk.ConstraintMakerEditable
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class SelfieScanResult : ObjectiveC.NSObject {
+  public var imageData: Foundation.Data?
+  public var metaData: [Swift.String : Swift.Bool]
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias ConstraintView = UIKit.UIView
+@available(iOS 8.0, *)
+public typealias ConstraintLayoutSupport = UIKit.UILayoutSupport
+public protocol ConstraintMultiplierTarget {
+  var constraintMultiplierTargetValue: CoreGraphics.CGFloat { get }
+}
+extension Int : SocureSdk.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+extension UInt : SocureSdk.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+extension Float : SocureSdk.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+extension Double : SocureSdk.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+extension CGFloat : SocureSdk.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+public struct MrzData {
+  public let code: Swift.String?
+  public let format: Swift.String?
+  public let issuingCountry: Swift.String
+  public let surName: Swift.String
+  public let firstName: Swift.String
+  public let fullName: Swift.String
+  public let documentNumber: Swift.String
+  public let nationality: Swift.String
+  public let dob: Swift.String?
+  public let sex: Swift.String?
+  public let expirationDate: Swift.String?
+  public let validDocumentNumber: Swift.Bool
+  public let validDateOfBirth: Swift.Bool
+  public let validExpirationDate: Swift.Bool
+  public let validComposite: Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class ConstraintDescription {
+  @objc deinit
+}
+public enum FieldKey : Swift.String, Swift.Equatable {
+  case firstName
+  case lastName
+  case middleName
+  case driverLicenseName
+  case givenName
+  case lastNameAlias
+  case firstNameAlias
+  case givenNameAlias
+  case suffixAlias
+  case suffix
+  case middleNameTruncation
+  case firstNameTruncation
+  case lastNameTruncation
+  case expirationDate
+  case issueDate
+  case birthDate
+  case hazmatExpirationDate
+  case revisionDate
+  case race
+  case gender
+  case eyeColor
+  case heightInches
+  case heightCentimeters
+  case hairColor
+  case weightRange
+  case weightPounds
+  case weightKilograms
+  case placeOfBirth
+  case streetAddress
+  case streetAddressTwo
+  case city
+  case state
+  case postalCode
+  case country
+  case driverLicenseNumber
+  case uniqueDocumentId
+  case auditInformation
+  case inventoryControlNumber
+  case complianceType
+  case isOrganDonor
+  case isVeteran
+  case isTemporaryDocument
+  case federalVehicleCode
+  case federalCommercialVehicleCode
+  case standardVehicleCode
+  case standardRestrictionCode
+  case standardEndorsementCode
+  case jurisdictionVehicleClass
+  case jurisdictionRestrictionCode
+  case jurisdictionEndorsementCode
+  case jurisdictionVehicleClassDescription
+  case jurisdictionRestrictionCodeDescription
+  case jurisdictionEndorsementCodeDescription
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias ConstraintInterfaceLayoutDirection = UIKit.UIUserInterfaceLayoutDirection
+public struct ConstraintConfig {
+  public static var interfaceLayoutDirection: SocureSdk.ConstraintInterfaceLayoutDirection
+}
+public struct AAMVADriversLicense : Swift.Equatable {
+  public var firstName: Swift.String?
+  public var middleNames: [Swift.String]
+  public var lastName: Swift.String?
+  public var givenNameAlias: Swift.String?
+  public var lastNameAlias: Swift.String?
+  public var suffixAlias: Swift.String?
+  public var suffix: SocureSdk.NameSuffix?
+  public var firstNameTruncation: SocureSdk.Truncation?
+  public var middleNameTruncation: SocureSdk.Truncation?
+  public var lastNameTruncation: SocureSdk.Truncation?
+  public var expirationDate: Foundation.Date?
+  public var issueDate: Foundation.Date?
+  public var birthdate: Foundation.Date?
+  public var hazmatExpirationDate: Foundation.Date?
+  public var revisionDate: Foundation.Date?
+  public var race: SocureSdk.Race?
+  public var gender: SocureSdk.Gender?
+  public var eyeColor: SocureSdk.EyeColor?
+  public var height: Swift.Double?
+  public var weight: SocureSdk.Weight
+  public var hairColor: SocureSdk.HairColor?
+  public var placeOfBirth: Swift.String?
+  public var streetAddress: Swift.String?
+  public var streetAddressTwo: Swift.String?
+  public var city: Swift.String?
+  public var state: Swift.String?
+  public var postalCode: Swift.String?
+  public var country: SocureSdk.IssuingCountry?
+  public var version: Swift.Int?
+  public var pdf417Data: Swift.String?
+  public var licenseNumber: Swift.String?
+  public var documentId: Swift.String?
+  public var auditInformation: Swift.String?
+  public var inventoryControlNumber: Swift.String?
+  public var complianceType: SocureSdk.Compliance?
+  public var isOrganDonor: Swift.Bool?
+  public var isVeteran: Swift.Bool?
+  public var isTemporaryDocument: Swift.Bool?
+  public var federalVehicleCode: Swift.String?
+  public var standardVehicleClass: Swift.String?
+  public var standardRestrictionCode: Swift.String?
+  public var standardEndorsementCode: Swift.String?
+  public var jurisdictionVehicleClass: Swift.String?
+  public var jurisdictionRestrictionCode: Swift.String?
+  public var jurisdictionEndorsementCode: Swift.String?
+  public var jurisdictionVehicleDescription: Swift.String?
+  public var jurisdictionRestrictionDescription: Swift.String?
+  public var jurisdictionEndorsementDescription: Swift.String?
+  public init()
+  public static func == (a: SocureSdk.AAMVADriversLicense, b: SocureSdk.AAMVADriversLicense) -> Swift.Bool
+}
+extension AAMVADriversLicense {
+  public var isExpired: Swift.Bool {
+    get
+  }
+  public var isIssued: Swift.Bool {
+    get
+  }
+  public var isAcceptable: Swift.Bool {
+    get
+  }
+  public var isJuvenile: Swift.Bool {
+    get
+  }
+}
+@available(iOS 9.0, *)
+public typealias ConstraintLayoutGuide = UIKit.UILayoutGuide
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class ConstraintMakerPriortizable : SocureSdk.ConstraintMakerFinalizable {
+  @discardableResult
+  public func priority(_ amount: SocureSdk.ConstraintPriority) -> SocureSdk.ConstraintMakerFinalizable
+  @discardableResult
+  public func priority(_ amount: SocureSdk.ConstraintPriorityTarget) -> SocureSdk.ConstraintMakerFinalizable
+  @available(*, deprecated, message: "Use priority(.required) instead.")
+  @discardableResult
+  public func priorityRequired() -> SocureSdk.ConstraintMakerFinalizable
+  @available(*, deprecated, message: "Use priority(.high) instead.")
+  @discardableResult
+  public func priorityHigh() -> SocureSdk.ConstraintMakerFinalizable
+  @available(*, deprecated, message: "Use priority(.medium) instead.")
+  @discardableResult
+  public func priorityMedium() -> SocureSdk.ConstraintMakerFinalizable
+  @available(*, deprecated, message: "Use priority(.low) instead.")
+  @discardableResult
+  public func priorityLow() -> SocureSdk.ConstraintMakerFinalizable
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ConstraintMakerRelatable {
+  @discardableResult
+  public func equalTo(_ other: SocureSdk.ConstraintRelatableTarget, _ file: Swift.String = #file, _ line: Swift.UInt = #line) -> SocureSdk.ConstraintMakerEditable
+  @discardableResult
+  public func equalToSuperview(_ file: Swift.String = #file, _ line: Swift.UInt = #line) -> SocureSdk.ConstraintMakerEditable
+  @discardableResult
+  public func lessThanOrEqualTo(_ other: SocureSdk.ConstraintRelatableTarget, _ file: Swift.String = #file, _ line: Swift.UInt = #line) -> SocureSdk.ConstraintMakerEditable
+  @discardableResult
+  public func lessThanOrEqualToSuperview(_ file: Swift.String = #file, _ line: Swift.UInt = #line) -> SocureSdk.ConstraintMakerEditable
+  @discardableResult
+  public func greaterThanOrEqualTo(_ other: SocureSdk.ConstraintRelatableTarget, _ file: Swift.String = #file, line: Swift.UInt = #line) -> SocureSdk.ConstraintMakerEditable
+  @discardableResult
+  public func greaterThanOrEqualToSuperview(_ file: Swift.String = #file, line: Swift.UInt = #line) -> SocureSdk.ConstraintMakerEditable
+  @objc deinit
+}
+public enum Truncation : Swift.String {
+  case truncated
+  case none
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+  public typealias AllCases = [SocureSdk.Truncation]
+  public static var allCases: [SocureSdk.Truncation] {
+    get
+  }
+}
+public struct ScoreKeys {
+}
+public struct DefaultKeys {
+}
+public struct StringKeys {
+}
+public struct SocureSdkErrors {
+}
+@available(iOS 9.0, OSX 10.11, *)
+extension UILayoutGuide {
+  public var snp: SocureSdk.ConstraintLayoutGuideDSL {
+    get
+  }
+}
+extension UIImage {
+  public func pixelBuffer(width: Swift.Int, height: Swift.Int) -> CoreVideo.CVPixelBuffer?
+  public func pixelBufferGray(width: Swift.Int, height: Swift.Int) -> CoreVideo.CVPixelBuffer?
+}
+extension UIImage {
+  convenience public init?(pixelBuffer: CoreVideo.CVPixelBuffer)
+  convenience public init?(pixelBuffer: CoreVideo.CVPixelBuffer, context: CoreImage.CIContext)
+}
+public protocol ConstraintRelatableTarget {
+}
+extension Int : SocureSdk.ConstraintRelatableTarget {
+}
+extension UInt : SocureSdk.ConstraintRelatableTarget {
+}
+extension Float : SocureSdk.ConstraintRelatableTarget {
+}
+extension Double : SocureSdk.ConstraintRelatableTarget {
+}
+extension CGFloat : SocureSdk.ConstraintRelatableTarget {
+}
+extension CGSize : SocureSdk.ConstraintRelatableTarget {
+}
+extension CGPoint : SocureSdk.ConstraintRelatableTarget {
+}
+extension UIEdgeInsets : SocureSdk.ConstraintRelatableTarget {
+}
+@available(iOS 11.0, tvOS 11.0, *)
+extension NSDirectionalEdgeInsets : SocureSdk.ConstraintRelatableTarget {
+}
+extension ConstraintItem : SocureSdk.ConstraintRelatableTarget {
+}
+extension UIView : SocureSdk.ConstraintRelatableTarget {
+}
+@available(iOS 9.0, OSX 10.11, *)
+extension UILayoutGuide : SocureSdk.ConstraintRelatableTarget {
+}
+@_hasMissingDesignatedInitializers public class ConstraintMaker {
+  public var left: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var top: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var bottom: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var right: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var leading: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var trailing: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var width: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var height: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var centerX: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var centerY: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(*, deprecated, renamed: "lastBaseline")
+  public var baseline: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var lastBaseline: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  public var firstBaseline: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leftMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var rightMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var topMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var bottomMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leadingMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var trailingMargin: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerXWithinMargins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerYWithinMargins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var edges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var horizontalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var verticalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalHorizontalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalVerticalEdges: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var size: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  public var center: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var margins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var directionalMargins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerWithinMargins: SocureSdk.ConstraintMakerExtendable {
+    get
+  }
+  @objc deinit
+}
+@available(iOS 8.0, *)
+extension UILayoutSupport {
+  public var snp: SocureSdk.ConstraintLayoutSupportDSL {
+    get
+  }
+}
+public func loggingPrint<T>(_ object: @autoclosure () -> T)
+public protocol ConstraintInsetTarget : SocureSdk.ConstraintConstantTarget {
+}
+extension Int : SocureSdk.ConstraintInsetTarget {
+}
+extension UInt : SocureSdk.ConstraintInsetTarget {
+}
+extension Float : SocureSdk.ConstraintInsetTarget {
+}
+extension Double : SocureSdk.ConstraintInsetTarget {
+}
+extension CGFloat : SocureSdk.ConstraintInsetTarget {
+}
+extension UIEdgeInsets : SocureSdk.ConstraintInsetTarget {
+}
+public protocol ConstraintDSL {
+  var target: Swift.AnyObject? { get }
+  func setLabel(_ value: Swift.String?)
+  func label() -> Swift.String?
+}
+extension ConstraintDSL {
+  public func setLabel(_ value: Swift.String?)
+  public func label() -> Swift.String?
+}
+public protocol ConstraintBasicAttributesDSL : SocureSdk.ConstraintDSL {
+}
+extension ConstraintBasicAttributesDSL {
+  public var left: SocureSdk.ConstraintItem {
+    get
+  }
+  public var top: SocureSdk.ConstraintItem {
+    get
+  }
+  public var right: SocureSdk.ConstraintItem {
+    get
+  }
+  public var bottom: SocureSdk.ConstraintItem {
+    get
+  }
+  public var leading: SocureSdk.ConstraintItem {
+    get
+  }
+  public var trailing: SocureSdk.ConstraintItem {
+    get
+  }
+  public var width: SocureSdk.ConstraintItem {
+    get
+  }
+  public var height: SocureSdk.ConstraintItem {
+    get
+  }
+  public var centerX: SocureSdk.ConstraintItem {
+    get
+  }
+  public var centerY: SocureSdk.ConstraintItem {
+    get
+  }
+  public var edges: SocureSdk.ConstraintItem {
+    get
+  }
+  public var directionalEdges: SocureSdk.ConstraintItem {
+    get
+  }
+  public var horizontalEdges: SocureSdk.ConstraintItem {
+    get
+  }
+  public var verticalEdges: SocureSdk.ConstraintItem {
+    get
+  }
+  public var directionalHorizontalEdges: SocureSdk.ConstraintItem {
+    get
+  }
+  public var directionalVerticalEdges: SocureSdk.ConstraintItem {
+    get
+  }
+  public var size: SocureSdk.ConstraintItem {
+    get
+  }
+  public var center: SocureSdk.ConstraintItem {
+    get
+  }
+}
+public protocol ConstraintAttributesDSL : SocureSdk.ConstraintBasicAttributesDSL {
+}
+extension ConstraintAttributesDSL {
+  @available(*, deprecated, renamed: "lastBaseline")
+  public var baseline: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  public var lastBaseline: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  public var firstBaseline: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leftMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var topMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var rightMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var bottomMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leadingMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var trailingMargin: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerXWithinMargins: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerYWithinMargins: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var margins: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var directionalMargins: SocureSdk.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerWithinMargins: SocureSdk.ConstraintItem {
+    get
+  }
+}
+extension SocureSdk.TorchMode : Swift.Equatable {}
+extension SocureSdk.TorchMode : Swift.Hashable {}
+extension SocureSdk.Compliance : Swift.CaseIterable {}
+extension SocureSdk.Compliance : Swift.Equatable {}
+extension SocureSdk.Compliance : Swift.Hashable {}
+extension SocureSdk.Compliance : Swift.RawRepresentable {}
+extension SocureSdk.Race : Swift.CaseIterable {}
+extension SocureSdk.Race : Swift.Equatable {}
+extension SocureSdk.Race : Swift.Hashable {}
+extension SocureSdk.Race : Swift.RawRepresentable {}
+extension SocureSdk.NameSuffix : Swift.Equatable {}
+extension SocureSdk.NameSuffix : Swift.Hashable {}
+extension SocureSdk.NameSuffix : Swift.CaseIterable {}
+extension SocureSdk.IssuingCountry : Swift.CaseIterable {}
+extension SocureSdk.IssuingCountry : Swift.Equatable {}
+extension SocureSdk.IssuingCountry : Swift.Hashable {}
+extension SocureSdk.IssuingCountry : Swift.RawRepresentable {}
+extension SocureSdk.HairColor : Swift.CaseIterable {}
+extension SocureSdk.HairColor : Swift.Equatable {}
+extension SocureSdk.HairColor : Swift.Hashable {}
+extension SocureSdk.HairColor : Swift.RawRepresentable {}
+extension SocureSdk.DocumentTypes : Swift.Equatable {}
+extension SocureSdk.DocumentTypes : Swift.Hashable {}
+extension SocureSdk.DocumentTypes : Swift.RawRepresentable {}
+extension SocureSdk.EyeColor : Swift.CaseIterable {}
+extension SocureSdk.EyeColor : Swift.Equatable {}
+extension SocureSdk.EyeColor : Swift.Hashable {}
+extension SocureSdk.EyeColor : Swift.RawRepresentable {}
+extension SocureSdk.Gender : Swift.CaseIterable {}
+extension SocureSdk.Gender : Swift.Equatable {}
+extension SocureSdk.Gender : Swift.Hashable {}
+extension SocureSdk.Gender : Swift.RawRepresentable {}
+extension SocureSdk.SocureSDKErrorType : Swift.Equatable {}
+extension SocureSdk.SocureSDKErrorType : Swift.Hashable {}
+extension SocureSdk.SelfieTypes : Swift.Equatable {}
+extension SocureSdk.SelfieTypes : Swift.Hashable {}
+extension SocureSdk.SelfieTypes : Swift.RawRepresentable {}
+extension SocureSdk.FieldKey : Swift.Hashable {}
+extension SocureSdk.FieldKey : Swift.RawRepresentable {}
+extension SocureSdk.Truncation : Swift.CaseIterable {}
+extension SocureSdk.Truncation : Swift.Equatable {}
+extension SocureSdk.Truncation : Swift.Hashable {}
+extension SocureSdk.Truncation : Swift.RawRepresentable {}
