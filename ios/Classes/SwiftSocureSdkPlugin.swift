@@ -3,6 +3,9 @@ import UIKit
 import SocureSdk
 
 var flutterResult: FlutterResult!
+var firstPic: Data?
+var secondPic: Data?
+var selfiePic: Data?
 
 public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
   let docScanner = DocumentScanner()
@@ -27,24 +30,29 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
 
 extension UIViewController: ImageCallback, MRZCallback {
     public func documentFrontCallBack(docScanResult: DocScanResult) {
-        guard let imageData = docScanResult.imageData else { return }
-        flutterResult(imageData)
+        firstPic = docScanResult.imageData
     }
 
     public func documentBackCallBack(docScanResult: DocScanResult) {
-
+        secondPic = docScanResult.imageData
     }
 
     public func selfieCallBack(selfieScanResult: SelfieScanResult) {
+        selfiePic = selfieScanResult.imageData
+                /* guard let imageData = docScanResult.imageData else { return } */
 
+        let front = FlutterStandardTypedData.init(bytes: firstPic!)
+        let back = FlutterStandardTypedData.init(bytes: secondPic!)
+        let selfie = FlutterStandardTypedData.init(bytes: selfiePic!)
+        flutterResult(FlutterStandardTypedData.init(bytes: firstPic!))
     }
 
     public func onScanCancelled() {
-
+        flutterResult(nil)
     }
 
     public func onError(errorType: SocureSDKErrorType, errorMessage: String) {
-
+      //  flutterResult(FlutterError(errorMessage))
     }
 
     public func handleMRZData(mrzData: MrzData?) {

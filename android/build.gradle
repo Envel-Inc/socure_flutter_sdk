@@ -9,6 +9,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
 
@@ -16,15 +17,25 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url "https://jitpack.io"
+            credentials { username authToken }
+        }
     }
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+group="com.github.socure-inc"
 
 android {
     compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 22
+    }
+
+    dependencies {
+        implementation 'com.github.socure-inc:android-sdk:2.0.9'
     }
 }

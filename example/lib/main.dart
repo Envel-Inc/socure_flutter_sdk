@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:socure_sdk/socure_sdk.dart';
 
 void main() {
@@ -14,12 +11,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  ScanResult? result;
 
   @override
   void initState() {
     super.initState();
-    SocureSdk.initiatePassportScan();
+    initiatePassportScan();
+  }
+
+  initiatePassportScan() async {
+    final res = await SocureSdk.initiatePassportScan();
+    setState(() => result = res);
   }
 
   @override
@@ -30,7 +32,12 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              result != null ? Image.memory(result!.passportImage!) : Text("No image yet"),
+              Text(result?.mrzData?.fullName ?? "No name"),
+            ],
+          ),
         ),
       ),
     );
