@@ -6,23 +6,29 @@ import 'package:flutter/services.dart';
 class SocureSdk {
   static const MethodChannel _channel = const MethodChannel('socure_sdk');
 
+  /// Initiates a passport scan. The [passportImage] of the ScanResult will be populated with the image.
+  /// If the user cancels the flow, then a [CancelledException] will be thrown.
   static Future<ScanResult> initiatePassportScan() async {
     final resultMap = await _channel.invokeMapMethod<String, dynamic>("initiatePassportScan");
-    if (resultMap == null) throw Exception("Result from plugin is null");
+    if (resultMap == null) throw CancelledException();
 
     return ScanResult.fromJson(resultMap);
   }
 
+  /// Initiates an ID / driver's licence scan. The [licenseFrontImage] and [licenseBackImage] of the ScanResult will be populated with the image.
+  /// If the user cancels the flow, then a [CancelledException] will be thrown.
   static Future<ScanResult> initiateLicenseScan() async {
     final resultMap = await _channel.invokeMapMethod<String, dynamic>("initiateLicenseScan");
-    if (resultMap == null) throw Exception("Result from plugin is null");
+    if (resultMap == null) throw CancelledException();
 
     return ScanResult.fromJson(resultMap);
   }
 
+  /// Initiates a selfie scan. The [selfieImage] of the ScanResult will be populated with the image.
+  /// If the user cancels the flow, then a [CancelledException] will be thrown.
   static Future<ScanResult> initiateSelfieScan() async {
     final resultMap = await _channel.invokeMapMethod<String, dynamic>("initiateSelfieScan");
-    if (resultMap == null) throw Exception("Result from plugin is null");
+    if (resultMap == null) throw CancelledException();
 
     return ScanResult.fromJson(resultMap);
   }
@@ -36,11 +42,12 @@ class ScanResult {
   final Uint8List? selfieImage;
   final MrzData? mrzData;
   final BarcodeData? barcodeData;
+  final bool autoCaptured;
 
-  const ScanResult(this.documentType, this.passportImage, this.licenseBackImage, this.licenseFrontImage, this.selfieImage, this.mrzData, this.barcodeData);
+  const ScanResult(this.documentType, this.passportImage, this.licenseBackImage, this.licenseFrontImage, this.selfieImage, this.mrzData, this.barcodeData, this.autoCaptured);
 
   factory ScanResult.fromJson(Map<dynamic, dynamic> json) {
-    return ScanResult(json["documentType"], json["passportImage"], json["licenseBackImage"], json["licenseFrontImage"], json["selfieImage"], json["mrzData"] != null ? MrzData.fromJson(json["mrzData"]) : null, json["barcodeData"] != null ? BarcodeData.fromJson(json["barcodeData"]) : null);
+    return ScanResult(json["documentType"], json["passportImage"], json["licenseBackImage"], json["licenseFrontImage"], json["selfieImage"], json["mrzData"] != null ? MrzData.fromJson(json["mrzData"]) : null, json["barcodeData"] != null ? BarcodeData.fromJson(json["barcodeData"]) : null, json["autoCaptured"] == true);
   }
 }
 
@@ -87,5 +94,7 @@ class BarcodeData {
     return BarcodeData(
         json["documentNumber"], json["fullName"], json["firstName"], json["surName"], json["city"], json["state"], json["address"], json["postalCode"], json["phone"], json["dob"], json["issueDate"], json["expirationDate"]);
   }
+}
 
+class CancelledException implements Exception {
 }

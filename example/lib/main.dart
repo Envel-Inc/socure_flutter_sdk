@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   initiatePassportScan() async {
-    final res = await SocureSdk.initiatePassportScan();
+    final res = await SocureSdk.initiateLicenseScan();
     setState(() => result = res);
   }
 
