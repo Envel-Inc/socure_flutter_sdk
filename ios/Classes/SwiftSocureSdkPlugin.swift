@@ -2,10 +2,6 @@ import Flutter
 import UIKit
 import SocureSdk
 
-var flutterResult: FlutterResult?
-var frontPicture: Data?
-var onlyNeedFrontPicture: Bool = false
-
 public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
   let docScanner = DocumentScanner()
   let selfieScanner = SelfieScanner()
@@ -17,21 +13,32 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    let vc = UIApplication.shared.delegate!.window!!.rootViewController!
-    flutterResult = result;
+    let rootVc = UIApplication.shared.delegate!.window!!.rootViewController!
 
     switch (call.method) {
         case "initiatePassportScan":
-            onlyNeedFrontPicture = true
-            docScanner.initiatePassportScan(ImageCallback: vc, MRZCallback: vc)
+            let socureVc = SocureViewController()
+            socureVc.onlyNeedFrontPicture = true
+            socureVc.flutterResult = result
+            socureVc.modalPresentationStyle = .fullScreen
+            rootVc.present(socureVc, animated: false, completion: nil)
+            docScanner.initiatePassportScan(ImageCallback: socureVc, MRZCallback: socureVc)
             break
         case "initiateLicenseScan":
-            onlyNeedFrontPicture = false
-            docScanner.initiateLicenseScan(ImageCallback: vc, BarcodeCallback: vc, MRZCallback: vc)
+            let socureVc = SocureViewController()
+            socureVc.onlyNeedFrontPicture = false
+            socureVc.flutterResult = result
+            socureVc.modalPresentationStyle = .fullScreen
+            rootVc.present(socureVc, animated: false, completion: nil)
+            docScanner.initiateLicenseScan(ImageCallback: socureVc, BarcodeCallback: socureVc, MRZCallback: socureVc)
             break
         case "initiateSelfieScan":
-            onlyNeedFrontPicture = true
-            selfieScanner.initiateSelfieScan(ImageCallback: vc)
+            let socureVc = SocureViewController()
+            socureVc.onlyNeedFrontPicture = true
+            socureVc.flutterResult = result
+            socureVc.modalPresentationStyle = .fullScreen
+            rootVc.present(socureVc, animated: false, completion: nil)
+            selfieScanner.initiateSelfieScan(ImageCallback: socureVc)
             break
         default:
             break
@@ -39,17 +46,42 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
   }
 }
 
-extension UIViewController: ImageCallback, MRZCallback, BarcodeCallback {
+class SocureViewController: UIViewController, ImageCallback, MRZCallback, BarcodeCallback {
+    var flutterResult: FlutterResult?
+    var onlyNeedFrontPicture: Bool = false
+    
+    var frontPicture: Data?
+    var mrz: MrzData?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     private func sendFlutterResult(documentType: String, frontPicture: Data?, backPicture: Data?, passportPicture: Data?, selfiePicture: Data?, autoCaptured: Bool) {
         let front = frontPicture != nil ? FlutterStandardTypedData.init(bytes: frontPicture!) : nil
         let back = backPicture != nil ? FlutterStandardTypedData.init(bytes: backPicture!) : nil
         let selfie = selfiePicture != nil ? FlutterStandardTypedData.init(bytes: selfiePicture!) : nil
         let passport = passportPicture != nil ? FlutterStandardTypedData.init(bytes: passportPicture!) : nil
         
+        var map: [String: Any?] = ["documentType": documentType, "passportImage": passport, "licenseFrontImage": front, "licenseBackImage": back, "selfieImage": selfie, "autoCaptured": autoCaptured ]
         
-        let map: [String: Any?] = ["documentType": documentType, "passportImage": passport, "licenseFrontImage": front, "licenseBackImage": back, "selfieImage": selfie, "autoCaptured": autoCaptured ]
+        if (mrz != nil) {
+            let mrzDataMap: [String: String?] = [
+                "documentNumber": mrz!.documentNumber,
+                "fullName": mrz!.fullName,
+                "firstName": mrz!.firstName,
+                "surName": mrz!.surName,
+                "nationality": mrz!.nationality,
+                "issuingCountry": mrz!.issuingCountry,
+                "sex": mrz!.sex,
+                "expirationDate": mrz!.expirationDate,
+                "dob": mrz!.dob,
+            ]
+            
+            map["mrzData"] = mrzDataMap
+        }
         
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
         flutterResult?(map)
     }
     
@@ -85,7 +117,7 @@ extension UIViewController: ImageCallback, MRZCallback, BarcodeCallback {
     }
 
     public func handleMRZData(mrzData: MrzData?) {
-
+        mrz = mrzData
     }
 
     public func handleBarcodeData(barcodeData: BarcodeData?) {

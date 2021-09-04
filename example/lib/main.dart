@@ -16,11 +16,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initiatePassportScan();
   }
 
   initiatePassportScan() async {
-    final res = await SocureSdk.initiateLicenseScan();
+    final res = await SocureSdk.initiatePassportScan();
     setState(() => result = res);
   }
 
@@ -36,6 +35,7 @@ class _MyAppState extends State<MyApp> {
             children: [
               result != null ? Image.memory(result!.passportImage!) : Text("No image yet"),
               Text(result?.mrzData?.fullName ?? "No name"),
+              ElevatedButton(onPressed: () => initiatePassportScan(), child: Text("Scan")),
             ],
           ),
         ),
