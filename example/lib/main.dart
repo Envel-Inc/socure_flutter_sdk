@@ -11,7 +11,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ScanResult? result;
+  ScanResult? _passportResult;
+  ScanResult? _licenseResult;
+  ScanResult? _selfieResult;
 
   @override
   void initState() {
@@ -20,7 +22,17 @@ class _MyAppState extends State<MyApp> {
 
   initiatePassportScan() async {
     final res = await SocureSdk.initiatePassportScan();
-    setState(() => result = res);
+    setState(() => _passportResult = res);
+  }
+
+  initiateLicenseScan() async {
+    final res = await SocureSdk.initiateLicenseScan();
+    setState(() => _licenseResult = res);
+  }
+
+  initiateSelfieScan() async {
+    final res = await SocureSdk.initiateSelfieScan();
+    setState(() => _selfieResult = res);
   }
 
   @override
@@ -31,11 +43,20 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Column(
+          child: ListView(
             children: [
-              result != null ? Image.memory(result!.passportImage!) : Text("No image yet"),
-              Text(result?.mrzData?.fullName ?? "No name"),
-              ElevatedButton(onPressed: () => initiatePassportScan(), child: Text("Scan")),
+              _passportResult != null ? Image.memory(_passportResult!.passportImage!) : Text("No passport scanned"),
+              Text(_passportResult?.mrzData?.fullName ?? "No passport name"),
+              ElevatedButton(onPressed: () => initiatePassportScan(), child: Text("Scan passport")),
+
+              _licenseResult != null ? Image.memory(_licenseResult!.licenseFrontImage!) : Text("No license scanned"),
+              _licenseResult != null ? Image.memory(_licenseResult!.licenseBackImage!) : Text("No license scanned"),
+              Text(_licenseResult?.mrzData?.fullName ?? "No passport name"),
+              ElevatedButton(onPressed: () => initiateLicenseScan(), child: Text("Scan license")),
+
+              _selfieResult != null ? Image.memory(_selfieResult!.selfieImage!) : Text("No selfie scanned"),
+              Text(_selfieResult?.mrzData?.fullName ?? "No selfie name"),
+              ElevatedButton(onPressed: () => initiateSelfieScan(), child: Text("Scan selfie")),
             ],
           ),
         ),
