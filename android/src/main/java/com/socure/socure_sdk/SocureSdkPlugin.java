@@ -24,10 +24,15 @@ import com.socure.idplus.scanner.license.LicenseScannerActivity;
 import com.socure.idplus.scanner.passport.PassportScannerActivity;
 import com.socure.idplus.scanner.selfie.SelfieActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
+  private static final String LOG_TAG = "Socure_Flutter";
+
   private final int SCAN_PASSPORT_CODE = 999722;
   private final int SCAN_LICENSE_CODE = 999723;
   private final int SCAN_SELFIE_CODE = 999724;
@@ -81,13 +86,13 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
 
 
           if (result.mrzData != null) {
-            Log.d("Socure_Flutter", "mrzData not null");
+            Log.d(LOG_TAG, "mrzData not null");
             obj.put("mrzData", mrzToMap(result.mrzData));
           } else if (result.idmrzData != null) {
-            Log.d("Socure_Flutter", "idmrzData not null");
+            Log.d(LOG_TAG, "idmrzData not null");
             obj.put("mrzData", mrzToMap(result.idmrzData));
           } else {
-            Log.d("Socure_Flutter", "mrzData null");
+            Log.d(LOG_TAG, "mrzData null");
           }
 
           if (result.barcodeData != null) obj.put("barcodeData", barcodeDataToMap(result.barcodeData));
@@ -97,7 +102,29 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
           flutterResult.error("-2", e.getMessage(), null);
         }
       } else {
-        flutterResult.error("-1", "Scan failed", null);
+        boolean errorHandled = false;
+
+        String err = data.getStringExtra("error");
+        if (err != null) {
+          Log.d(LOG_TAG, err);
+
+          // To extract values you can utilize a JSON parser such as org.json.JSONObject
+          // err is a json string. such as -> "{\"type\":\"com.socure.idplus.error.DocumentScanError\",\"message\":\"Scan cancelled by user\"}"
+          try {
+            JSONObject jObj = new JSONObject(err);
+            if ("com.socure.idplus.error.DocumentScanError".equals(jObj.getString("type"))) {
+              flutterResult.success(null);
+              errorHandled = true;
+            } else {
+              flutterResult.error("-1", jObj.getString("message"), null);
+              errorHandled = true;
+            }
+          } catch (JSONException e) {
+            e.printStackTrace();
+          }
+        }
+
+        if (!errorHandled) flutterResult.error("-1", "Scan failed", null);
       }
 
       flutterResult = null;
