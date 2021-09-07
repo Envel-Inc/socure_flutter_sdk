@@ -28,9 +28,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
-  private final int SCAN_PASSPORT_CODE = 210;
-  private final int SCAN_LICENSE_CODE = 300;
-  private final int SCAN_SELFIE_CODE = 400;
+  private final int SCAN_PASSPORT_CODE = 999722;
+  private final int SCAN_LICENSE_CODE = 999723;
+  private final int SCAN_SELFIE_CODE = 999724;
 
   private MethodChannel channel;
   private Activity activity;
