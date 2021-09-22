@@ -33,9 +33,9 @@ import java.util.Map;
 public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
   private static final String LOG_TAG = "Socure_Flutter";
 
-  private final int SCAN_PASSPORT_CODE = 999722;
-  private final int SCAN_LICENSE_CODE = 999723;
-  private final int SCAN_SELFIE_CODE = 999724;
+  private final int SCAN_PASSPORT_CODE = 70346738;
+  private final int SCAN_LICENSE_CODE = 70346739;
+  private final int SCAN_SELFIE_CODE = 70346740;
 
   private MethodChannel channel;
   private Activity activity;
@@ -104,7 +104,7 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
       } else {
         boolean errorHandled = false;
 
-        String err = data.getStringExtra("error");
+        String err = data != null ? data.getStringExtra("error") : null;
         if (err != null) {
           Log.d(LOG_TAG, err);
 
