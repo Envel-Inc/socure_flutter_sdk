@@ -18,8 +18,8 @@ Socure SDK Flutter wrapper.
   s.source_files = 'Classes/**/*'
   s.platform = :ios, '12.0'
 
-  s.vendored_frameworks = "Frameworks/SocureSDK/Framework/SocureSdk.xcframework"
-  s.preserve_paths = "Frameworks/SocureSDK/Framework/SocureSdk.xcframework"
+  s.vendored_frameworks = "Frameworks/SocureSDK/Framework/SocureSdk.xcframework", "Frameworks/SocureSDK/Framework/DeviceRisk.xcframework"
+  s.preserve_paths = "Frameworks/SocureSDK/Framework/SocureSdk.xcframework", "Frameworks/SocureSDK/Framework/DeviceRisk.xcframework",
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
