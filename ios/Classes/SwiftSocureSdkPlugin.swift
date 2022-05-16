@@ -3,7 +3,7 @@ import UIKit
 import SocureSdk
 import DeviceRisk
 
-public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
+public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUploadCallback {
   let docScanner = DocumentScanner()
   let selfieScanner = SelfieScanner()
   let deviceRiskManager = DeviceRiskManager.sharedInstance
@@ -69,7 +69,7 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
   }
 }
 
-class SocureViewController: UIViewController, ImageCallback, MRZCallback, BarcodeCallback, DeviceRiskUploadCallback {
+class SocureViewController: UIViewController, ImageCallback, MRZCallback, BarcodeCallback {
     var flutterResult: FlutterResult?
     var onlyNeedFrontPicture: Bool = false
     
