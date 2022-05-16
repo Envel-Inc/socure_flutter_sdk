@@ -6,7 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		Nex1LxDRUa/A0AjYt6mZurigcAo=
+		dOB6j4WiEMq1zjoaPriG6h5sdT0=
 		</data>
 		<key>Document.json</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Headers/SocureSdk-Swift.h</key>
 		<data>
-		v+uoClfIZWhloirG99tTHLozjDM=
+		wyIe+wq4jUfYRBef+GzGvZHnTgM=
 		</data>
 		<key>Headers/SocureSdk.h</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		GbCdan3yxVUJqwLc/r95+AyrcEo=
+		f3vTjwvq9MO5X9c557nqtKKfQko=
 		</data>
 		<key>Inter-Bold.ttf</key>
 		<data>
@@ -42,51 +42,51 @@
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		9t/gwX3Z0H68KRE6AZo2I1Jk8+I=
+		V6wpFluXwnB73mUHrrgeJ3LXvBE=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		E4TnXXd60ByXDv/3wNKOHR6+GMU=
+		WF7v1ZhmOQkZoTAPJ+jL5wYD4kQ=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		C5826oW5WllyzrUF98hdGUtc2Pc=
+		5t6TgXh416QWQlw9l52OuMBWZiw=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		9t/gwX3Z0H68KRE6AZo2I1Jk8+I=
+		V6wpFluXwnB73mUHrrgeJ3LXvBE=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/arm64.swiftinterface</key>
 		<data>
-		E4TnXXd60ByXDv/3wNKOHR6+GMU=
+		WF7v1ZhmOQkZoTAPJ+jL5wYD4kQ=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		C5826oW5WllyzrUF98hdGUtc2Pc=
+		5t6TgXh416QWQlw9l52OuMBWZiw=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		0EAayI6L7EXd8OQlKneuOWfbfN8=
+		NNIBCrbZI7Yd6NVPrq2vjQNVOA8=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		Pjrx0uNHVH6CIx2WDEswWklffZM=
+		Rpw9M+eaPB0ppnMxQ3wGPoucB14=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		hrexrOlLE3eYZg6huwei3358Hpo=
+		nIr7VqToDEaE1SZSdUdjGhw7Zhs=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		0EAayI6L7EXd8OQlKneuOWfbfN8=
+		NNIBCrbZI7Yd6NVPrq2vjQNVOA8=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftinterface</key>
 		<data>
-		Pjrx0uNHVH6CIx2WDEswWklffZM=
+		Rpw9M+eaPB0ppnMxQ3wGPoucB14=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		hrexrOlLE3eYZg6huwei3358Hpo=
+		nIr7VqToDEaE1SZSdUdjGhw7Zhs=
 		</data>
 		<key>OpenSans-Bold.ttf</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>default.metallib</key>
 		<data>
-		7vGfcYAqEDf2X+Db5RJBDai5Jwc=
+		ltRi1BU07UsLsMBAiFlzSgeOI+A=
 		</data>
 		<key>howto_back_id.json</key>
 		<data>
@@ -131,7 +131,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KnJvmyK3CUWkymbrjjCtwUlthyuphU5BPuY+2wvLZtA=
+			k+8Huye/ep2IOEELL9WS6PUf6KxnAKrUfADmtgbW/eg=
 			</data>
 		</dict>
 		<key>Document.json</key>
@@ -152,7 +152,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HYDloAK8jHp9tbfvcDGvTpKGOPG8yuXusWLLQwwPSm4=
+			K0G5zXIa+fv/Do+Ph5QonXlOjCGDq5mKrlSl4cFskQI=
 			</data>
 		</dict>
 		<key>Headers/SocureSdk.h</key>
@@ -187,84 +187,84 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bfTGk2qFl3jj2AoQqnjen5iEwnXNw8AgqnrH1NI8G3o=
+			W3TExCChxCsDaBjDeQw4XZwTSOqmHvGYAvK8VIHnZx0=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IN2RtU1CqgZpZ20XQNdWO9o3OzwdyS7P9VGItRmDojY=
+			892U17GjPDHOnJQJrN953g/5L01mS+3t9USxD8JP3Co=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yxN0RJpTS7bllcM/YWYKutobXwmreLU3D6Z4nWyg3rU=
+			iqU0kIviQL3OhRHUPvZChi6LgeY63ZlhMpOG8DQg8cM=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			bfTGk2qFl3jj2AoQqnjen5iEwnXNw8AgqnrH1NI8G3o=
+			W3TExCChxCsDaBjDeQw4XZwTSOqmHvGYAvK8VIHnZx0=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/arm64.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IN2RtU1CqgZpZ20XQNdWO9o3OzwdyS7P9VGItRmDojY=
+			892U17GjPDHOnJQJrN953g/5L01mS+3t9USxD8JP3Co=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yxN0RJpTS7bllcM/YWYKutobXwmreLU3D6Z4nWyg3rU=
+			iqU0kIviQL3OhRHUPvZChi6LgeY63ZlhMpOG8DQg8cM=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			M+2nIYAi02iJ2W/AEqQV9md7iChxJLrxmA37IwVIiOQ=
+			0qZEPLS92obmX1LGE1K/mtpLc0cQZR0fD6ge99di6Kg=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vprEEK7lRzMBAdWgVJHcIwWnaAhxKob5wVqIptmDMoc=
+			Mqw40LOInjWJiDE9M/1EXhNmzFAfZP9BTst2Cj1+MCs=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UCCKSH9j3LZgj4O171FB1DpCA69Jilm4ecjz2FFO6/o=
+			BbpiLc3LRqWt2u18sm9V0a8W4mFLx4lp4AkhnOBjfhY=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			M+2nIYAi02iJ2W/AEqQV9md7iChxJLrxmA37IwVIiOQ=
+			0qZEPLS92obmX1LGE1K/mtpLc0cQZR0fD6ge99di6Kg=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vprEEK7lRzMBAdWgVJHcIwWnaAhxKob5wVqIptmDMoc=
+			Mqw40LOInjWJiDE9M/1EXhNmzFAfZP9BTst2Cj1+MCs=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UCCKSH9j3LZgj4O171FB1DpCA69Jilm4ecjz2FFO6/o=
+			BbpiLc3LRqWt2u18sm9V0a8W4mFLx4lp4AkhnOBjfhY=
 			</data>
 		</dict>
 		<key>OpenSans-Bold.ttf</key>
@@ -299,7 +299,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			guDtc9UfJ4WkDYB6CWwiw9jRhGEqkZ9ETaqh9sRC72A=
+			E5bhDI41lpmCNcofdeMyM/xOkYaWKpz+oMEFPfbVDPw=
 			</data>
 		</dict>
 		<key>howto_back_id.json</key>

@@ -41,11 +41,11 @@ class UploadViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if let front = frontImageData,
-        let back = backImageData,
         let selfie = selfieImageData {
-            
+            if let back = backImageData {
+                backImageView?.image = UIImage.init(data: back)
+            }
             frontImageView?.image = UIImage.init(data: front)
-            backImageView?.image = UIImage.init(data: back)
             selfieImageView?.image = UIImage.init(data: selfie)
         }
         
@@ -53,16 +53,7 @@ class UploadViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if let data1 = frontImageData,
-            let data2 = backImageData,
-            let data3 = selfieImageData {
-            
-            uploadButton?.isEnabled = true
-            
-        } else {
-            uploadButton?.isEnabled = false
-        }
+        uploadButton?.isEnabled = true
     }
     
     @IBAction func uploadDocument(sender:UIButton) {
@@ -75,6 +66,13 @@ class UploadViewController: UIViewController {
             resultsLabel?.isHidden = false
             activityIndicator?.isHidden = false
             activityIndicator?.startAnimating()
+        } else if let front = frontImageData,
+                  let selfie = selfieImageData {
+                  
+                  imgUpload.uploadPassport(UploadCallback: self, front: front, selfie: selfie)
+                  resultsLabel?.isHidden = false
+                  activityIndicator?.isHidden = false
+                  activityIndicator?.startAnimating()
         }
     }
     

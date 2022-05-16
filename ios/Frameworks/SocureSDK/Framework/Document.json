@@ -168,6 +168,14 @@
         "textFont":"Inter-Regular",
         "textSize:":21,
     },
+    "segmented_control":{
+        "textFont-selected":"Inter-Bold",
+        "textFont-default":"Inter-Regular",
+        "textSize-selected":14,
+        "textSize-default":14,
+        "textColor-selected":{"R":255,"G":130,"B":0,"A":1.0},
+        "textColor-default":{"R":255,"G":255,"B":255,"A":1.0},
+    },
     "status_display":{
         "countdown_display":{
             "highlight-color":{"R":255,"G":130,"B":0,"A":1.0},
@@ -243,4 +251,5 @@
             "textSize":14,
         },
     },
+    "showSocureLogo":"true"
 }

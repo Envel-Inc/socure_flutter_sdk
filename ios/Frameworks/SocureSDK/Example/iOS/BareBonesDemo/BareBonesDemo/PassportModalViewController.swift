@@ -28,7 +28,8 @@ extension PassportModalViewController: ImageCallback  {
             let image = UIImage.init(data: imageData) else {
                 return
         }
-        
+        print("documentFrontCallBack: CaptureType:\(docScanResult.captureType ?? -1) dataExtracted: \(docScanResult.dataExtracted ?? false)")
+
         referenceViewController?.frontDocumentData = imageData
         referenceViewController?.frontImageView.image = image
         
@@ -49,7 +50,8 @@ extension PassportModalViewController: ImageCallback  {
     }
     
     func onError(errorType: SocureSDKErrorType, errorMessage: String) {
-        
+        print(errorType)
+        print(errorMessage)
     }
     
 

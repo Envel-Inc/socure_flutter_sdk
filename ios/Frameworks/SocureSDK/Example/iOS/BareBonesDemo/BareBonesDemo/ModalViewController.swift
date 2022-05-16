@@ -28,7 +28,7 @@ extension ModalViewController: ImageCallback  {
             let image = UIImage.init(data: imageData) else {
                 return
         }
-        
+        print("documentFrontCallBack: CaptureType:\(docScanResult.captureType ?? -1)")
         referenceViewController?.frontDocumentData = imageData
         referenceViewController?.frontImageView.image = image
         
@@ -43,6 +43,7 @@ extension ModalViewController: ImageCallback  {
             let image = UIImage.init(data: imageData) else {
                 return
         }
+        print("documentBackCallBack: CaptureType:\(docScanResult.captureType ?? -1) dataExtracted: \(docScanResult.dataExtracted ?? false)")
         referenceViewController?.backDocumentData = imageData
         referenceViewController?.backImageView.image = image
         
@@ -61,7 +62,8 @@ extension ModalViewController: ImageCallback  {
     }
     
     func onError(errorType: SocureSDKErrorType, errorMessage: String) {
-        
+        print(errorType)
+        print(errorMessage)
     }
     
 

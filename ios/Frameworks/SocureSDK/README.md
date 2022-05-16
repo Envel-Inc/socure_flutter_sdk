@@ -1,5 +1,7 @@
 # iOS SDK
 
+# Version: 2.1.3 - Release Date : Mar 2022
+
 The Socure Document Verification SDK provides a framework to add image capture and upload services to your mobile application.
 
 This guide covers integration with iOS.
@@ -17,6 +19,9 @@ This guide covers integration with iOS.
 **Note:** Please reach out to support if you are compiling it at an earlier XCode version.
 
 
+Pre-requisite: [**Guide: How to set up Cocoapods**](https://guides.cocoapods.org/using/getting-started.html)
+
+
 **Step 1: Install Socure SDK using CocoaPods**
 
 The SDK can be added to the project by adding the following to your Podfile:
@@ -25,6 +30,13 @@ The SDK can be added to the project by adding the following to your Podfile:
   # Pods for SocureSdkDemo
     pod 'SocureSdk', :git => 'git@github.com:socure-inc/socure-ios-sdk.git'
 ```
+// Optional Pod implementation with Personal Access Token : https://github.com/settings/tokens
+
+```
+  # Pods for SocureSdkDemo
+    pod 'SocureSdk', :git =>'https://<personal_access_token>@github.com/socure-inc/socure-ios-sdk.git'
+```
+
 Update your pods from the terminal
 
 ```
@@ -49,8 +61,6 @@ Add the following permissions to info.plist:
 | Feature  | Key                                              
 | -------- | ------------------------------------------------ 
 | Camera   | Privacy - Camera Usage Description               
-| Location | Privacy - Location When In Use Usage Description 
-| Location | Privacy - Location Always and When In Use Usage  
 
 **Step 4: Import SDK into the View Controller**
 
@@ -136,8 +146,7 @@ We have the following SocureSDKErrorType available as constants for understandin
 
 | Error                   | Description                                                                                    |
 | ----------------------- | ---------------------------------------------------------------------------------------------- |
-| DocumentScanError       | Handles the exception if the SDK is not able to extract the barcode or MRZ data from the document.                       |
-| DocumentScanFailedError | Handles the exception if the SDK is not able to retrieve a valid document image from the capture. |
+| DocumentScanFailedError | Handles the exception if the SDK is not able to retrieve a valid document image from auto capture. |
 | SelfieScanFailedError   | Handles the exception if the SDK is not able to retrieve a valid selfie from the capture. |
 | DocumentUploadError     | Handles the exception if there is an error while the document upload process                   |
 | InternetConnection      | Handles the error for internet connection issues.                                              |
@@ -151,17 +160,17 @@ func onError(errorType: SocureSDKErrorType, errorMessage: String)
         {
            //do something
         }
-        else if(errorType.self == SocureSDKErrorType.DocumentScanError)
-        {
-            //do something
-        }
 ...
     }
 ```
 
-**Note:** The onError method should only be added once in the particular controller implementation. If you add multiple callbacks to the extension and use Xcode to add the protocol stubs, it might add the error method multiple times.
+**Notes:** 
+DocumentScanError has been deprecated. Barcode/MRZ extraction status can now be obtained from dataExtracted variable in DocScanResult.
+The onError method should only be added once in the particular controller implementation. If you add multiple callbacks to the extension and use Xcode to add the protocol stubs, it might add the error method multiple times. 
+
 
 # Step 6: Request Camera Permissions
+# 
 
 Call `requestCameraPermission` using either `DocumentScanner` or `SelfieScanner` to request camera permissions from the user. Please note, `requestCameraPermissions` is a class function and should be called *before* the underlying ViewController that uses either `DocumentScanner` or `SelfieScanner`  is ever added to the view stack. 
 
@@ -287,6 +296,12 @@ var sampleData : Data?
 sampleData = docScanResult.imageData!
 ```
 
+**Capture Type**
+The way image has been captured (whether auto or manual) can be known using 'captureType' in 'DocScanResult'. 
+0 - Document was captured automatically
+1 - Document was captured manually
+
+
 **Dynamically Pass the Public Key for Image Upload**
 
 The document upload is governed by a public key which can be stored in the info.plist of the application, however, if you want to dynamically fetch the key from your database using your own service, you can pass the key directly to the image uploader method as an argument. The key passed will override the configuration key in the application’s info.plist.
@@ -297,7 +312,7 @@ let imageUploader = ImageUploader(“Key”)
 
 **Barcode/MRZ Data**
 
-To get the Barcode/MRZ data in the callback class, you can use the variables of the respective object. Please note that these shall give you an optional value, you can unwrap the optional value using Optional Chaining method.
+To get the Barcode/MRZ data in the callback class, you can use the variables of the respective object. Please note that these shall give you an optional value, you can unwrap the optional value using Optional Chaining method. If data is extracted from Barcode/MRZ, 'dataExtracted' boolean is set to true in 'DocScanResult' retuned in ImageCallback interface Methods.
 
 ```
 func handleBarcodeData(barcodeData: BarcodeData?)

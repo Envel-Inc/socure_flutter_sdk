@@ -34,8 +34,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -45,6 +43,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>socurePublicKey</key>
-	<string>REPLACE ME</string>
+	<string>REPLACE_ME</string>
 </dict>
 </plist>

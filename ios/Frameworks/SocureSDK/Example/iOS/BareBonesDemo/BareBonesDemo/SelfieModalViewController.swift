@@ -50,7 +50,8 @@ extension SelfieModalViewController:ImageCallback {
     }
     
     func onError(errorType: SocureSDKErrorType, errorMessage: String) {
-        
+        print(errorType)
+        print(errorMessage)
     }
     
 

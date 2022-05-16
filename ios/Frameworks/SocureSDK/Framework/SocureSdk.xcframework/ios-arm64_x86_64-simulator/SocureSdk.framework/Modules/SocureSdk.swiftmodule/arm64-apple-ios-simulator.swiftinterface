@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.4 effective-4.2 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+// swift-compiler-version: Apple Swift version 5.5.2 effective-4.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
 // swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -Osize -module-name SocureSdk
 import AVFoundation
 import Accelerate
@@ -22,7 +22,8 @@ import TrustKit
 import UIKit
 import VideoToolbox
 import Vision
-@objc @_inheritsConvenienceInitializers final public class AnimatedSwitch : SocureSdk.AnimatedControl {
+import _Concurrency
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) final public class AnimatedSwitch : SocureSdk.AnimatedControl {
   public enum CancelBehavior {
     case reverse
     case none
@@ -32,18 +33,18 @@ import Vision
       get
     }
   }
-  final public var isOn: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) final public var isOn: Swift.Bool {
     get
     set
   }
-  final public var cancelBehavior: SocureSdk.AnimatedSwitch.CancelBehavior
-  final public func setIsOn(_ isOn: Swift.Bool, animated: Swift.Bool, shouldFireHaptics: Swift.Bool = true)
-  final public func setProgressForState(fromProgress: SocureSdk.AnimationProgressTime, toProgress: SocureSdk.AnimationProgressTime, forOnState: Swift.Bool)
-  override public init(animation: SocureSdk.Animation)
+  @_Concurrency.MainActor(unsafe) final public var cancelBehavior: SocureSdk.AnimatedSwitch.CancelBehavior
+  @_Concurrency.MainActor(unsafe) final public func setIsOn(_ isOn: Swift.Bool, animated: Swift.Bool, shouldFireHaptics: Swift.Bool = true)
+  @_Concurrency.MainActor(unsafe) final public func setProgressForState(fromProgress: SocureSdk.AnimationProgressTime, toProgress: SocureSdk.AnimationProgressTime, forOnState: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) override public init(animation: SocureSdk.Animation)
   @objc override dynamic public init()
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc override final public func endTracking(_ touch: UIKit.UITouch?, with event: UIKit.UIEvent?)
-  override final public func animationDidSet()
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override final public func endTracking(_ touch: UIKit.UITouch?, with event: UIKit.UIEvent?)
+  @_Concurrency.MainActor(unsafe) override final public func animationDidSet()
   @objc deinit
 }
 @_hasMissingDesignatedInitializers final public class ConstraintItem {
@@ -53,7 +54,7 @@ public func == (lhs: SocureSdk.ConstraintItem, rhs: SocureSdk.ConstraintItem) ->
 public protocol ConstraintDirectionalInsetTarget : SocureSdk.ConstraintConstantTarget {
 }
 @available(iOS 11.0, tvOS 11.0, *)
-extension NSDirectionalEdgeInsets : SocureSdk.ConstraintDirectionalInsetTarget {
+extension UIKit.NSDirectionalEdgeInsets : SocureSdk.ConstraintDirectionalInsetTarget {
 }
 public enum TorchMode {
   case on
@@ -85,11 +86,11 @@ public struct Vector3D {
 public protocol LayoutConstraintItem : AnyObject {
 }
 @available(iOS 9.0, macOS 10.11, *)
-extension UILayoutGuide : SocureSdk.LayoutConstraintItem {
+extension UIKit.UILayoutGuide : SocureSdk.LayoutConstraintItem {
 }
-extension UIView : SocureSdk.LayoutConstraintItem {
+extension UIKit.UIView : SocureSdk.LayoutConstraintItem {
 }
-extension String {
+extension Swift.String {
   public var r: SocureSdk.Regex? {
     get
   }
@@ -104,9 +105,9 @@ public func !~ (source: Swift.String, pattern: Swift.String) -> Swift.Bool
 public func ~= (regex: SocureSdk.RegexProtocol?, source: Swift.String) -> Swift.Bool
 public enum SDKEnvironment {
 }
-@objc @_inheritsConvenienceInitializers final public class AnimationSubview : UIKit.UIView {
-  @objc override dynamic public init(frame: CoreGraphics.CGRect)
-  @objc required dynamic public init?(coder: Foundation.NSCoder)
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) final public class AnimationSubview : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
 public enum ColorFormatDenominator {
@@ -126,7 +127,7 @@ public struct Color {
   public var a: Swift.Double
   public init(r: Swift.Double, g: Swift.Double, b: Swift.Double, a: Swift.Double, denominator: SocureSdk.ColorFormatDenominator = .One)
 }
-extension Animation {
+extension SocureSdk.Animation {
   public static func named(_ name: Swift.String, bundle: Foundation.Bundle = Bundle.main, subdirectory: Swift.String? = nil, animationCache: SocureSdk.AnimationCacheProvider? = nil) -> SocureSdk.Animation?
   public static func filepath(_ filepath: Swift.String, animationCache: SocureSdk.AnimationCacheProvider? = nil) -> SocureSdk.Animation?
   public typealias DownloadClosure = (SocureSdk.Animation?) -> Swift.Void
@@ -151,74 +152,73 @@ public typealias AnimationFrameTime = CoreGraphics.CGFloat
 public typealias AnimationProgressTime = CoreGraphics.CGFloat
 @objc final public class CompatibleAnimation : ObjectiveC.NSObject {
   @objc public init(name: Swift.String, bundle: Foundation.Bundle = Bundle.main)
-  @objc override dynamic public init()
   @objc deinit
 }
-@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc final public class CompatibleAnimationView : UIKit.UIView {
-  @objc override dynamic public init(frame: CoreGraphics.CGRect)
-  @objc final public var compatibleAnimation: SocureSdk.CompatibleAnimation? {
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc @_Concurrency.MainActor(unsafe) final public class CompatibleAnimationView : UIKit.UIView {
+  @objc @_Concurrency.MainActor(unsafe) override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc @_Concurrency.MainActor(unsafe) final public var compatibleAnimation: SocureSdk.CompatibleAnimation? {
     @objc get
     @objc set
   }
-  @objc final public var loopAnimationCount: CoreGraphics.CGFloat {
+  @objc @_Concurrency.MainActor(unsafe) final public var loopAnimationCount: CoreGraphics.CGFloat {
     @objc get
     @objc set
   }
-  @objc override final public var contentMode: UIKit.UIView.ContentMode {
+  @objc @_Concurrency.MainActor(unsafe) override final public var contentMode: UIKit.UIView.ContentMode {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @_Concurrency.MainActor(unsafe) @objc set
+  }
+  @objc @_Concurrency.MainActor(unsafe) final public var shouldRasterizeWhenIdle: Swift.Bool {
     @objc get
     @objc set
   }
-  @objc final public var shouldRasterizeWhenIdle: Swift.Bool {
+  @objc @_Concurrency.MainActor(unsafe) final public var currentProgress: CoreGraphics.CGFloat {
     @objc get
     @objc set
   }
-  @objc final public var currentProgress: CoreGraphics.CGFloat {
+  @objc @_Concurrency.MainActor(unsafe) final public var currentTime: Foundation.TimeInterval {
     @objc get
     @objc set
   }
-  @objc final public var currentTime: Foundation.TimeInterval {
+  @objc @_Concurrency.MainActor(unsafe) final public var currentFrame: CoreGraphics.CGFloat {
     @objc get
     @objc set
   }
-  @objc final public var currentFrame: CoreGraphics.CGFloat {
+  @objc @_Concurrency.MainActor(unsafe) final public var realtimeAnimationFrame: CoreGraphics.CGFloat {
+    @objc get
+  }
+  @objc @_Concurrency.MainActor(unsafe) final public var realtimeAnimationProgress: CoreGraphics.CGFloat {
+    @objc get
+  }
+  @objc @_Concurrency.MainActor(unsafe) final public var animationSpeed: CoreGraphics.CGFloat {
     @objc get
     @objc set
   }
-  @objc final public var realtimeAnimationFrame: CoreGraphics.CGFloat {
-    @objc get
-  }
-  @objc final public var realtimeAnimationProgress: CoreGraphics.CGFloat {
-    @objc get
-  }
-  @objc final public var animationSpeed: CoreGraphics.CGFloat {
+  @objc @_Concurrency.MainActor(unsafe) final public var respectAnimationFrameRate: Swift.Bool {
     @objc get
     @objc set
   }
-  @objc final public var respectAnimationFrameRate: Swift.Bool {
-    @objc get
-    @objc set
-  }
-  @objc final public var isAnimationPlaying: Swift.Bool {
+  @objc @_Concurrency.MainActor(unsafe) final public var isAnimationPlaying: Swift.Bool {
     @objc get
   }
-  @objc final public func play()
-  @objc final public func play(completion: ((Swift.Bool) -> Swift.Void)?)
-  @objc final public func play(fromProgress: CoreGraphics.CGFloat, toProgress: CoreGraphics.CGFloat, completion: ((Swift.Bool) -> Swift.Void)? = nil)
-  @objc final public func play(fromFrame: CoreGraphics.CGFloat, toFrame: CoreGraphics.CGFloat, completion: ((Swift.Bool) -> Swift.Void)? = nil)
-  @objc final public func play(fromMarker: Swift.String, toMarker: Swift.String, completion: ((Swift.Bool) -> Swift.Void)? = nil)
-  @objc final public func stop()
-  @objc final public func pause()
-  @objc final public func reloadImages()
-  @objc final public func forceDisplayUpdate()
-  @objc final public func getValue(for keypath: SocureSdk.CompatibleAnimationKeypath, atFrame: CoreGraphics.CGFloat) -> Any?
-  @objc final public func logHierarchyKeypaths()
-  @objc final public func setColorValue(_ color: UIKit.UIColor, forKeypath keypath: SocureSdk.CompatibleAnimationKeypath)
-  @objc final public func getColorValue(for keypath: SocureSdk.CompatibleAnimationKeypath, atFrame: CoreGraphics.CGFloat) -> UIKit.UIColor?
-  @objc final public func addSubview(_ subview: SocureSdk.AnimationSubview, forLayerAt keypath: SocureSdk.CompatibleAnimationKeypath)
-  @objc final public func convert(rect: CoreGraphics.CGRect, toLayerAt keypath: SocureSdk.CompatibleAnimationKeypath?) -> CoreGraphics.CGRect
-  @objc final public func convert(point: CoreGraphics.CGPoint, toLayerAt keypath: SocureSdk.CompatibleAnimationKeypath?) -> CoreGraphics.CGPoint
-  @objc final public func progressTime(forMarker named: Swift.String) -> CoreGraphics.CGFloat
-  @objc final public func frameTime(forMarker named: Swift.String) -> CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) final public func play()
+  @objc @_Concurrency.MainActor(unsafe) final public func play(completion: ((Swift.Bool) -> Swift.Void)?)
+  @objc @_Concurrency.MainActor(unsafe) final public func play(fromProgress: CoreGraphics.CGFloat, toProgress: CoreGraphics.CGFloat, completion: ((Swift.Bool) -> Swift.Void)? = nil)
+  @objc @_Concurrency.MainActor(unsafe) final public func play(fromFrame: CoreGraphics.CGFloat, toFrame: CoreGraphics.CGFloat, completion: ((Swift.Bool) -> Swift.Void)? = nil)
+  @objc @_Concurrency.MainActor(unsafe) final public func play(fromMarker: Swift.String, toMarker: Swift.String, completion: ((Swift.Bool) -> Swift.Void)? = nil)
+  @objc @_Concurrency.MainActor(unsafe) final public func stop()
+  @objc @_Concurrency.MainActor(unsafe) final public func pause()
+  @objc @_Concurrency.MainActor(unsafe) final public func reloadImages()
+  @objc @_Concurrency.MainActor(unsafe) final public func forceDisplayUpdate()
+  @objc @_Concurrency.MainActor(unsafe) final public func getValue(for keypath: SocureSdk.CompatibleAnimationKeypath, atFrame: CoreGraphics.CGFloat) -> Any?
+  @objc @_Concurrency.MainActor(unsafe) final public func logHierarchyKeypaths()
+  @objc @_Concurrency.MainActor(unsafe) final public func setColorValue(_ color: UIKit.UIColor, forKeypath keypath: SocureSdk.CompatibleAnimationKeypath)
+  @objc @_Concurrency.MainActor(unsafe) final public func getColorValue(for keypath: SocureSdk.CompatibleAnimationKeypath, atFrame: CoreGraphics.CGFloat) -> UIKit.UIColor?
+  @objc @_Concurrency.MainActor(unsafe) final public func addSubview(_ subview: SocureSdk.AnimationSubview, forLayerAt keypath: SocureSdk.CompatibleAnimationKeypath)
+  @objc @_Concurrency.MainActor(unsafe) final public func convert(rect: CoreGraphics.CGRect, toLayerAt keypath: SocureSdk.CompatibleAnimationKeypath?) -> CoreGraphics.CGRect
+  @objc @_Concurrency.MainActor(unsafe) final public func convert(point: CoreGraphics.CGPoint, toLayerAt keypath: SocureSdk.CompatibleAnimationKeypath?) -> CoreGraphics.CGPoint
+  @objc @_Concurrency.MainActor(unsafe) final public func progressTime(forMarker named: Swift.String) -> CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) final public func frameTime(forMarker named: Swift.String) -> CoreGraphics.CGFloat
   @objc deinit
 }
 public enum Compliance : Swift.String {
@@ -384,32 +384,24 @@ final public class DefaultTextProvider : SocureSdk.AnimationTextProvider {
   public init()
   @objc deinit
 }
-@objc @_hasMissingDesignatedInitializers public class SelfieScannerViewController : UIKit.UINavigationController {
-  weak public var imageCallbackDelegate: SocureSdk.ImageCallback?
-  @objc override dynamic public func viewDidLoad()
-  public var turnTorchOn: Swift.Bool {
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class SelfieScannerViewController : UIKit.UINavigationController {
+  @_Concurrency.MainActor(unsafe) weak public var imageCallbackDelegate: SocureSdk.ImageCallback?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) public var turnTorchOn: Swift.Bool {
     get
     set
   }
-  public init(ImageCallback: SocureSdk.ImageCallback)
+  @_Concurrency.MainActor(unsafe) public init(ImageCallback: SocureSdk.ImageCallback)
   @objc deinit
-  public class func requestCameraPermissions(requestStatus: @escaping (Swift.Bool) -> Swift.Void)
-  public func manualCapture()
-  @available(iOS 5.0, *)
-  @objc override dynamic public init(navigationBarClass: Swift.AnyClass?, toolbarClass: Swift.AnyClass?)
-  @objc override dynamic public init(rootViewController: UIKit.UIViewController)
-  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
-}
-extension SelfieScannerViewController {
-}
-extension SelfieScannerViewController {
+  @_Concurrency.MainActor(unsafe) public class func requestCameraPermissions(requestStatus: @escaping (Swift.Bool) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) public func manualCapture()
 }
 public func createPixelBuffer(width: Swift.Int, height: Swift.Int) -> CoreVideo.CVPixelBuffer?
 public func resizePixelBuffer(_ srcPixelBuffer: CoreVideo.CVPixelBuffer, cropX: Swift.Int, cropY: Swift.Int, cropWidth: Swift.Int, cropHeight: Swift.Int, scaleWidth: Swift.Int, scaleHeight: Swift.Int) -> CoreVideo.CVPixelBuffer?
 public func resizePixelBuffer(_ pixelBuffer: CoreVideo.CVPixelBuffer, width: Swift.Int, height: Swift.Int) -> CoreVideo.CVPixelBuffer?
 public func resizePixelBuffer(_ pixelBuffer: CoreVideo.CVPixelBuffer, width: Swift.Int, height: Swift.Int, output: CoreVideo.CVPixelBuffer, context: CoreImage.CIContext)
 public func rotate90PixelBuffer(_ srcPixelBuffer: CoreVideo.CVPixelBuffer, factor: Swift.UInt8) -> CoreVideo.CVPixelBuffer?
-extension CVBuffer {
+extension CoreVideo.CVBuffer {
   public func copyToMetalCompatible() -> CoreVideo.CVPixelBuffer?
   public func deepCopy(withAttributes attributes: [Swift.String : Any] = [:]) -> CoreVideo.CVPixelBuffer?
 }
@@ -431,94 +423,94 @@ public enum LottieLoopMode {
   case `repeat`(Swift.Float)
   case repeatBackwards(Swift.Float)
 }
-extension LottieLoopMode : Swift.Equatable {
+extension SocureSdk.LottieLoopMode : Swift.Equatable {
   public static func == (lhs: SocureSdk.LottieLoopMode, rhs: SocureSdk.LottieLoopMode) -> Swift.Bool
 }
-@objc @_inheritsConvenienceInitializers @IBDesignable final public class AnimationView : SocureSdk.LottieView {
-  final public var animation: SocureSdk.Animation? {
+@objc @_inheritsConvenienceInitializers @IBDesignable @_Concurrency.MainActor(unsafe) final public class AnimationView : SocureSdk.LottieView {
+  @_Concurrency.MainActor(unsafe) final public var animation: SocureSdk.Animation? {
     get
     set
   }
-  final public var backgroundBehavior: SocureSdk.LottieBackgroundBehavior
-  final public var imageProvider: SocureSdk.AnimationImageProvider {
+  @_Concurrency.MainActor(unsafe) final public var backgroundBehavior: SocureSdk.LottieBackgroundBehavior
+  @_Concurrency.MainActor(unsafe) final public var imageProvider: SocureSdk.AnimationImageProvider {
     get
     set
   }
-  final public var textProvider: SocureSdk.AnimationTextProvider {
+  @_Concurrency.MainActor(unsafe) final public var textProvider: SocureSdk.AnimationTextProvider {
     get
     set
   }
-  final public var fontProvider: SocureSdk.AnimationFontProvider {
+  @_Concurrency.MainActor(unsafe) final public var fontProvider: SocureSdk.AnimationFontProvider {
     get
     set
   }
-  final public var isAnimationPlaying: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) final public var isAnimationPlaying: Swift.Bool {
     get
   }
-  final public var isAnimationQueued: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) final public var isAnimationQueued: Swift.Bool {
     get
   }
-  final public var loopMode: SocureSdk.LottieLoopMode {
-    get
-    set
-  }
-  final public var shouldRasterizeWhenIdle: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) final public var loopMode: SocureSdk.LottieLoopMode {
     get
     set
   }
-  final public var currentProgress: SocureSdk.AnimationProgressTime {
+  @_Concurrency.MainActor(unsafe) final public var shouldRasterizeWhenIdle: Swift.Bool {
     get
     set
   }
-  final public var currentTime: Foundation.TimeInterval {
+  @_Concurrency.MainActor(unsafe) final public var currentProgress: SocureSdk.AnimationProgressTime {
     get
     set
   }
-  final public var currentFrame: SocureSdk.AnimationFrameTime {
+  @_Concurrency.MainActor(unsafe) final public var currentTime: Foundation.TimeInterval {
     get
     set
   }
-  final public var realtimeAnimationFrame: SocureSdk.AnimationFrameTime {
-    get
-  }
-  final public var realtimeAnimationProgress: SocureSdk.AnimationProgressTime {
-    get
-  }
-  final public var animationSpeed: CoreGraphics.CGFloat {
+  @_Concurrency.MainActor(unsafe) final public var currentFrame: SocureSdk.AnimationFrameTime {
     get
     set
   }
-  final public var respectAnimationFrameRate: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) final public var realtimeAnimationFrame: SocureSdk.AnimationFrameTime {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) final public var realtimeAnimationProgress: SocureSdk.AnimationProgressTime {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) final public var animationSpeed: CoreGraphics.CGFloat {
     get
     set
   }
-  final public var viewportFrame: CoreGraphics.CGRect? {
+  @_Concurrency.MainActor(unsafe) final public var respectAnimationFrameRate: Swift.Bool {
     get
     set
   }
-  final public func play(completion: SocureSdk.LottieCompletionBlock? = nil)
-  final public func play(fromProgress: SocureSdk.AnimationProgressTime? = nil, toProgress: SocureSdk.AnimationProgressTime, loopMode: SocureSdk.LottieLoopMode? = nil, completion: SocureSdk.LottieCompletionBlock? = nil)
-  final public func play(fromFrame: SocureSdk.AnimationFrameTime? = nil, toFrame: SocureSdk.AnimationFrameTime, loopMode: SocureSdk.LottieLoopMode? = nil, completion: SocureSdk.LottieCompletionBlock? = nil)
-  final public func play(fromMarker: Swift.String? = nil, toMarker: Swift.String, loopMode: SocureSdk.LottieLoopMode? = nil, completion: SocureSdk.LottieCompletionBlock? = nil)
-  final public func stop()
-  final public func pause()
-  final public func reloadImages()
-  final public func forceDisplayUpdate()
-  final public func setValueProvider(_ valueProvider: SocureSdk.AnyValueProvider, keypath: SocureSdk.AnimationKeypath)
-  final public func getValue(for keypath: SocureSdk.AnimationKeypath, atFrame: SocureSdk.AnimationFrameTime?) -> Any?
-  final public func logHierarchyKeypaths()
-  final public func addSubview(_ subview: SocureSdk.AnimationSubview, forLayerAt keypath: SocureSdk.AnimationKeypath)
-  final public func convert(_ rect: CoreGraphics.CGRect, toLayerAt keypath: SocureSdk.AnimationKeypath?) -> CoreGraphics.CGRect?
-  final public func convert(_ point: CoreGraphics.CGPoint, toLayerAt keypath: SocureSdk.AnimationKeypath?) -> CoreGraphics.CGPoint?
-  final public func setNodeIsEnabled(isEnabled: Swift.Bool, keypath: SocureSdk.AnimationKeypath)
-  final public func progressTime(forMarker named: Swift.String) -> SocureSdk.AnimationProgressTime?
-  final public func frameTime(forMarker named: Swift.String) -> SocureSdk.AnimationFrameTime?
-  public init(animation: SocureSdk.Animation?, imageProvider: SocureSdk.AnimationImageProvider? = nil, textProvider: SocureSdk.AnimationTextProvider = DefaultTextProvider(), fontProvider: SocureSdk.AnimationFontProvider = DefaultFontProvider())
+  @_Concurrency.MainActor(unsafe) final public var viewportFrame: CoreGraphics.CGRect? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) final public func play(completion: SocureSdk.LottieCompletionBlock? = nil)
+  @_Concurrency.MainActor(unsafe) final public func play(fromProgress: SocureSdk.AnimationProgressTime? = nil, toProgress: SocureSdk.AnimationProgressTime, loopMode: SocureSdk.LottieLoopMode? = nil, completion: SocureSdk.LottieCompletionBlock? = nil)
+  @_Concurrency.MainActor(unsafe) final public func play(fromFrame: SocureSdk.AnimationFrameTime? = nil, toFrame: SocureSdk.AnimationFrameTime, loopMode: SocureSdk.LottieLoopMode? = nil, completion: SocureSdk.LottieCompletionBlock? = nil)
+  @_Concurrency.MainActor(unsafe) final public func play(fromMarker: Swift.String? = nil, toMarker: Swift.String, loopMode: SocureSdk.LottieLoopMode? = nil, completion: SocureSdk.LottieCompletionBlock? = nil)
+  @_Concurrency.MainActor(unsafe) final public func stop()
+  @_Concurrency.MainActor(unsafe) final public func pause()
+  @_Concurrency.MainActor(unsafe) final public func reloadImages()
+  @_Concurrency.MainActor(unsafe) final public func forceDisplayUpdate()
+  @_Concurrency.MainActor(unsafe) final public func setValueProvider(_ valueProvider: SocureSdk.AnyValueProvider, keypath: SocureSdk.AnimationKeypath)
+  @_Concurrency.MainActor(unsafe) final public func getValue(for keypath: SocureSdk.AnimationKeypath, atFrame: SocureSdk.AnimationFrameTime?) -> Any?
+  @_Concurrency.MainActor(unsafe) final public func logHierarchyKeypaths()
+  @_Concurrency.MainActor(unsafe) final public func addSubview(_ subview: SocureSdk.AnimationSubview, forLayerAt keypath: SocureSdk.AnimationKeypath)
+  @_Concurrency.MainActor(unsafe) final public func convert(_ rect: CoreGraphics.CGRect, toLayerAt keypath: SocureSdk.AnimationKeypath?) -> CoreGraphics.CGRect?
+  @_Concurrency.MainActor(unsafe) final public func convert(_ point: CoreGraphics.CGPoint, toLayerAt keypath: SocureSdk.AnimationKeypath?) -> CoreGraphics.CGPoint?
+  @_Concurrency.MainActor(unsafe) final public func setNodeIsEnabled(isEnabled: Swift.Bool, keypath: SocureSdk.AnimationKeypath)
+  @_Concurrency.MainActor(unsafe) final public func progressTime(forMarker named: Swift.String) -> SocureSdk.AnimationProgressTime?
+  @_Concurrency.MainActor(unsafe) final public func frameTime(forMarker named: Swift.String) -> SocureSdk.AnimationFrameTime?
+  @_Concurrency.MainActor(unsafe) public init(animation: SocureSdk.Animation?, imageProvider: SocureSdk.AnimationImageProvider? = nil, textProvider: SocureSdk.AnimationTextProvider = DefaultTextProvider(), fontProvider: SocureSdk.AnimationFontProvider = DefaultFontProvider())
   @objc dynamic public init()
-  @objc override dynamic public init(frame: CoreGraphics.CGRect)
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc override final public var intrinsicContentSize: CoreGraphics.CGSize {
-    @objc get
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override final public var intrinsicContentSize: CoreGraphics.CGSize {
+    @_Concurrency.MainActor(unsafe) @objc get
   }
   @objc deinit
 }
@@ -527,6 +519,8 @@ extension LottieLoopMode : Swift.Equatable {
   public var imageDataFlash: Foundation.Data?
   public var imageDataOriginal: Foundation.Data?
   public var imageDataFlashOriginal: Foundation.Data?
+  public var captureType: Swift.Int!
+  public var dataExtracted: Swift.Bool!
   public var metaData: [Swift.String : Any]
   @objc override dynamic public init()
   @objc deinit
@@ -575,7 +569,7 @@ public enum NameSuffix {
     get
   }
 }
-extension NameSuffix {
+extension SocureSdk.NameSuffix {
   public typealias AllCases = [SocureSdk.NameSuffix]
   public static var allCases: [SocureSdk.NameSuffix] {
     get
@@ -595,71 +589,70 @@ public enum IssuingCountry : Swift.String {
     get
   }
 }
-@objc @_inheritsConvenienceInitializers final public class AnimatedButton : SocureSdk.AnimatedControl {
-  final public func setPlayRange(fromProgress: SocureSdk.AnimationProgressTime, toProgress: SocureSdk.AnimationProgressTime, event: UIKit.UIControl.Event)
-  final public func setPlayRange(fromMarker fromName: Swift.String, toMarker toName: Swift.String, event: UIKit.UIControl.Event)
-  override public init(animation: SocureSdk.Animation)
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) final public class AnimatedButton : SocureSdk.AnimatedControl {
+  @_Concurrency.MainActor(unsafe) final public func setPlayRange(fromProgress: SocureSdk.AnimationProgressTime, toProgress: SocureSdk.AnimationProgressTime, event: UIKit.UIControl.Event)
+  @_Concurrency.MainActor(unsafe) final public func setPlayRange(fromMarker fromName: Swift.String, toMarker toName: Swift.String, event: UIKit.UIControl.Event)
+  @_Concurrency.MainActor(unsafe) override public init(animation: SocureSdk.Animation)
   @objc override dynamic public init()
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc override final public func beginTracking(_ touch: UIKit.UITouch, with event: UIKit.UIEvent?) -> Swift.Bool
-  @objc override final public func endTracking(_ touch: UIKit.UITouch?, with event: UIKit.UIEvent?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override final public func beginTracking(_ touch: UIKit.UITouch, with event: UIKit.UIEvent?) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc override final public func endTracking(_ touch: UIKit.UITouch?, with event: UIKit.UIEvent?)
   @objc deinit
 }
 public protocol ConstraintConstantTarget {
 }
-extension CGPoint : SocureSdk.ConstraintConstantTarget {
+extension CoreGraphics.CGPoint : SocureSdk.ConstraintConstantTarget {
 }
-extension CGSize : SocureSdk.ConstraintConstantTarget {
+extension CoreGraphics.CGSize : SocureSdk.ConstraintConstantTarget {
 }
-extension UIEdgeInsets : SocureSdk.ConstraintConstantTarget {
+extension UIKit.UIEdgeInsets : SocureSdk.ConstraintConstantTarget {
 }
 @available(iOS 11.0, tvOS 11.0, *)
-extension NSDirectionalEdgeInsets : SocureSdk.ConstraintConstantTarget {
+extension UIKit.NSDirectionalEdgeInsets : SocureSdk.ConstraintConstantTarget {
 }
-@objc @_inheritsConvenienceInitializers public class LayoutConstraint : UIKit.NSLayoutConstraint {
-  public var label: Swift.String? {
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class LayoutConstraint : UIKit.NSLayoutConstraint {
+  @_Concurrency.MainActor(unsafe) public var label: Swift.String? {
     get
     set
   }
   @objc override dynamic public init()
   @objc deinit
 }
-@objc open class AnimatedControl : UIKit.UIControl {
-  final public let animationView: SocureSdk.AnimationView
-  public var animation: SocureSdk.Animation? {
+@objc @_Concurrency.MainActor(unsafe) open class AnimatedControl : UIKit.UIControl {
+  @_Concurrency.MainActor(unsafe) final public let animationView: SocureSdk.AnimationView
+  @_Concurrency.MainActor(unsafe) public var animation: SocureSdk.Animation? {
     get
     set
   }
-  public var animationSpeed: CoreGraphics.CGFloat {
+  @_Concurrency.MainActor(unsafe) public var animationSpeed: CoreGraphics.CGFloat {
     get
     set
   }
-  public func setLayer(named: Swift.String, forState: UIKit.UIControl.State)
-  public func setValueProvider(_ valueProvider: SocureSdk.AnyValueProvider, keypath: SocureSdk.AnimationKeypath)
-  public init(animation: SocureSdk.Animation)
+  @_Concurrency.MainActor(unsafe) public func setLayer(named: Swift.String, forState: UIKit.UIControl.State)
+  @_Concurrency.MainActor(unsafe) public func setValueProvider(_ valueProvider: SocureSdk.AnyValueProvider, keypath: SocureSdk.AnimationKeypath)
+  @_Concurrency.MainActor(unsafe) public init(animation: SocureSdk.Animation)
   @objc dynamic public init()
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc override dynamic open var isEnabled: Swift.Bool {
-    @objc get
-    @objc set
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var isEnabled: Swift.Bool {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @_Concurrency.MainActor(unsafe) @objc set
   }
-  @objc override dynamic open var isSelected: Swift.Bool {
-    @objc get
-    @objc set
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var isSelected: Swift.Bool {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @_Concurrency.MainActor(unsafe) @objc set
   }
-  @objc override dynamic open var isHighlighted: Swift.Bool {
-    @objc get
-    @objc set
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var isHighlighted: Swift.Bool {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @_Concurrency.MainActor(unsafe) @objc set
   }
-  @objc override dynamic open func beginTracking(_ touch: UIKit.UITouch, with event: UIKit.UIEvent?) -> Swift.Bool
-  @objc override dynamic open func continueTracking(_ touch: UIKit.UITouch, with event: UIKit.UIEvent?) -> Swift.Bool
-  @objc override dynamic open func endTracking(_ touch: UIKit.UITouch?, with event: UIKit.UIEvent?)
-  @objc override dynamic open func cancelTracking(with event: UIKit.UIEvent?)
-  @objc override dynamic open var intrinsicContentSize: CoreGraphics.CGSize {
-    @objc get
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func beginTracking(_ touch: UIKit.UITouch, with event: UIKit.UIEvent?) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func continueTracking(_ touch: UIKit.UITouch, with event: UIKit.UIEvent?) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func endTracking(_ touch: UIKit.UITouch?, with event: UIKit.UIEvent?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func cancelTracking(with event: UIKit.UIEvent?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var intrinsicContentSize: CoreGraphics.CGSize {
+    @_Concurrency.MainActor(unsafe) @objc get
   }
-  open func animationDidSet()
-  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) open func animationDidSet()
   @objc deinit
 }
 public struct BarcodeData : Swift.Equatable {
@@ -677,9 +670,9 @@ public struct BarcodeData : Swift.Equatable {
   public var formattedDob: SocureSdk.FormattedDate
   public static func == (a: SocureSdk.BarcodeData, b: SocureSdk.BarcodeData) -> Swift.Bool
 }
-extension PopTip {
-  public func performEntranceAnimation(completion: @escaping () -> Swift.Void)
-  public func performExitAnimation(completion: @escaping () -> Swift.Void)
+extension SocureSdk.PopTip {
+  @_Concurrency.MainActor(unsafe) public func performEntranceAnimation(completion: @escaping () -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) public func performExitAnimation(completion: @escaping () -> Swift.Void)
 }
 public struct RegexOptions : Swift.OptionSet {
   public let rawValue: Swift.UInt
@@ -696,17 +689,17 @@ public struct RegexOptions : Swift.OptionSet {
   public typealias Element = SocureSdk.RegexOptions
   public typealias RawValue = Swift.UInt
 }
-extension NSRegularExpression.Options : Swift.Hashable {
+extension Foundation.NSRegularExpression.Options : Swift.Hashable {
   public var hashValue: Swift.Int {
     get
   }
 }
-extension RegexOptions : Swift.Hashable {
+extension SocureSdk.RegexOptions : Swift.Hashable {
   public var hashValue: Swift.Int {
     get
   }
 }
-extension LayoutConstraint {
+extension SocureSdk.LayoutConstraint {
   @objc override dynamic public var description: Swift.String {
     @objc get
   }
@@ -714,10 +707,10 @@ extension LayoutConstraint {
 @available(iOS 9.0, macOS 10.11, *)
 public struct ConstraintLayoutGuideDSL : SocureSdk.ConstraintAttributesDSL {
   @discardableResult
-  public func prepareConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void) -> [SocureSdk.Constraint]
-  public func makeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
-  public func remakeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
-  public func updateConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func prepareConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void) -> [SocureSdk.Constraint]
+  public func makeConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func remakeConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func updateConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void)
   public func removeConstraints()
   public var target: Swift.AnyObject? {
     get
@@ -789,10 +782,6 @@ public enum DocumentTypes : Swift.Int {
   public func manualCapture()
   public class func requestCameraPermissions(requestStatus: @escaping (Swift.Bool) -> Swift.Void)
   @objc override dynamic public init()
-}
-extension DocumentScanner {
-}
-extension DocumentScanner {
 }
 final public class PointValueProvider : SocureSdk.AnyValueProvider {
   public typealias PointValueBlock = (CoreGraphics.CGFloat) -> CoreGraphics.CGPoint
@@ -871,11 +860,11 @@ public enum Gender : Swift.String {
     get
   }
 }
-extension CGImage {
+extension CoreGraphics.CGImage {
   public func pixelBuffer(width: Swift.Int, height: Swift.Int, orientation: ImageIO.CGImagePropertyOrientation) -> CoreVideo.CVPixelBuffer?
   public func pixelBufferGray(width: Swift.Int, height: Swift.Int, orientation: ImageIO.CGImagePropertyOrientation) -> CoreVideo.CVPixelBuffer?
 }
-extension CGImage {
+extension CoreGraphics.CGImage {
   public static func create(pixelBuffer: CoreVideo.CVPixelBuffer) -> CoreGraphics.CGImage?
   public static func create(pixelBuffer: CoreVideo.CVPixelBuffer, context: CoreImage.CIContext) -> CoreGraphics.CGImage?
 }
@@ -916,10 +905,10 @@ public struct ConstraintLayoutSupportDSL : SocureSdk.ConstraintDSL {
 }
 public struct ConstraintViewDSL : SocureSdk.ConstraintAttributesDSL {
   @discardableResult
-  public func prepareConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void) -> [SocureSdk.Constraint]
-  public func makeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
-  public func remakeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
-  public func updateConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func prepareConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void) -> [SocureSdk.Constraint]
+  public func makeConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func remakeConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void)
+  public func updateConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void)
   public func removeConstraints()
   public var contentHuggingHorizontalPriority: Swift.Float {
     get
@@ -950,32 +939,32 @@ public class FilepathImageProvider : SocureSdk.AnimationImageProvider {
 public protocol ConstraintPriorityTarget {
   var constraintPriorityTargetValue: Swift.Float { get }
 }
-extension Int : SocureSdk.ConstraintPriorityTarget {
+extension Swift.Int : SocureSdk.ConstraintPriorityTarget {
   public var constraintPriorityTargetValue: Swift.Float {
     get
   }
 }
-extension UInt : SocureSdk.ConstraintPriorityTarget {
+extension Swift.UInt : SocureSdk.ConstraintPriorityTarget {
   public var constraintPriorityTargetValue: Swift.Float {
     get
   }
 }
-extension Float : SocureSdk.ConstraintPriorityTarget {
+extension Swift.Float : SocureSdk.ConstraintPriorityTarget {
   public var constraintPriorityTargetValue: Swift.Float {
     get
   }
 }
-extension Double : SocureSdk.ConstraintPriorityTarget {
+extension Swift.Double : SocureSdk.ConstraintPriorityTarget {
   public var constraintPriorityTargetValue: Swift.Float {
     get
   }
 }
-extension CGFloat : SocureSdk.ConstraintPriorityTarget {
+extension CoreGraphics.CGFloat : SocureSdk.ConstraintPriorityTarget {
   public var constraintPriorityTargetValue: Swift.Float {
     get
   }
 }
-extension UILayoutPriority : SocureSdk.ConstraintPriorityTarget {
+extension UIKit.UILayoutPriority : SocureSdk.ConstraintPriorityTarget {
   public var constraintPriorityTargetValue: Swift.Float {
     get
   }
@@ -991,25 +980,25 @@ public enum TutorialState {
     get
   }
 }
-extension UIColor {
+extension UIKit.UIColor {
   public var lottieColorValue: SocureSdk.Color {
     get
   }
 }
 public protocol ConstraintOffsetTarget : SocureSdk.ConstraintConstantTarget {
 }
-extension Int : SocureSdk.ConstraintOffsetTarget {
+extension Swift.Int : SocureSdk.ConstraintOffsetTarget {
 }
-extension UInt : SocureSdk.ConstraintOffsetTarget {
+extension Swift.UInt : SocureSdk.ConstraintOffsetTarget {
 }
-extension Float : SocureSdk.ConstraintOffsetTarget {
+extension Swift.Float : SocureSdk.ConstraintOffsetTarget {
 }
-extension Double : SocureSdk.ConstraintOffsetTarget {
+extension Swift.Double : SocureSdk.ConstraintOffsetTarget {
 }
-extension CGFloat : SocureSdk.ConstraintOffsetTarget {
+extension CoreGraphics.CGFloat : SocureSdk.ConstraintOffsetTarget {
 }
-extension UIDevice {
-  public var modelName: Swift.String {
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public var modelName: Swift.String {
     get
   }
 }
@@ -1043,11 +1032,9 @@ public protocol ImageCallback : AnyObject {
 }
 public protocol BarcodeCallback : AnyObject {
   func handleBarcodeData(barcodeData: SocureSdk.BarcodeData?)
-  func onError(errorType: SocureSdk.SocureSDKErrorType, errorMessage: Swift.String)
 }
 public protocol MRZCallback : AnyObject {
   func handleMRZData(mrzData: SocureSdk.MrzData?)
-  func onError(errorType: SocureSdk.SocureSDKErrorType, errorMessage: Swift.String)
 }
 public protocol OCRCallback : AnyObject {
   func handleOCRData(ocrData: [Swift.AnyHashable : Any]?)
@@ -1092,10 +1079,8 @@ public enum SocureSDKErrorType {
   case InternetConnection
   case DocumentScanError
   case DocumentScanFailedError
-  case DocumentScanCancel
   case SelfieScanError
   case SelfieScanFailedError
-  case SelfieScanCancel
   case DocumentUploadError
   case Error
   public static func == (a: SocureSdk.SocureSDKErrorType, b: SocureSdk.SocureSDKErrorType) -> Swift.Bool
@@ -1104,15 +1089,15 @@ public enum SocureSDKErrorType {
     get
   }
 }
-extension Vector1D : Swift.Codable {
+extension SocureSdk.Vector1D : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-extension Vector3D : Swift.Codable {
+extension SocureSdk.Vector3D : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-extension Vector3D {
+extension SocureSdk.Vector3D {
   public var pointValue: CoreGraphics.CGPoint {
     get
   }
@@ -1200,10 +1185,6 @@ public protocol AnimationCacheProvider {
   @objc override dynamic public init()
   @objc deinit
 }
-extension SelfieScanner {
-}
-extension SelfieScanner {
-}
 public struct AnimationKeypath {
   public init(keypath: Swift.String)
   public init(keys: [Swift.String])
@@ -1235,9 +1216,9 @@ public struct IsoCountryInfo {
   @objc deinit
 }
 public typealias ConstraintInsets = UIKit.UIEdgeInsets
-extension UISegmentedControl {
-  public func addUnderlineForSelectedSegment(underlineColor: UIKit.UIColor, normalColor: UIKit.UIColor = .white, selectedFont: UIKit.UIFont, regularFont: UIKit.UIFont)
-  public func changeUnderlinePosition()
+extension UIKit.UISegmentedControl {
+  @_Concurrency.MainActor(unsafe) public func addUnderlineForSelectedSegment(underlineColor: UIKit.UIColor, normalColor: UIKit.UIColor = .white, selectedFont: UIKit.UIFont, regularFont: UIKit.UIFont)
+  @_Concurrency.MainActor(unsafe) public func changeUnderlinePosition()
 }
 public protocol AnimationFontProvider {
   func fontFor(family: Swift.String, size: CoreGraphics.CGFloat) -> CoreText.CTFont?
@@ -1248,134 +1229,134 @@ final public class DefaultFontProvider : SocureSdk.AnimationFontProvider {
   @objc deinit
 }
 public typealias LottieCompletionBlock = (Swift.Bool) -> Swift.Void
-extension UIView {
+extension UIKit.UIView {
   @available(*, deprecated, renamed: "snp.left")
-  public var snp_left: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_left: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.top")
-  public var snp_top: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_top: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.right")
-  public var snp_right: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_right: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.bottom")
-  public var snp_bottom: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_bottom: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.leading")
-  public var snp_leading: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_leading: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.trailing")
-  public var snp_trailing: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_trailing: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.width")
-  public var snp_width: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_width: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.height")
-  public var snp_height: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_height: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.centerX")
-  public var snp_centerX: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_centerX: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.centerY")
-  public var snp_centerY: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_centerY: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.baseline")
-  public var snp_baseline: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_baseline: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, macOS 10.11, *)
   @available(*, deprecated, renamed: "snp.lastBaseline")
-  public var snp_lastBaseline: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_lastBaseline: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, macOS 10.11, *)
   @available(iOS, deprecated, renamed: "snp.firstBaseline")
-  public var snp_firstBaseline: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_firstBaseline: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.leftMargin")
-  public var snp_leftMargin: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_leftMargin: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.topMargin")
-  public var snp_topMargin: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_topMargin: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.rightMargin")
-  public var snp_rightMargin: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_rightMargin: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.bottomMargin")
-  public var snp_bottomMargin: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_bottomMargin: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.leadingMargin")
-  public var snp_leadingMargin: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_leadingMargin: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.trailingMargin")
-  public var snp_trailingMargin: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_trailingMargin: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.centerXWithinMargins")
-  public var snp_centerXWithinMargins: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_centerXWithinMargins: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.centerYWithinMargins")
-  public var snp_centerYWithinMargins: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_centerYWithinMargins: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.edges")
-  public var snp_edges: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_edges: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.size")
-  public var snp_size: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_size: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.center")
-  public var snp_center: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_center: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.margins")
-  public var snp_margins: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_margins: SocureSdk.ConstraintItem {
     get
   }
   @available(iOS 8.0, *)
   @available(iOS, deprecated, renamed: "snp.centerWithinMargins")
-  public var snp_centerWithinMargins: SocureSdk.ConstraintItem {
+  @_Concurrency.MainActor(unsafe) public var snp_centerWithinMargins: SocureSdk.ConstraintItem {
     get
   }
   @available(*, deprecated, renamed: "snp.prepareConstraints(_:)")
-  public func snp_prepareConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void) -> [SocureSdk.Constraint]
+  @_Concurrency.MainActor(unsafe) public func snp_prepareConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void) -> [SocureSdk.Constraint]
   @available(*, deprecated, renamed: "snp.makeConstraints(_:)")
-  public func snp_makeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) public func snp_makeConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void)
   @available(*, deprecated, renamed: "snp.remakeConstraints(_:)")
-  public func snp_remakeConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) public func snp_remakeConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void)
   @available(*, deprecated, renamed: "snp.updateConstraints(_:)")
-  public func snp_updateConstraints(_ closure: (SocureSdk.ConstraintMaker) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) public func snp_updateConstraints(_ closure: (_ make: SocureSdk.ConstraintMaker) -> Swift.Void)
   @available(*, deprecated, renamed: "snp.removeConstraints()")
-  public func snp_removeConstraints()
-  public var snp: SocureSdk.ConstraintViewDSL {
+  @_Concurrency.MainActor(unsafe) public func snp_removeConstraints()
+  @_Concurrency.MainActor(unsafe) public var snp: SocureSdk.ConstraintViewDSL {
     get
   }
 }
@@ -1399,15 +1380,15 @@ final public class Animation : Swift.Codable {
   @objc deinit
   final public func encode(to encoder: Swift.Encoder) throws
 }
-@objc @_inheritsConvenienceInitializers open class LottieView : UIKit.UIView {
-  @objc override dynamic open func didMoveToWindow()
-  @objc override dynamic open var contentMode: UIKit.UIView.ContentMode {
-    @objc get
-    @objc set
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class LottieView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func didMoveToWindow()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var contentMode: UIKit.UIView.ContentMode {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @_Concurrency.MainActor(unsafe) @objc set
   }
-  @objc override dynamic open func layoutSubviews()
-  @objc override dynamic public init(frame: CoreGraphics.CGRect)
-  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
 @_hasMissingDesignatedInitializers public class Reachability {
@@ -1453,13 +1434,13 @@ final public class Animation : Swift.Codable {
   final public func updatePriorityLow()
   @objc deinit
 }
-extension PopTip {
-  public class func pathWith(rect: CoreGraphics.CGRect, frame: CoreGraphics.CGRect, direction: SocureSdk.PopTipDirection, arrowSize: CoreGraphics.CGSize, arrowPosition: CoreGraphics.CGPoint, arrowRadius: CoreGraphics.CGFloat, borderWidth: CoreGraphics.CGFloat = 0, radius: CoreGraphics.CGFloat = 0) -> UIKit.UIBezierPath
+extension SocureSdk.PopTip {
+  @_Concurrency.MainActor(unsafe) public class func pathWith(rect: CoreGraphics.CGRect, frame: CoreGraphics.CGRect, direction: SocureSdk.PopTipDirection, arrowSize: CoreGraphics.CGSize, arrowPosition: CoreGraphics.CGPoint, arrowRadius: CoreGraphics.CGFloat, borderWidth: CoreGraphics.CGFloat = 0, radius: CoreGraphics.CGFloat = 0) -> UIKit.UIBezierPath
 }
-extension AnimationView {
-  convenience public init(name: Swift.String, bundle: Foundation.Bundle = Bundle.main, imageProvider: SocureSdk.AnimationImageProvider? = nil, animationCache: SocureSdk.AnimationCacheProvider? = LRUAnimationCache.sharedCache)
-  convenience public init(filePath: Swift.String, imageProvider: SocureSdk.AnimationImageProvider? = nil, animationCache: SocureSdk.AnimationCacheProvider? = LRUAnimationCache.sharedCache)
-  convenience public init(url: Foundation.URL, imageProvider: SocureSdk.AnimationImageProvider? = nil, closure: @escaping SocureSdk.AnimationView.DownloadClosure, animationCache: SocureSdk.AnimationCacheProvider? = LRUAnimationCache.sharedCache)
+extension SocureSdk.AnimationView {
+  @_Concurrency.MainActor(unsafe) convenience public init(name: Swift.String, bundle: Foundation.Bundle = Bundle.main, imageProvider: SocureSdk.AnimationImageProvider? = nil, animationCache: SocureSdk.AnimationCacheProvider? = LRUAnimationCache.sharedCache)
+  @_Concurrency.MainActor(unsafe) convenience public init(filePath: Swift.String, imageProvider: SocureSdk.AnimationImageProvider? = nil, animationCache: SocureSdk.AnimationCacheProvider? = LRUAnimationCache.sharedCache)
+  @_Concurrency.MainActor(unsafe) convenience public init(url: Foundation.URL, imageProvider: SocureSdk.AnimationImageProvider? = nil, closure: @escaping SocureSdk.AnimationView.DownloadClosure, animationCache: SocureSdk.AnimationCacheProvider? = LRUAnimationCache.sharedCache)
   public typealias DownloadClosure = (Swift.Error?) -> Swift.Void
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class ConstraintMakerEditable : SocureSdk.ConstraintMakerPriortizable {
@@ -1535,101 +1516,101 @@ public enum PopTipActionAnimation {
   case pulse(CoreGraphics.CGFloat?)
   case none
 }
-@objc @_inheritsConvenienceInitializers open class PopTip : UIKit.UIView {
-  open var text: Swift.String? {
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PopTip : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) open var text: Swift.String? {
     get
     set
   }
-  open var font: UIKit.UIFont
-  @objc dynamic open var textColor: UIKit.UIColor
-  @objc dynamic open var textAlignment: UIKit.NSTextAlignment
-  @objc dynamic open var bubbleColor: UIKit.UIColor
-  @objc dynamic open var borderColor: UIKit.UIColor
-  @objc dynamic open var borderWidth: CoreGraphics.CGFloat
-  @objc dynamic open var cornerRadius: CoreGraphics.CGFloat
-  @objc dynamic open var isRounded: Swift.Bool
-  @objc dynamic open var shadowColor: UIKit.UIColor
-  @objc dynamic open var shadowOffset: CoreGraphics.CGSize
-  @objc dynamic open var shadowRadius: Swift.Float
-  @objc dynamic open var shadowOpacity: Swift.Float
-  @objc dynamic open var offset: CoreGraphics.CGFloat
-  @objc dynamic open var padding: CoreGraphics.CGFloat
-  @objc dynamic open var edgeInsets: UIKit.UIEdgeInsets
-  @objc dynamic open var arrowSize: CoreGraphics.CGSize
-  @objc dynamic open var arrowRadius: CoreGraphics.CGFloat
-  @objc dynamic open var animationIn: Swift.Double
-  @objc dynamic open var animationOut: Swift.Double
-  @objc dynamic open var delayIn: Swift.Double
-  @objc dynamic open var delayOut: Swift.Double
-  open var entranceAnimation: SocureSdk.PopTipEntranceAnimation
-  open var exitAnimation: SocureSdk.PopTipExitAnimation
-  open var actionAnimation: SocureSdk.PopTipActionAnimation
-  @objc dynamic open var actionAnimationIn: Swift.Double
-  @objc dynamic open var actionAnimationOut: Swift.Double
-  @objc dynamic open var actionDelayIn: Swift.Double
-  @objc dynamic open var actionDelayOut: Swift.Double
-  @objc dynamic open var edgeMargin: CoreGraphics.CGFloat
-  @objc dynamic open var bubbleOffset: CoreGraphics.CGFloat
-  @objc dynamic open var arrowOffset: CoreGraphics.CGFloat
-  @objc dynamic open var maskColor: UIKit.UIColor
-  @objc dynamic open var shouldShowMask: Swift.Bool
-  @objc dynamic open var constrainInContainerView: Swift.Bool
-  open var from: CoreGraphics.CGRect {
+  @_Concurrency.MainActor(unsafe) open var font: UIKit.UIFont
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var textColor: UIKit.UIColor
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var textAlignment: UIKit.NSTextAlignment
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var bubbleColor: UIKit.UIColor
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var borderColor: UIKit.UIColor
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var borderWidth: CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var cornerRadius: CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var isRounded: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var shadowColor: UIKit.UIColor
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var shadowOffset: CoreGraphics.CGSize
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var shadowRadius: Swift.Float
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var shadowOpacity: Swift.Float
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var offset: CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var padding: CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var edgeInsets: UIKit.UIEdgeInsets
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var arrowSize: CoreGraphics.CGSize
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var arrowRadius: CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var animationIn: Swift.Double
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var animationOut: Swift.Double
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var delayIn: Swift.Double
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var delayOut: Swift.Double
+  @_Concurrency.MainActor(unsafe) open var entranceAnimation: SocureSdk.PopTipEntranceAnimation
+  @_Concurrency.MainActor(unsafe) open var exitAnimation: SocureSdk.PopTipExitAnimation
+  @_Concurrency.MainActor(unsafe) open var actionAnimation: SocureSdk.PopTipActionAnimation
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var actionAnimationIn: Swift.Double
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var actionAnimationOut: Swift.Double
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var actionDelayIn: Swift.Double
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var actionDelayOut: Swift.Double
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var edgeMargin: CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var bubbleOffset: CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var arrowOffset: CoreGraphics.CGFloat
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var maskColor: UIKit.UIColor
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var shouldShowMask: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var constrainInContainerView: Swift.Bool
+  @_Concurrency.MainActor(unsafe) open var from: CoreGraphics.CGRect {
     get
     set
   }
-  open var isVisible: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) open var isVisible: Swift.Bool {
     get
   }
-  @objc dynamic open var shouldDismissOnTap: Swift.Bool
-  @objc dynamic open var shouldDismissOnTapOutside: Swift.Bool
-  @objc dynamic open var shouldConsiderOriginatingFrameAsPopTip: Swift.Bool
-  @objc dynamic open var shouldDismissOnSwipeOutside: Swift.Bool
-  @objc dynamic open var startActionAnimationOnShow: Swift.Bool
-  open var swipeRemoveGestureDirection: UIKit.UISwipeGestureRecognizer.Direction {
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var shouldDismissOnTap: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var shouldDismissOnTapOutside: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var shouldConsiderOriginatingFrameAsPopTip: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var shouldDismissOnSwipeOutside: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) dynamic open var startActionAnimationOnShow: Swift.Bool
+  @_Concurrency.MainActor(unsafe) open var swipeRemoveGestureDirection: UIKit.UISwipeGestureRecognizer.Direction {
     get
     set
   }
-  open var tapHandler: ((SocureSdk.PopTip) -> Swift.Void)?
-  open var tapOutsideHandler: ((SocureSdk.PopTip) -> Swift.Void)?
-  open var swipeOutsideHandler: ((SocureSdk.PopTip) -> Swift.Void)?
-  open var appearHandler: ((SocureSdk.PopTip) -> Swift.Void)?
-  open var dismissHandler: ((SocureSdk.PopTip) -> Swift.Void)?
-  open var entranceAnimationHandler: ((@escaping () -> Swift.Void) -> Swift.Void)?
-  open var exitAnimationHandler: ((@escaping () -> Swift.Void) -> Swift.Void)?
-  open var arrowPosition: CoreGraphics.CGPoint {
+  @_Concurrency.MainActor(unsafe) open var tapHandler: ((SocureSdk.PopTip) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) open var tapOutsideHandler: ((SocureSdk.PopTip) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) open var swipeOutsideHandler: ((SocureSdk.PopTip) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) open var appearHandler: ((SocureSdk.PopTip) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) open var dismissHandler: ((SocureSdk.PopTip) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) open var entranceAnimationHandler: ((@escaping () -> Swift.Void) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) open var exitAnimationHandler: ((@escaping () -> Swift.Void) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) open var arrowPosition: CoreGraphics.CGPoint {
     get
   }
-  weak open var containerView: UIKit.UIView? {
+  @_Concurrency.MainActor(unsafe) weak open var containerView: UIKit.UIView? {
     get
   }
-  open var direction: SocureSdk.PopTipDirection {
+  @_Concurrency.MainActor(unsafe) open var direction: SocureSdk.PopTipDirection {
     get
   }
-  open var isAnimating: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) open var isAnimating: Swift.Bool {
     get
   }
-  open var backgroundMask: UIKit.UIView? {
+  @_Concurrency.MainActor(unsafe) open var backgroundMask: UIKit.UIView? {
     get
   }
-  open var tapGestureRecognizer: UIKit.UITapGestureRecognizer? {
+  @_Concurrency.MainActor(unsafe) open var tapGestureRecognizer: UIKit.UITapGestureRecognizer? {
     get
   }
-  @objc override dynamic open func draw(_ rect: CoreGraphics.CGRect)
-  open func show(text: Swift.String, direction: SocureSdk.PopTipDirection, maxWidth: CoreGraphics.CGFloat, in view: UIKit.UIView, from frame: CoreGraphics.CGRect, duration: Foundation.TimeInterval? = nil)
-  open func show(attributedText: Foundation.NSAttributedString, direction: SocureSdk.PopTipDirection, maxWidth: CoreGraphics.CGFloat, in view: UIKit.UIView, from frame: CoreGraphics.CGRect, duration: Foundation.TimeInterval? = nil)
-  open func show(customView: UIKit.UIView, direction: SocureSdk.PopTipDirection, in view: UIKit.UIView, from frame: CoreGraphics.CGRect, duration: Foundation.TimeInterval? = nil)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func draw(_ rect: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) open func show(text: Swift.String, direction: SocureSdk.PopTipDirection, maxWidth: CoreGraphics.CGFloat, in view: UIKit.UIView, from frame: CoreGraphics.CGRect, duration: Foundation.TimeInterval? = nil)
+  @_Concurrency.MainActor(unsafe) open func show(attributedText: Foundation.NSAttributedString, direction: SocureSdk.PopTipDirection, maxWidth: CoreGraphics.CGFloat, in view: UIKit.UIView, from frame: CoreGraphics.CGRect, duration: Foundation.TimeInterval? = nil)
+  @_Concurrency.MainActor(unsafe) open func show(customView: UIKit.UIView, direction: SocureSdk.PopTipDirection, in view: UIKit.UIView, from frame: CoreGraphics.CGRect, duration: Foundation.TimeInterval? = nil)
   @available(iOS 13.0, *)
-  open func show<V>(rootView: V, direction: SocureSdk.PopTipDirection, in view: UIKit.UIView, from frame: CoreGraphics.CGRect, parent: UIKit.UIViewController, duration: Foundation.TimeInterval? = nil) where V : SwiftUI.View
-  open func update(text: Swift.String)
-  open func update(attributedText: Foundation.NSAttributedString)
-  open func update(customView: UIKit.UIView)
-  @objc open func hide(forced: Swift.Bool = false)
-  open func startActionAnimation()
-  open func stopActionAnimation(_ completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) open func show<V>(rootView: V, direction: SocureSdk.PopTipDirection, in view: UIKit.UIView, from frame: CoreGraphics.CGRect, parent: UIKit.UIViewController, duration: Foundation.TimeInterval? = nil) where V : SwiftUI.View
+  @_Concurrency.MainActor(unsafe) open func update(text: Swift.String)
+  @_Concurrency.MainActor(unsafe) open func update(attributedText: Foundation.NSAttributedString)
+  @_Concurrency.MainActor(unsafe) open func update(customView: UIKit.UIView)
+  @objc @_Concurrency.MainActor(unsafe) open func hide(forced: Swift.Bool = false)
+  @_Concurrency.MainActor(unsafe) open func startActionAnimation()
+  @_Concurrency.MainActor(unsafe) open func stopActionAnimation(_ completion: (() -> Swift.Void)? = nil)
   @objc deinit
-  @objc override dynamic public init(frame: CoreGraphics.CGRect)
-  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
 }
 @objc @_inheritsConvenienceInitializers public class SelfieScanResult : ObjectiveC.NSObject {
   public var imageData: Foundation.Data?
@@ -1640,34 +1621,34 @@ public enum PopTipActionAnimation {
 public typealias ConstraintView = UIKit.UIView
 @available(iOS 8.0, *)
 public typealias ConstraintLayoutSupport = UIKit.UILayoutSupport
-extension Color : Swift.Codable {
+extension SocureSdk.Color : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
 public protocol ConstraintMultiplierTarget {
   var constraintMultiplierTargetValue: CoreGraphics.CGFloat { get }
 }
-extension Int : SocureSdk.ConstraintMultiplierTarget {
+extension Swift.Int : SocureSdk.ConstraintMultiplierTarget {
   public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
     get
   }
 }
-extension UInt : SocureSdk.ConstraintMultiplierTarget {
+extension Swift.UInt : SocureSdk.ConstraintMultiplierTarget {
   public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
     get
   }
 }
-extension Float : SocureSdk.ConstraintMultiplierTarget {
+extension Swift.Float : SocureSdk.ConstraintMultiplierTarget {
   public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
     get
   }
 }
-extension Double : SocureSdk.ConstraintMultiplierTarget {
+extension Swift.Double : SocureSdk.ConstraintMultiplierTarget {
   public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
     get
   }
 }
-extension CGFloat : SocureSdk.ConstraintMultiplierTarget {
+extension CoreGraphics.CGFloat : SocureSdk.ConstraintMultiplierTarget {
   public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
     get
   }
@@ -1753,31 +1734,23 @@ public enum FieldKey : Swift.String, Swift.Equatable {
     get
   }
 }
-@objc @_hasMissingDesignatedInitializers public class DocumentScannerViewController : UIKit.UINavigationController {
-  weak public var imageCallbackDelegate: SocureSdk.ImageCallback?
-  weak public var barcodeCallbackDelegate: SocureSdk.BarcodeCallback?
-  weak public var mrzCallBackDelegate: SocureSdk.MRZCallback?
-  weak public var ocrCallBackDelegate: SocureSdk.OCRCallback?
-  public var scanMode: SocureSdk.DocumentTypes! {
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class DocumentScannerViewController : UIKit.UINavigationController {
+  @_Concurrency.MainActor(unsafe) weak public var imageCallbackDelegate: SocureSdk.ImageCallback?
+  @_Concurrency.MainActor(unsafe) weak public var barcodeCallbackDelegate: SocureSdk.BarcodeCallback?
+  @_Concurrency.MainActor(unsafe) weak public var mrzCallBackDelegate: SocureSdk.MRZCallback?
+  @_Concurrency.MainActor(unsafe) weak public var ocrCallBackDelegate: SocureSdk.OCRCallback?
+  @_Concurrency.MainActor(unsafe) public var scanMode: SocureSdk.DocumentTypes! {
     get
     set
   }
-  public var pauseScanning: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) public var pauseScanning: Swift.Bool {
     get
     set
   }
-  public init(ImageCallback: SocureSdk.ImageCallback, BarcodeCallback: SocureSdk.BarcodeCallback? = nil, MRZCallback: SocureSdk.MRZCallback? = nil, mode: SocureSdk.DocumentTypes = .LicenseFront, scanOnlyOneType: Swift.Bool = false)
+  @_Concurrency.MainActor(unsafe) public init(ImageCallback: SocureSdk.ImageCallback, BarcodeCallback: SocureSdk.BarcodeCallback? = nil, MRZCallback: SocureSdk.MRZCallback? = nil, mode: SocureSdk.DocumentTypes = .LicenseFront, scanOnlyOneType: Swift.Bool = false)
   @objc deinit
-  public func manualCapture()
-  public class func requestCameraPermissions(requestStatus: @escaping (Swift.Bool) -> Swift.Void)
-  @available(iOS 5.0, *)
-  @objc override dynamic public init(navigationBarClass: Swift.AnyClass?, toolbarClass: Swift.AnyClass?)
-  @objc override dynamic public init(rootViewController: UIKit.UIViewController)
-  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
-}
-extension DocumentScannerViewController {
-}
-extension DocumentScannerViewController {
+  @_Concurrency.MainActor(unsafe) public func manualCapture()
+  @_Concurrency.MainActor(unsafe) public class func requestCameraPermissions(requestStatus: @escaping (Swift.Bool) -> Swift.Void)
 }
 final public class FloatValueProvider : SocureSdk.AnyValueProvider {
   public typealias CGFloatValueBlock = (CoreGraphics.CGFloat) -> CoreGraphics.CGFloat
@@ -1850,7 +1823,7 @@ public struct AAMVADriversLicense : Swift.Equatable {
   public init()
   public static func == (a: SocureSdk.AAMVADriversLicense, b: SocureSdk.AAMVADriversLicense) -> Swift.Bool
 }
-extension AAMVADriversLicense {
+extension SocureSdk.AAMVADriversLicense {
   public var isExpired: Swift.Bool {
     get
   }
@@ -1913,7 +1886,6 @@ public class LRUAnimationCache : SocureSdk.AnimationCacheProvider {
   @objc public init(keypath: Swift.String)
   @objc public init(keys: [Swift.String])
   final public let animationKeypath: SocureSdk.AnimationKeypath
-  @objc override dynamic public init()
   @objc deinit
 }
 public enum Truncation : Swift.String {
@@ -1937,50 +1909,50 @@ public struct StringKeys {
 }
 public struct SocureSdkErrors {
 }
-extension CALayer {
+extension QuartzCore.CALayer {
   public func logLayerTree(withIndent: Swift.Int = 0)
 }
 @available(iOS 9.0, macOS 10.11, *)
-extension UILayoutGuide {
-  public var snp: SocureSdk.ConstraintLayoutGuideDSL {
+extension UIKit.UILayoutGuide {
+  @_Concurrency.MainActor(unsafe) public var snp: SocureSdk.ConstraintLayoutGuideDSL {
     get
   }
 }
-extension UIImage {
+extension UIKit.UIImage {
   public func pixelBuffer(width: Swift.Int, height: Swift.Int) -> CoreVideo.CVPixelBuffer?
   public func pixelBufferGray(width: Swift.Int, height: Swift.Int) -> CoreVideo.CVPixelBuffer?
 }
-extension UIImage {
+extension UIKit.UIImage {
   convenience public init?(pixelBuffer: CoreVideo.CVPixelBuffer)
   convenience public init?(pixelBuffer: CoreVideo.CVPixelBuffer, context: CoreImage.CIContext)
 }
 public protocol ConstraintRelatableTarget {
 }
-extension Int : SocureSdk.ConstraintRelatableTarget {
+extension Swift.Int : SocureSdk.ConstraintRelatableTarget {
 }
-extension UInt : SocureSdk.ConstraintRelatableTarget {
+extension Swift.UInt : SocureSdk.ConstraintRelatableTarget {
 }
-extension Float : SocureSdk.ConstraintRelatableTarget {
+extension Swift.Float : SocureSdk.ConstraintRelatableTarget {
 }
-extension Double : SocureSdk.ConstraintRelatableTarget {
+extension Swift.Double : SocureSdk.ConstraintRelatableTarget {
 }
-extension CGFloat : SocureSdk.ConstraintRelatableTarget {
+extension CoreGraphics.CGFloat : SocureSdk.ConstraintRelatableTarget {
 }
-extension CGSize : SocureSdk.ConstraintRelatableTarget {
+extension CoreGraphics.CGSize : SocureSdk.ConstraintRelatableTarget {
 }
-extension CGPoint : SocureSdk.ConstraintRelatableTarget {
+extension CoreGraphics.CGPoint : SocureSdk.ConstraintRelatableTarget {
 }
-extension UIEdgeInsets : SocureSdk.ConstraintRelatableTarget {
+extension UIKit.UIEdgeInsets : SocureSdk.ConstraintRelatableTarget {
 }
 @available(iOS 11.0, tvOS 11.0, *)
-extension NSDirectionalEdgeInsets : SocureSdk.ConstraintRelatableTarget {
+extension UIKit.NSDirectionalEdgeInsets : SocureSdk.ConstraintRelatableTarget {
 }
-extension ConstraintItem : SocureSdk.ConstraintRelatableTarget {
+extension SocureSdk.ConstraintItem : SocureSdk.ConstraintRelatableTarget {
 }
-extension UIView : SocureSdk.ConstraintRelatableTarget {
+extension UIKit.UIView : SocureSdk.ConstraintRelatableTarget {
 }
 @available(iOS 9.0, macOS 10.11, *)
-extension UILayoutGuide : SocureSdk.ConstraintRelatableTarget {
+extension UIKit.UILayoutGuide : SocureSdk.ConstraintRelatableTarget {
 }
 public enum LayerType : Swift.Int, Swift.Codable {
   case precomp
@@ -2143,38 +2115,38 @@ public enum BlendMode : Swift.Int, Swift.Codable {
   @objc deinit
 }
 @available(iOS 8.0, *)
-extension UILayoutSupport {
-  public var snp: SocureSdk.ConstraintLayoutSupportDSL {
+extension UIKit.UILayoutSupport {
+  @_Concurrency.MainActor(unsafe) public var snp: SocureSdk.ConstraintLayoutSupportDSL {
     get
   }
 }
 public func loggingPrint<T>(_ object: @autoclosure () -> T)
 public protocol ConstraintInsetTarget : SocureSdk.ConstraintConstantTarget {
 }
-extension Int : SocureSdk.ConstraintInsetTarget {
+extension Swift.Int : SocureSdk.ConstraintInsetTarget {
 }
-extension UInt : SocureSdk.ConstraintInsetTarget {
+extension Swift.UInt : SocureSdk.ConstraintInsetTarget {
 }
-extension Float : SocureSdk.ConstraintInsetTarget {
+extension Swift.Float : SocureSdk.ConstraintInsetTarget {
 }
-extension Double : SocureSdk.ConstraintInsetTarget {
+extension Swift.Double : SocureSdk.ConstraintInsetTarget {
 }
-extension CGFloat : SocureSdk.ConstraintInsetTarget {
+extension CoreGraphics.CGFloat : SocureSdk.ConstraintInsetTarget {
 }
-extension UIEdgeInsets : SocureSdk.ConstraintInsetTarget {
+extension UIKit.UIEdgeInsets : SocureSdk.ConstraintInsetTarget {
 }
 public protocol ConstraintDSL {
   var target: Swift.AnyObject? { get }
   func setLabel(_ value: Swift.String?)
   func label() -> Swift.String?
 }
-extension ConstraintDSL {
+extension SocureSdk.ConstraintDSL {
   public func setLabel(_ value: Swift.String?)
   public func label() -> Swift.String?
 }
 public protocol ConstraintBasicAttributesDSL : SocureSdk.ConstraintDSL {
 }
-extension ConstraintBasicAttributesDSL {
+extension SocureSdk.ConstraintBasicAttributesDSL {
   public var left: SocureSdk.ConstraintItem {
     get
   }
@@ -2232,7 +2204,7 @@ extension ConstraintBasicAttributesDSL {
 }
 public protocol ConstraintAttributesDSL : SocureSdk.ConstraintBasicAttributesDSL {
 }
-extension ConstraintAttributesDSL {
+extension SocureSdk.ConstraintAttributesDSL {
   @available(*, deprecated, renamed: "lastBaseline")
   public var baseline: SocureSdk.ConstraintItem {
     get

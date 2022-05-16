@@ -27,7 +27,8 @@ class ViewController: UIViewController {
     var frontDocumentData:Data?
     var backDocumentData:Data?
     var selfieData:Data?
-
+    var isPassport = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if frontDocumentData != nil &&
-        backDocumentData != nil &&
+            (backDocumentData != nil || isPassport) &&
             selfieData != nil {
             uploadButton.isEnabled = true
             uploadButton.backgroundColor = UIColor.systemRed
@@ -51,7 +52,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if frontDocumentData != nil &&
-        backDocumentData != nil &&
+        (backDocumentData != nil || isPassport) &&
             selfieData != nil {
                 uploadButton.isEnabled = true
                 uploadButton.backgroundColor = UIColor.systemRed
@@ -67,9 +68,9 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 
                 if (permissionsGranted) {
-                    
+                    self.isPassport = false
                     let viewController = ModalViewController()
-                    viewController.modalPresentationStyle = .popover
+                    viewController.modalPresentationStyle = .fullScreen
                     viewController.referenceViewController = self
                     self.present(viewController, animated: true, completion: nil)
                 } else {
@@ -93,9 +94,9 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 
                 if (permissionsGranted) {
-                    
+                    self.isPassport = true
                     let viewController = PassportModalViewController()
-                    viewController.modalPresentationStyle = .popover
+                    viewController.modalPresentationStyle = .fullScreen
                     viewController.referenceViewController = self
                     self.present(viewController, animated: true, completion: nil)
                 } else {
