@@ -40,6 +40,10 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
             rootVc.present(socureVc, animated: false, completion: nil)
             selfieScanner.initiateSelfieScan(ImageCallback: socureVc)
             break
+        case "getDeviceSessionId":
+            let deviceSessionId = DeviceRiskManager.sharedInstance.sendData(context: .signup)
+            flutterResult?(deviceSessionId)
+            break
         default:
             break
     }

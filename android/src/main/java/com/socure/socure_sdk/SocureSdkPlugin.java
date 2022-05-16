@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager
 
 public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
   private static final String LOG_TAG = "Socure_Flutter";
@@ -60,6 +61,8 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
     } else if (call.method.equals("initiateSelfieScan")) {
       Intent intent = new Intent(activity, SelfieActivity.class);
       activity.startActivityForResult(intent, SCAN_SELFIE_CODE);
+    } else if (call.method.equals("initiateSelfieScan")) {
+      DeviceRiskManager.sendData(DeviceRiskManager.Context.SignUp);
     } else {
       flutterResult = null;
       result.notImplemented();
