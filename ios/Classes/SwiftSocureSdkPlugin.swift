@@ -15,7 +15,7 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUploadCall
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
-    func dataUploadFinished(uploadResult: DeviceRiskUploadResult) {
+    public func dataUploadFinished(uploadResult: DeviceRiskUploadResult) {
         if let uuid = uploadResult.uuid {
             flutterResult?(uuid)
         } else {
@@ -25,7 +25,7 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUploadCall
         flutterResult = nil
     }
 
-    func onError(errorType: DeviceRiskErrorType, errorMessage: String) {
+    public func onError(errorType: DeviceRiskErrorType, errorMessage: String) {
         flutterResult?(FlutterError.init(code: "-1", message: errorMessage, details: nil))
         flutterResult = nil
     }
