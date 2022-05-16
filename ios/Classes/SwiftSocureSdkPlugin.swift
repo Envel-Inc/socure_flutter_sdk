@@ -6,12 +6,29 @@ import DeviceRisk
 public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
   let docScanner = DocumentScanner()
   let selfieScanner = SelfieScanner()
+  let deviceRiskManager = DeviceRiskManager.sharedInstance
+  var flutterResult: FlutterResult?
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "socure_sdk", binaryMessenger: registrar.messenger())
     let instance = SwiftSocureSdkPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
+
+    func dataUploadFinished(uploadResult: DeviceRiskUploadResult) {
+        if let uuid = uploadResult.uuid {
+            flutterResult?(uuid)
+        } else {
+            flutterResult?(FlutterError.init(code: "-2", message: "Failed to obtain Socure session ID", details: nil))
+        }
+
+        flutterResult = nil
+    }
+
+    func onError(errorType: DeviceRiskErrorType, errorMessage: String) {
+        flutterResult?(FlutterError.init(code: "-1", message: errorMessage, details: nil))
+        flutterResult = nil
+    }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     let rootVc = UIApplication.shared.delegate!.window!!.rootViewController!
@@ -42,8 +59,9 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
             selfieScanner.initiateSelfieScan(ImageCallback: socureVc)
             break
         case "getDeviceSessionId":
-            let deviceSessionId = DeviceRiskManager.sharedInstance.sendData(context: .signup)
-            flutterResult?(deviceSessionId)
+            flutterResult = result
+            deviceRiskManager.delegate = self
+            deviceRiskManager.sendData(context: .signup)
             break
         default:
             break
@@ -51,7 +69,7 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
   }
 }
 
-class SocureViewController: UIViewController, ImageCallback, MRZCallback, BarcodeCallback {
+class SocureViewController: UIViewController, ImageCallback, MRZCallback, BarcodeCallback, DeviceRiskUploadCallback {
     var flutterResult: FlutterResult?
     var onlyNeedFrontPicture: Bool = false
     
@@ -61,7 +79,7 @@ class SocureViewController: UIViewController, ImageCallback, MRZCallback, Barcod
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     private func sendFlutterResult(documentType: String, frontPicture: Data?, backPicture: Data?, passportPicture: Data?, selfiePicture: Data?, autoCaptured: Bool) {
         let front = frontPicture != nil ? FlutterStandardTypedData.init(bytes: frontPicture!) : nil
         let back = backPicture != nil ? FlutterStandardTypedData.init(bytes: backPicture!) : nil
@@ -114,11 +132,13 @@ class SocureViewController: UIViewController, ImageCallback, MRZCallback, Barcod
     public func onScanCancelled() {
         self.dismiss(animated: true, completion: nil)
         flutterResult?(nil)
+        flutterResult = nil
     }
 
     public func onError(errorType: SocureSDKErrorType, errorMessage: String) {
         self.dismiss(animated: true, completion: nil)
         flutterResult?(FlutterError.init(code: "-1", message: errorMessage, details: nil))
+        flutterResult = nil
     }
 
     public func handleMRZData(mrzData: MrzData?) {
