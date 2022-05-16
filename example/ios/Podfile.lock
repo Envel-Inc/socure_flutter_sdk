@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - socure_sdk (0.0.2):
+  - socure_sdk (1.0.0):
     - Flutter
     - TrustKit
   - TrustKit (2.0.0)
@@ -21,9 +21,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  socure_sdk: 3038abff74c815d843fd23dd1a078fd44a985bee
+  socure_sdk: 0ad4086bffe1428cf4b84f9301966666694699c4
   TrustKit: 610b8c71c07914756dd74c380040a3408a747798
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.3

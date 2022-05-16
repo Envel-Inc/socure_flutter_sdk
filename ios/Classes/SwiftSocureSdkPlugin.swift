@@ -1,6 +1,7 @@
 import Flutter
 import UIKit
 import SocureSdk
+import DeviceRisk
 
 public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin {
   let docScanner = DocumentScanner()
