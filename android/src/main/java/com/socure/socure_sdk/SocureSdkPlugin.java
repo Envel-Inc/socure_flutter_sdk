@@ -27,7 +27,9 @@ import com.socure.idplus.scanner.selfie.SelfieActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager;
 
@@ -41,6 +43,7 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
   private MethodChannel channel;
   private Activity activity;
   private Result flutterResult;
+  private DeviceRiskManager deviceRiskManager = new DeviceRiskManager();
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -62,9 +65,12 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
       Intent intent = new Intent(activity, SelfieActivity.class);
       activity.startActivityForResult(intent, SCAN_SELFIE_CODE);
     } else if (call.method.equals("getDeviceSessionId")) {
-      DeviceRiskManager.sendData(DeviceRiskManager.Context.SignUp);
+      flutterResult.success(null);
+      // TODO deviceRiskManager.sendData(DeviceRiskManager.Context.SignUp);
     } else if (call.method.equals("setTracker")) {
-
+      // List<Object> argList = (List<Object>) call.arguments;
+      flutterResult.success(null);
+      // TODO it needs AppCompatActivity, but FlutterActivity doesn't extend it: deviceRiskManager.setTracker(argList.get(0).toString(), null, Arrays.asList(DeviceRiskManager.DeviceRiskDataSourcesEnum.Device, DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale, DeviceRiskManager.DeviceRiskDataSourcesEnum.Location, DeviceRiskManager.DeviceRiskDataSourcesEnum.Network), true, null, null);
     } else {
       flutterResult = null;
       result.notImplemented();
