@@ -29,7 +29,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager
+import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager;
 
 public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
   private static final String LOG_TAG = "Socure_Flutter";
