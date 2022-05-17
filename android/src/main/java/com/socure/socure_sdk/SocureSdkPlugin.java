@@ -61,8 +61,10 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
     } else if (call.method.equals("initiateSelfieScan")) {
       Intent intent = new Intent(activity, SelfieActivity.class);
       activity.startActivityForResult(intent, SCAN_SELFIE_CODE);
-    } else if (call.method.equals("initiateSelfieScan")) {
+    } else if (call.method.equals("getDeviceSessionId")) {
       DeviceRiskManager.sendData(DeviceRiskManager.Context.SignUp);
+    } else if (call.method.equals("setTracker")) {
+
     } else {
       flutterResult = null;
       result.notImplemented();
