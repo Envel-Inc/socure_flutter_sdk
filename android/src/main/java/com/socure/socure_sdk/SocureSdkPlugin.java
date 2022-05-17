@@ -66,11 +66,13 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
       activity.startActivityForResult(intent, SCAN_SELFIE_CODE);
     } else if (call.method.equals("getDeviceSessionId")) {
       flutterResult.success(null);
+      flutterResult = null;
       // TODO deviceRiskManager.sendData(DeviceRiskManager.Context.SignUp);
     } else if (call.method.equals("setTracker")) {
       // List<Object> argList = (List<Object>) call.arguments;
       flutterResult.success(null);
       // TODO it needs AppCompatActivity, but FlutterActivity doesn't extend it: deviceRiskManager.setTracker(argList.get(0).toString(), null, Arrays.asList(DeviceRiskManager.DeviceRiskDataSourcesEnum.Device, DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale, DeviceRiskManager.DeviceRiskDataSourcesEnum.Location, DeviceRiskManager.DeviceRiskDataSourcesEnum.Network), true, null, null);
+      flutterResult = null;
     } else {
       flutterResult = null;
       result.notImplemented();
@@ -89,24 +91,24 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
             return true;
           }
 
-          obj.put("passportImage", result.passportImage);
-          obj.put("licenseBackImage", result.licenseBackImage);
-          obj.put("licenseFrontImage", result.licenseFrontImage);
-          obj.put("selfieImage", result.selfieImage);
-          obj.put("documentType", result.documentType.toString());
+          obj.put("passportImage", result.getPassportImage());
+          obj.put("licenseBackImage", result.getLicenseBackImage());
+          obj.put("licenseFrontImage", result.getLicenseFrontImage());
+          obj.put("selfieImage", result.getSelfieImage());
+          obj.put("documentType", result.getDocumentType().toString());
 
 
-          if (result.mrzData != null) {
+          if (result.getMrzData() != null) {
             Log.d(LOG_TAG, "mrzData not null");
-            obj.put("mrzData", mrzToMap(result.mrzData));
-          } else if (result.idmrzData != null) {
+            obj.put("mrzData", mrzToMap(result.getMrzData()));
+          } else if (result.getIdmrzData() != null) {
             Log.d(LOG_TAG, "idmrzData not null");
-            obj.put("mrzData", mrzToMap(result.idmrzData));
+            obj.put("mrzData", mrzToMap(result.getIdmrzData()));
           } else {
             Log.d(LOG_TAG, "mrzData null");
           }
 
-          if (result.barcodeData != null) obj.put("barcodeData", barcodeDataToMap(result.barcodeData));
+          if (result.getBarcodeData() != null) obj.put("barcodeData", barcodeDataToMap(result.getBarcodeData()));
 
           flutterResult.success(obj);
         } catch (Exception e) {
@@ -148,8 +150,8 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
           SelfieScanResult result = SDKAppDataPublic.INSTANCE.getSelfieScanResult();
           HashMap<String, Object> obj = new HashMap<>();
 
-          obj.put("selfieImage", result.imageData);
-          obj.put("autoCaptured", result.autoCaptured);
+          obj.put("selfieImage", result.getImageData());
+          obj.put("autoCaptured", result.getAutoCaptured());
           obj.put("documentType", "SELFIE");
 
           flutterResult.success(obj);
@@ -169,39 +171,39 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
 
   private Map<String, Object> mrzToMap(MrzData mrzData) {
     HashMap<String, Object> mrzDataMap = new HashMap<>();
-    mrzDataMap.put("documentNumber", mrzData.documentNumber);
-    mrzDataMap.put("fullName", mrzData.fullName);
-    mrzDataMap.put("firstName", mrzData.firstName);
-    mrzDataMap.put("surName", mrzData.surName);
-    mrzDataMap.put("nationality", mrzData.nationality);
-    mrzDataMap.put("issuingCountry", mrzData.issuingCountry);
-    mrzDataMap.put("sex", mrzData.sex);
-    mrzDataMap.put("city", mrzData.city);
-    mrzDataMap.put("state", mrzData.state);
-    mrzDataMap.put("address", mrzData.address);
-    mrzDataMap.put("postalCode", mrzData.postalCode);
-    mrzDataMap.put("phone", mrzData.phone);
+    mrzDataMap.put("documentNumber", mrzData.getDocumentNumber());
+    mrzDataMap.put("fullName", mrzData.getFullName());
+    mrzDataMap.put("firstName", mrzData.getFirstName());
+    mrzDataMap.put("surName", mrzData.getSurName());
+    mrzDataMap.put("nationality", mrzData.getNationality());
+    mrzDataMap.put("issuingCountry", mrzData.getIssuingCountry());
+    mrzDataMap.put("sex", mrzData.getSex());
+    mrzDataMap.put("city", mrzData.getCity());
+    mrzDataMap.put("state", mrzData.getState());
+    mrzDataMap.put("address", mrzData.getAddress());
+    mrzDataMap.put("postalCode", mrzData.getPostalCode());
+    mrzDataMap.put("phone", mrzData.getPhone());
 
-    if (mrzData.expirationDate != null) mrzDataMap.put("expirationDate", mrzData.expirationDate.year + "-" + mrzData.expirationDate.month + "-" + mrzData.expirationDate.day);
-    if (mrzData.dob != null) mrzDataMap.put("dob", mrzData.dob.year + "-" + mrzData.dob.month + "-" + mrzData.dob.day);
+    if (mrzData.getExpirationDate() != null) mrzDataMap.put("expirationDate", mrzData.getExpirationDate().getYear() + "-" + mrzData.getExpirationDate().getMonth() + "-" + mrzData.getExpirationDate().getDay());
+    if (mrzData.getDob() != null) mrzDataMap.put("dob", mrzData.getDob().getYear() + "-" + mrzData.getDob().getMonth() + "-" + mrzData.getDob().getDay());
     return mrzDataMap;
   }
 
   private Map<String, Object> barcodeDataToMap(BarcodeData barcodeData) {
     HashMap<String, Object> map = new HashMap<>();
-    map.put("documentNumber", barcodeData.documentNumber);
-    map.put("fullName", barcodeData.fullName);
-    map.put("firstName", barcodeData.firstName);
-    map.put("surName", barcodeData.surName);
-    map.put("city", barcodeData.city);
-    map.put("state", barcodeData.state);
-    map.put("address", barcodeData.address);
-    map.put("postalCode", barcodeData.postalCode);
-    map.put("phone", barcodeData.phone);
+    map.put("documentNumber", barcodeData.getDocumentNumber());
+    map.put("fullName", barcodeData.getFullName());
+    map.put("firstName", barcodeData.getFirstName());
+    map.put("surName", barcodeData.getSurName());
+    map.put("city", barcodeData.getCity());
+    map.put("state", barcodeData.getState());
+    map.put("address", barcodeData.getAddress());
+    map.put("postalCode", barcodeData.getPostalCode());
+    map.put("phone", barcodeData.getPhone());
 
-    if (barcodeData.DOB != null) map.put("dob", barcodeData.DOB.year + "-" + barcodeData.DOB.month + "-" + barcodeData.DOB.day);
-    if (barcodeData.issueDate != null) map.put("issueDate", barcodeData.issueDate.year + "-" + barcodeData.issueDate.month + "-" + barcodeData.issueDate.day);
-    if (barcodeData.expirationDate != null) map.put("expirationDate", barcodeData.expirationDate.year + "-" + barcodeData.expirationDate.month + "-" + barcodeData.expirationDate.day);
+    if (barcodeData.getDOB() != null) map.put("dob", barcodeData.getDOB().getYear() + "-" + barcodeData.getDOB().getMonth() + "-" + barcodeData.getDOB().getDay());
+    if (barcodeData.getIssueDate() != null) map.put("issueDate", barcodeData.getIssueDate().getYear() + "-" + barcodeData.getIssueDate().getMonth() + "-" + barcodeData.getIssueDate().getDay());
+    if (barcodeData.getExpirationDate() != null) map.put("expirationDate", barcodeData.getExpirationDate().getYear() + "-" + barcodeData.getExpirationDate().getMonth() + "-" + barcodeData.getExpirationDate().getDay());
 
     return map;
   }
