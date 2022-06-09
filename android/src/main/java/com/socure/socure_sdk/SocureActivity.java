@@ -42,7 +42,7 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale);
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Location);
 
-        deviceRiskManager.setTracker(null, null, list, true, this, this);
+        deviceRiskManager.setTracker(getString(R.string.socurePublicKey), null, list, true, this, this);
         deviceRiskManager.sendData(DeviceRiskManager.Context.valueOf(getIntent().getStringExtra(EXTRA_CONTEXT)));
     }
 
