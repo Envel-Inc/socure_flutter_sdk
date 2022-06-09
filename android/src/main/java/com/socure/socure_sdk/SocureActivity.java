@@ -24,8 +24,6 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadDeviceRiskManager();
-
-        moveTaskToBack(true);
     }
 
     public static void startActivityForResult(Activity activity, DeviceRiskManager.Context deviceRiskContext, int requestCode) {
