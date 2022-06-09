@@ -7,7 +7,7 @@
     <application>
         <activity
                 android:name=".SocureActivity"
-                android:theme="@android:style/Theme.NoDisplay" />
+                android:theme="@style/AppTheme.NoDisplay" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
