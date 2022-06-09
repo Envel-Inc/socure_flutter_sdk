@@ -23,15 +23,12 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-/*
-        String apiKey = getIntent().getStringExtra(EXTRA_API_KEY);
-*/
-        loadDeviceRiskManager(/*apiKey*/);
+        loadDeviceRiskManager();
         moveTaskToBack(true);
     }
 
     public static void startActivityForResult(Activity activity, DeviceRiskManager.Context deviceRiskContext, int requestCode) {
-        Intent i = new Intent();
+        Intent i = new Intent(activity, SocureActivity.class);
         i.putExtra(EXTRA_CONTEXT, deviceRiskContext.getContextName());
         activity.startActivityForResult(i, requestCode);
     }

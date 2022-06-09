@@ -167,9 +167,9 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
 
         if (requestCode == GET_DEVICE_SESSION_ID_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                flutterResult.success(data.getStringExtra(SocureActivity.EXTRA_RESULT_DEVICE_SESSION_ID));
+                flutterResult.success(data != null ? data.getStringExtra(SocureActivity.EXTRA_RESULT_DEVICE_SESSION_ID) : null);
             } else {
-                flutterResult.error("-1", "Obtaining device session failed.", data.getStringExtra(SocureActivity.EXTRA_RESULT_DEVICE_ERROR));
+                flutterResult.error("-1", "Obtaining device session failed.", data != null ? data.getStringExtra(SocureActivity.EXTRA_RESULT_DEVICE_ERROR) : null);
             }
 
             flutterResult = null;

@@ -33,8 +33,8 @@ class SocureSdk {
     return ScanResult.fromJson(resultMap);
   }
   
-  static Future<void> setTracker(String apiKey) async {
-    await _channel.invokeMethod("setTracker", [apiKey]);
+  static Future<void> setTracker() async {
+    await _channel.invokeMethod("setTracker");
   }
   
   static Future<String?> getDeviceSessionId() async {

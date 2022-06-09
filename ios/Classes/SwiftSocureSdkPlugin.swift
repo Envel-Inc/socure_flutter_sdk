@@ -64,14 +64,8 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUploadCall
             deviceRiskManager.sendData(context: .signup)
             break
         case "setTracker":
-            if let args = call.arguments as? [String] {
-                deviceRiskManager.setTracker(key: args[0], sources: [.device, .locale, .accessibility, .network, .location], existingUUID: deviceRiskManager.uuid, userConsent: true)
-                
-                result(nil)
-            } else {
-                result(FlutterError.init(code: "-1", message: "API key must be specified.", details: nil))
-            }
-
+            deviceRiskManager.setTracker(key: nil, sources: [.device, .locale, .accessibility, .network, .location], existingUUID: deviceRiskManager.uuid, userConsent: true)
+            result(nil)
             break
         default:
             break
