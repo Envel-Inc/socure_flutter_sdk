@@ -3,6 +3,7 @@ package com.socure.socure_sdk;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.socure.idplus.devicerisk.androidsdk.model.UploadResult;
@@ -42,7 +43,10 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale);
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Location);
 
-        deviceRiskManager.setTracker(getString(R.string.socurePublicKey), null, list, true, this, this);
+        String publicApiKey = getString(R.string.socurePublicKey);
+        Log.d("SocureActivity", "Using API key: " + (publicApiKey != null ? publicApiKey : "null"));
+
+        deviceRiskManager.setTracker(publicApiKey, null, list, true, this, this);
         deviceRiskManager.sendData(DeviceRiskManager.Context.valueOf(getIntent().getStringExtra(EXTRA_CONTEXT)));
     }
 
