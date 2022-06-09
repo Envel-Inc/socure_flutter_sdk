@@ -64,7 +64,7 @@ public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUploadCall
             deviceRiskManager.sendData(context: .signup)
             break
         case "setTracker":
-            deviceRiskManager.setTracker(key: nil, sources: [.device, .locale, .accessibility, .network, .location], existingUUID: deviceRiskManager.uuid, userConsent: true)
+            deviceRiskManager.setTracker(key: Bundle.main.object(forInfoDictionaryKey: "socurePublicKey") as! String, sources: [.device, .locale, .accessibility, .network, .location], existingUUID: deviceRiskManager.uuid, userConsent: true)
             result(nil)
             break
         default:
