@@ -3,6 +3,8 @@ package com.socure.socure_sdk;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,17 +17,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SocureActivity extends AppCompatActivity implements DeviceRiskManager.DataUploadCallback {
+    //inputs
     public static final String EXTRA_CONTEXT = "CONTEXT";
+    public static final String EXTRA_CALL_SET_TRACKER = "CALL_SET_TRACKER";
+
+    //outputs
     public static final String EXTRA_RESULT_DEVICE_SESSION_ID = "DEVICE_SESSION_ID";
     public static final String EXTRA_RESULT_DEVICE_ERROR = "DEVICE_ERROR";
     public static final String EXTRA_RESULT_DEVICE_ERROR_TYPE = "DEVICE_ERROR_TYPE";
 
-    private DeviceRiskManager deviceRiskManager;
+    private static DeviceRiskManager deviceRiskManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadDeviceRiskManager();
+        if (deviceRiskManager == null) {
+            loadDeviceRiskManager();
+        }
+
+        deviceRiskManager.sendData(DeviceRiskManager.Context.valueOf(getIntent().getStringExtra(EXTRA_CONTEXT)));
     }
 
     public static void startActivityForResult(Activity activity, DeviceRiskManager.Context deviceRiskContext, int requestCode) {
@@ -48,8 +58,9 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
         String publicApiKey = getString(R.string.socurePublicKey);
         Log.d("SocureActivity", "Using API key: " + (publicApiKey != null ? publicApiKey : "null"));
 
-        deviceRiskManager.setTracker(publicApiKey, null, list, true, this, this);
-        deviceRiskManager.sendData(DeviceRiskManager.Context.valueOf(getIntent().getStringExtra(EXTRA_CONTEXT)));
+        if (getIntent().getBooleanExtra(EXTRA_CALL_SET_TRACKER, true)) {
+            deviceRiskManager.setTracker(publicApiKey, null, list, true, this, this);
+        }
     }
 
     @Override
@@ -60,23 +71,33 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
 
     @Override
     public void dataUploadFinished(@NotNull UploadResult uploadResult) {
-        String uuid = uploadResult.getUuid();
-        Log.d("SocureActivity", "Socure getSessionId success: " + (uuid != null ? uuid : ""));
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                String uuid = uploadResult.getUuid();
+                Log.d("SocureActivity", "Socure getSessionId success: " + (uuid != null ? uuid : ""));
 
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_RESULT_DEVICE_SESSION_ID, uuid);
-        setResult(Activity.RESULT_OK, intent);
-        finish();
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_RESULT_DEVICE_SESSION_ID, uuid);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     @Override
     public void onError(@NotNull DeviceRiskManager.SocureSDKErrorType socureSDKErrorType, @org.jetbrains.annotations.Nullable String s) {
-        Log.d("SocureActivity", "Socure getSessionId failed: " + socureSDKErrorType.name());
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("SocureActivity", "Socure getSessionId failed: " + socureSDKErrorType.name());
 
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_RESULT_DEVICE_ERROR_TYPE, socureSDKErrorType.name());
-        intent.putExtra(EXTRA_RESULT_DEVICE_ERROR, s);
-        setResult(Activity.RESULT_CANCELED, intent);
-        finish();
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_RESULT_DEVICE_ERROR_TYPE, socureSDKErrorType.name());
+                intent.putExtra(EXTRA_RESULT_DEVICE_ERROR, s);
+                setResult(Activity.RESULT_CANCELED, intent);
+                finish();
+            }
+        });
     }
 }
