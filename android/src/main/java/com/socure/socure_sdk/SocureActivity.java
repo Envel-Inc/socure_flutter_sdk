@@ -38,7 +38,6 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
     public static void startActivityForResult(Activity activity, DeviceRiskManager.Context deviceRiskContext, int requestCode) {
         Intent i = new Intent(activity, SocureActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.putExtra(EXTRA_CONTEXT, deviceRiskContext.name());
         activity.startActivityForResult(i, requestCode);
     }
