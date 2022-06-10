@@ -60,10 +60,11 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
 
     @Override
     public void dataUploadFinished(@NotNull UploadResult uploadResult) {
-        Log.d("SocureActivity", "Socure getSessionId success: " + uploadResult.getUuid());
+        String uuid = uploadResult.getUuid();
+        Log.d("SocureActivity", "Socure getSessionId success: " + (uuid != null ? uuid : ""));
 
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_RESULT_DEVICE_SESSION_ID, uploadResult.getUuid());
+        intent.putExtra(EXTRA_RESULT_DEVICE_SESSION_ID, uuid);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
