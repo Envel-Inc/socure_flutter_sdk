@@ -26,15 +26,12 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
     public static final String EXTRA_RESULT_DEVICE_ERROR = "DEVICE_ERROR";
     public static final String EXTRA_RESULT_DEVICE_ERROR_TYPE = "DEVICE_ERROR_TYPE";
 
-    private static DeviceRiskManager deviceRiskManager;
+    private DeviceRiskManager deviceRiskManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (deviceRiskManager == null) {
-            loadDeviceRiskManager();
-        }
-
+        loadDeviceRiskManager();
         deviceRiskManager.sendData(DeviceRiskManager.Context.valueOf(getIntent().getStringExtra(EXTRA_CONTEXT)));
     }
 
