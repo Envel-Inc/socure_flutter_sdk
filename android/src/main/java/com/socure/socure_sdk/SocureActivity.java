@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.socure.idplus.devicerisk.androidsdk.BuildConfig;
 import com.socure.idplus.devicerisk.androidsdk.model.UploadResult;
 import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,7 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
     public static final String EXTRA_CONTEXT = "CONTEXT";
     public static final String EXTRA_RESULT_DEVICE_SESSION_ID = "DEVICE_SESSION_ID";
     public static final String EXTRA_RESULT_DEVICE_ERROR = "DEVICE_ERROR";
+    public static final String EXTRA_RESULT_DEVICE_ERROR_TYPE = "DEVICE_ERROR_TYPE";
 
     private DeviceRiskManager deviceRiskManager;
 
@@ -61,6 +63,7 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
     @Override
     public void onError(@NotNull DeviceRiskManager.SocureSDKErrorType socureSDKErrorType, @org.jetbrains.annotations.Nullable String s) {
         Intent intent = new Intent();
+        intent.putExtra(EXTRA_RESULT_DEVICE_ERROR_TYPE, socureSDKErrorType.name());
         intent.putExtra(EXTRA_RESULT_DEVICE_ERROR, s);
         setResult(Activity.RESULT_CANCELED, intent);
         finish();
