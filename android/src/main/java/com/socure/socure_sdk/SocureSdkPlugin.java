@@ -3,9 +3,16 @@ package com.socure.socure_sdk;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
-
+import com.socure.idplus.SDKAppDataPublic;
+import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager;
+import com.socure.idplus.model.BarcodeData;
+import com.socure.idplus.model.MrzData;
+import com.socure.idplus.model.ScanResult;
+import com.socure.idplus.model.SelfieScanResult;
+import com.socure.idplus.scanner.license.LicenseScannerActivity;
+import com.socure.idplus.scanner.passport.PassportScannerActivity;
+import com.socure.idplus.scanner.selfie.SelfieActivity;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -14,25 +21,11 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
-import com.socure.idplus.SDKAppDataPublic;
-import com.socure.idplus.model.BarcodeData;
-import com.socure.idplus.model.MrzData;
-import com.socure.idplus.model.ScanResult;
-import com.socure.idplus.model.SelfieScanResult;
-import com.socure.idplus.scanner.SelfieScanner;
-import com.socure.idplus.scanner.license.LicenseScannerActivity;
-import com.socure.idplus.scanner.passport.PassportScannerActivity;
-import com.socure.idplus.scanner.selfie.SelfieActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager;
 
 public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
     private static final String LOG_TAG = "Socure_Flutter";
@@ -40,12 +33,11 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
     private final int SCAN_PASSPORT_CODE = 70346738;
     private final int SCAN_LICENSE_CODE = 70346739;
     private final int SCAN_SELFIE_CODE = 70346740;
-    private final int GET_DEVICE_SESSION_ID_CODE = 70346741;
+    private final int GET_DEVICE_SESSION_ID_CODE = 70346737;
 
     private MethodChannel channel;
     private Activity activity;
     private Result flutterResult;
-    private DeviceRiskManager deviceRiskManager = new DeviceRiskManager();
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -67,7 +59,8 @@ public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, Activi
             Intent intent = new Intent(activity, SelfieActivity.class);
             activity.startActivityForResult(intent, SCAN_SELFIE_CODE);
         } else if (call.method.equals("getDeviceSessionId")) {
-            SocureActivity.startActivityForResult(activity, DeviceRiskManager.Context.SignUp, GET_DEVICE_SESSION_ID_CODE);
+            Intent i = SocureActivity.createIntent(activity, DeviceRiskManager.Context.SignUp);
+            activity.startActivityForResult(i, GET_DEVICE_SESSION_ID_CODE);
         } else if (call.method.equals("setTracker")) {
             flutterResult.success(null);
             flutterResult = null;

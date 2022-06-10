@@ -35,11 +35,11 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
         deviceRiskManager.sendData(DeviceRiskManager.Context.valueOf(getIntent().getStringExtra(EXTRA_CONTEXT)));
     }
 
-    public static void startActivityForResult(Activity activity, DeviceRiskManager.Context deviceRiskContext, int requestCode) {
+    public static Intent createIntent(Activity activity, DeviceRiskManager.Context deviceRiskContext) {
         Intent i = new Intent(activity, SocureActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         i.putExtra(EXTRA_CONTEXT, deviceRiskContext.name());
-        activity.startActivityForResult(i, requestCode);
+        return i;
     }
 
     private void loadDeviceRiskManager() {
