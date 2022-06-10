@@ -53,6 +53,12 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
     public void dataUploadFinished(@NotNull UploadResult uploadResult) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_RESULT_DEVICE_SESSION_ID, uploadResult.getUuid());
