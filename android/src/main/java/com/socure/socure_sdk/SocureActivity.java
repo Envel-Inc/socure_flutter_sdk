@@ -60,6 +60,8 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
 
     @Override
     public void dataUploadFinished(@NotNull UploadResult uploadResult) {
+        Log.d("SocureActivity", "Socure getSessionId success: " + uploadResult.getUuid());
+
         Intent intent = new Intent();
         intent.putExtra(EXTRA_RESULT_DEVICE_SESSION_ID, uploadResult.getUuid());
         setResult(Activity.RESULT_OK, intent);
@@ -68,6 +70,8 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
 
     @Override
     public void onError(@NotNull DeviceRiskManager.SocureSDKErrorType socureSDKErrorType, @org.jetbrains.annotations.Nullable String s) {
+        Log.d("SocureActivity", "Socure getSessionId failed: " + socureSDKErrorType.name());
+
         Intent intent = new Intent();
         intent.putExtra(EXTRA_RESULT_DEVICE_ERROR_TYPE, socureSDKErrorType.name());
         intent.putExtra(EXTRA_RESULT_DEVICE_ERROR, s);
