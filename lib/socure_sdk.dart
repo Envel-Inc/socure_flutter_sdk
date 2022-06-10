@@ -38,7 +38,8 @@ class SocureSdk {
   }
   
   static Future<String?> getDeviceSessionId() async {
-    return await _channel.invokeMethod<String?>("getDeviceSessionId");
+    final sessionId = await _channel.invokeMethod<String?>("getDeviceSessionId");
+    return sessionId;
   }
 }
 
