@@ -66,7 +66,7 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
     }
 
     @Override
-    public void dataUploadFinished(@NotNull UploadResult uploadResult) {
+    public void dataUploadFinished(@NotNull final UploadResult uploadResult) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -82,7 +82,7 @@ public class SocureActivity extends AppCompatActivity implements DeviceRiskManag
     }
 
     @Override
-    public void onError(@NotNull DeviceRiskManager.SocureSDKErrorType socureSDKErrorType, @org.jetbrains.annotations.Nullable String s) {
+    public void onError(@NotNull final DeviceRiskManager.SocureSDKErrorType socureSDKErrorType, @org.jetbrains.annotations.Nullable final String s) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
