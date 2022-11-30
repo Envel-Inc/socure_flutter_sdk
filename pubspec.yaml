@@ -1,6 +1,6 @@
 name: socure_sdk
 description: A new flutter plugin project.
-version: 0.0.1
+version: 0.0.2
 homepage:
 
 environment:
@@ -10,6 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  plugin_platform_interface: ^2.1.3
 
 dev_dependencies:
   flutter_test:
@@ -27,10 +30,13 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.socure.socure_sdk
-        pluginClass: SocureSdkPlugin
+        package: com.socure.socure_flutter_sdk
+        pluginClass: SocureFlutterSdkPlugin
       ios:
-        pluginClass: SocureSdkPlugin
+        pluginClass: SocureFlutterSdkPlugin
+      web:
+        pluginClass: SocureFlutterSdkWeb
+        fileName: socure_flutter_sdk_web.dart
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

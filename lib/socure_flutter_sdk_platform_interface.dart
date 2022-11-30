@@ -1,46 +1,45 @@
-import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:flutter/services.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class SocureSdk {
-  static const MethodChannel _channel = const MethodChannel('socure_sdk');
+import 'socure_flutter_sdk_method_channel.dart';
+
+abstract class SocureFlutterSdkPlatform extends PlatformInterface {
+  /// Constructs a SocureFlutterSdkPlatform.
+  SocureFlutterSdkPlatform() : super(token: _token);
+
+  static final Object _token = Object();
+
+  static SocureFlutterSdkPlatform _instance = MethodChannelSocureFlutterSdk();
+
+  /// The default instance of [SocureFlutterSdkPlatform] to use.
+  ///
+  /// Defaults to [MethodChannelSocureFlutterSdk].
+  static SocureFlutterSdkPlatform get instance => _instance;
+
+  /// Platform-specific implementations should set this with their own
+  /// platform-specific class that extends [SocureFlutterSdkPlatform] when
+  /// they register themselves.
+  static set instance(SocureFlutterSdkPlatform instance) {
+    PlatformInterface.verifyToken(instance, _token);
+    _instance = instance;
+  }
 
   /// Initiates a passport scan. The [passportImage] of the ScanResult will be populated with the image.
   /// If the user cancels the flow, then a [CancelledException] will be thrown.
-  static Future<ScanResult> initiatePassportScan() async {
-    final resultMap = await _channel.invokeMapMethod<String, dynamic>("initiatePassportScan");
-    if (resultMap == null) throw CancelledException();
-
-    return ScanResult.fromJson(resultMap);
-  }
+  Future<ScanResult> initiatePassportScan();
 
   /// Initiates an ID / driver's licence scan. The [licenseFrontImage] and [licenseBackImage] of the ScanResult will be populated with the image.
   /// If the user cancels the flow, then a [CancelledException] will be thrown.
-  static Future<ScanResult> initiateLicenseScan() async {
-    final resultMap = await _channel.invokeMapMethod<String, dynamic>("initiateLicenseScan");
-    if (resultMap == null) throw CancelledException();
-
-    return ScanResult.fromJson(resultMap);
-  }
+  Future<ScanResult> initiateLicenseScan();
 
   /// Initiates a selfie scan. The [selfieImage] of the ScanResult will be populated with the image.
   /// If the user cancels the flow, then a [CancelledException] will be thrown.
-  static Future<ScanResult> initiateSelfieScan() async {
-    final resultMap = await _channel.invokeMapMethod<String, dynamic>("initiateSelfieScan");
-    if (resultMap == null) throw CancelledException();
+  Future<ScanResult> initiateSelfieScan();
 
-    return ScanResult.fromJson(resultMap);
-  }
-  
-  static Future<void> setTracker() async {
-    await _channel.invokeMethod("setTracker");
-  }
-  
-  static Future<String?> getDeviceSessionId() async {
-    final sessionId = await _channel.invokeMethod<String?>("getDeviceSessionId");
-    return sessionId;
-  }
+  Future<void> setTracker();
+
+  Future<String?> getDeviceSessionId();
 }
 
 class ScanResult {
@@ -51,12 +50,13 @@ class ScanResult {
   final Uint8List? selfieImage;
   final MrzData? mrzData;
   final BarcodeData? barcodeData;
+  final String? referenceId; // will only be populated on the web. all the other fields will not be populated on the web.
   final bool autoCaptured;
-
-  const ScanResult(this.documentType, this.passportImage, this.licenseBackImage, this.licenseFrontImage, this.selfieImage, this.mrzData, this.barcodeData, this.autoCaptured);
-
+  
+  const ScanResult(this.documentType, this.passportImage, this.licenseBackImage, this.licenseFrontImage, this.selfieImage, this.mrzData, this.barcodeData, this.autoCaptured, this.referenceId);
+  
   factory ScanResult.fromJson(Map<dynamic, dynamic> json) {
-    return ScanResult(json["documentType"], json["passportImage"], json["licenseBackImage"], json["licenseFrontImage"], json["selfieImage"], json["mrzData"] != null ? MrzData.fromJson(json["mrzData"]) : null, json["barcodeData"] != null ? BarcodeData.fromJson(json["barcodeData"]) : null, json["autoCaptured"] == true);
+    return ScanResult(json["documentType"], json["passportImage"], json["licenseBackImage"], json["licenseFrontImage"], json["selfieImage"], json["mrzData"] != null ? MrzData.fromJson(json["mrzData"]) : null, json["barcodeData"] != null ? BarcodeData.fromJson(json["barcodeData"]) : null, json["autoCaptured"] == true, null);
   }
 }
 
@@ -74,9 +74,9 @@ class MrzData {
   final String? address;
   final String? postalCode;
   final String? phone;
-
+  
   const MrzData(this.documentNumber, this.fullName, this.firstName, this.surName, this.nationality, this.issuingCountry, this.expirationDate, this.sex, this.city, this.state, this.address, this.postalCode, this.phone);
-
+  
   factory MrzData.fromJson(Map<dynamic, dynamic> json) {
     return MrzData(
         json["documentNumber"], json["fullName"], json["firstName"], json["surName"], json["nationality"], json["issuingCountry"], json["expirationDate"], json["sex"], json["city"], json["state"], json["address"], json["postalCode"], json["phone"]);
@@ -96,14 +96,13 @@ class BarcodeData {
   final String? dob;
   final String? issueDate;
   final String? expirationDate;
-
+  
   const BarcodeData(this.documentNumber, this.fullName, this.firstName, this.surName, this.city, this.state, this.address, this.postalCode, this.phone, this.dob, this.issueDate, this.expirationDate);
-
+  
   factory BarcodeData.fromJson(Map<dynamic, dynamic> json) {
     return BarcodeData(
         json["documentNumber"], json["fullName"], json["firstName"], json["surName"], json["city"], json["state"], json["address"], json["postalCode"], json["phone"], json["dob"], json["issueDate"], json["expirationDate"]);
   }
 }
 
-class CancelledException implements Exception {
-}
+class CancelledException implements Exception {}

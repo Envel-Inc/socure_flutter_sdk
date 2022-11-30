@@ -1,0 +1,60 @@
+<html>
+<head>
+    <!--
+      If you are serving your web app in a path other than the root, change the
+      href value below to reflect the base path you are serving from.
+
+      The path provided below has to start and end with a slash "/" in order for
+      it to work correctly.
+
+      For more details:
+      * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+      This is a placeholder for base href that will be replaced by the value of
+      the `--base-href` argument provided to `flutter build`.
+    -->
+    <base href="/">
+
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="Socure example">
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Socure example">
+
+    <title>Socure example</title>
+
+    <script>
+        // The value below is injected by flutter build, do not touch.
+        var serviceWorkerVersion = null;
+    </script>
+
+    <!-- This script adds the flutter initialization JS code -->
+    <script type="text/javascript" src="https://js.dvnfo.com/devicer.min.js"></script>
+    <script type="text/javascript" src="https://websdk.socure.com/bundle.js"></script>
+    <script src="flutter.js"></script>
+</head>
+<script>
+    window.socurePublicKey = '346f4ca0-edda-41e6-b764-920410f757cc';
+
+    window.addEventListener('load', async function (ev) {
+        // Download main.dart.js
+        _flutter.loader.loadEntrypoint({
+            serviceWorker: {
+                serviceWorkerVersion: serviceWorkerVersion,
+            }
+        }).then(function (engineInitializer) {
+            return engineInitializer.initializeEngine();
+        }).then(function (appRunner) {
+            return appRunner.runApp();
+        });
+    });
+</script>
+
+<div id="socureDiv"
+     style="position: absolute; z-index: 9999999; width: 100%; height: 100%; background-color: white; display: none;"></div>
+</body>
+
+</html>

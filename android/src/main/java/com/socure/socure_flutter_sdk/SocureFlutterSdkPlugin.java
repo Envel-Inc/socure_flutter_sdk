@@ -1,4 +1,4 @@
-package com.socure.socure_sdk;
+package com.socure.socure_flutter_sdk;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SocureSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
+public class SocureFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
     private static final String LOG_TAG = "Socure_Flutter";
 
     private final int SCAN_PASSPORT_CODE = 70346738;

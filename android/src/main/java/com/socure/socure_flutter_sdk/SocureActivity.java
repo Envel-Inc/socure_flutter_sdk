@@ -1,4 +1,4 @@
-package com.socure.socure_sdk;
+package com.socure.socure_flutter_sdk;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuHost;
 import com.socure.idplus.devicerisk.androidsdk.BuildConfig;
 import com.socure.idplus.devicerisk.androidsdk.model.UploadResult;
 import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager;

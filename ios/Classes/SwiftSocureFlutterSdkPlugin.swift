@@ -3,7 +3,7 @@ import UIKit
 import SocureSdk
 import DeviceRisk
 
-public class SwiftSocureSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUploadCallback {
+public class SwiftSocureFlutterSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUploadCallback {
   let docScanner = DocumentScanner()
   let selfieScanner = SelfieScanner()
   let deviceRiskManager = DeviceRiskManager.sharedInstance
