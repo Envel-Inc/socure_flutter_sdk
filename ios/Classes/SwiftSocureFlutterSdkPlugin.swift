@@ -11,7 +11,7 @@ public class SwiftSocureFlutterSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUpl
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "socure_sdk", binaryMessenger: registrar.messenger())
-    let instance = SwiftSocureSdkPlugin()
+    let instance = SwiftSocureFlutterSdkPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

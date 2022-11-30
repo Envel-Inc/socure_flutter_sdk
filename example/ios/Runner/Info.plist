@@ -45,5 +45,7 @@
 	<string>Test camera permission</string>
 	<key>socurePublicKey</key>
 	<string>a1b234cd-5678-9e01-f234-56abcdef6789</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 </dict>
 </plist>

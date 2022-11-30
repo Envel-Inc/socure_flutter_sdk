@@ -1,23 +1,30 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint socure_flutter_sdk.podspec` to validate before publishing.
+# Run `pod lib lint socure_sdk.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
   s.name             = 'socure_flutter_sdk'
-  s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.version          = '1.0.0'
+  s.summary          = 'Socure SDK Flutter wrapper.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+Socure SDK Flutter wrapper.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'http://envel.ai'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Envel Inc' => 'hello@envel.ai' }
   s.source           = { :path => '.' }
+  #s.source           = { :git => "https://github.com/socure-inc/socure-ios-sdk.git", :tag => "dv-#{s.version}"}
+
   s.source_files = 'Classes/**/*'
-  s.dependency 'Flutter'
-  s.platform = :ios, '9.0'
+  s.platform = :ios, '12.0'
+
+  s.vendored_frameworks = "Frameworks/SocureSDK/Framework/SocureSdk.xcframework", "Frameworks/SocureSDK/Framework/DeviceRisk.xcframework"
+  s.preserve_paths = "Frameworks/SocureSDK/Framework/SocureSdk.xcframework", "Frameworks/SocureSDK/Framework/DeviceRisk.xcframework",
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
+
+  s.dependency 'Flutter'
+  s.dependency 'TrustKit'
 end

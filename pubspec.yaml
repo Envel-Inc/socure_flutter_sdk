@@ -33,7 +33,7 @@ flutter:
         package: com.socure.socure_flutter_sdk
         pluginClass: SocureFlutterSdkPlugin
       ios:
-        pluginClass: SocureFlutterSdkPlugin
+        pluginClass: SwiftSocureFlutterSdkPlugin
       web:
         pluginClass: SocureFlutterSdkWeb
         fileName: socure_flutter_sdk_web.dart
