@@ -1,6 +1,6 @@
-# socure_sdk_example
+# socure_flutter_sdk_example
 
-Demonstrates how to use the socure_sdk plugin.
+Demonstrates how to use the socure_flutter_sdk plugin.
 
 ## Getting Started
 

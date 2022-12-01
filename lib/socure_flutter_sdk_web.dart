@@ -9,7 +9,7 @@ import 'dart:js_util';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:socure_sdk/socure_js.dart';
+import 'package:socure_flutter_sdk/socure_js.dart';
 
 import 'socure_flutter_sdk_platform_interface.dart';
 
