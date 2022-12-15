@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:socure_sdk/socure_flutter_sdk.dart';
-import 'package:socure_sdk/socure_flutter_sdk_platform_interface.dart';
+import 'package:socure_flutter_sdk/socure_flutter_sdk.dart';
+import 'package:socure_flutter_sdk/socure_flutter_sdk_platform_interface.dart';
 
 void main() {
   runApp(MyApp());

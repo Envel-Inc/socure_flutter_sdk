@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/socure_flutter_sdk.iml" filepath="$PROJECT_DIR$/socure_flutter_sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/socure_flutter_sdk_android.iml" filepath="$PROJECT_DIR$/android/socure_flutter_sdk_android.iml" />
       <module fileurl="file://$PROJECT_DIR$/android/socure_sdk_android.iml" filepath="$PROJECT_DIR$/android/socure_sdk_android.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/android/socure_sdk_example_android.iml" filepath="$PROJECT_DIR$/example/android/socure_sdk_example_android.iml" />
     </modules>

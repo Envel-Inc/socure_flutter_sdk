@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  socure_sdk:
+  socure_flutter_sdk:
     # When depending on this package from a real application you should use:
     #   socure_sdk: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints
