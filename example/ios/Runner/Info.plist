@@ -44,7 +44,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Test camera permission</string>
 	<key>socurePublicKey</key>
-	<string>a1b234cd-5678-9e01-f234-56abcdef6789</string>
+	<string>346f4ca0-edda-41e6-b764-920410f757cc</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 </dict>

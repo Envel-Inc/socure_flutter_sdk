@@ -6,11 +6,11 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		dOB6j4WiEMq1zjoaPriG6h5sdT0=
+		Xy+XBOi3uV8tXeq8FccyKw2EeyA=
 		</data>
 		<key>Document.json</key>
 		<data>
-		y8qBHjbQJG5z5Gfj7pwyge3026s=
+		7b8qKZs9FaFARCXqPfpJLT2Ii+Y=
 		</data>
 		<key>Document.strings</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Headers/SocureSdk-Swift.h</key>
 		<data>
-		wyIe+wq4jUfYRBef+GzGvZHnTgM=
+		Ny9WKY1sklpOA0+H0slmuBTOM08=
 		</data>
 		<key>Headers/SocureSdk.h</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		f3vTjwvq9MO5X9c557nqtKKfQko=
+		kG/9YkQl0s+GqU/Ao/S8dSRqAzk=
 		</data>
 		<key>Inter-Bold.ttf</key>
 		<data>
@@ -42,51 +42,27 @@
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		V6wpFluXwnB73mUHrrgeJ3LXvBE=
+		ECCaBXeQ0F/ydS2LCmqfyGIXskw=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		WF7v1ZhmOQkZoTAPJ+jL5wYD4kQ=
+		Y6o0TvbO0sleQgs0xjA9539d0sc=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		5t6TgXh416QWQlw9l52OuMBWZiw=
-		</data>
-		<key>Modules/SocureSdk.swiftmodule/arm64.swiftdoc</key>
-		<data>
-		V6wpFluXwnB73mUHrrgeJ3LXvBE=
-		</data>
-		<key>Modules/SocureSdk.swiftmodule/arm64.swiftinterface</key>
-		<data>
-		WF7v1ZhmOQkZoTAPJ+jL5wYD4kQ=
-		</data>
-		<key>Modules/SocureSdk.swiftmodule/arm64.swiftmodule</key>
-		<data>
-		5t6TgXh416QWQlw9l52OuMBWZiw=
+		0wstj2Tfoslag2nMhEiErfBbzXE=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		NNIBCrbZI7Yd6NVPrq2vjQNVOA8=
+		OwLzQW5+Otk8l85mn1RrEUkfjmA=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		Rpw9M+eaPB0ppnMxQ3wGPoucB14=
+		D6wvpVHKcG64noohB10vmb2FAxU=
 		</data>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		nIr7VqToDEaE1SZSdUdjGhw7Zhs=
-		</data>
-		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftdoc</key>
-		<data>
-		NNIBCrbZI7Yd6NVPrq2vjQNVOA8=
-		</data>
-		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftinterface</key>
-		<data>
-		Rpw9M+eaPB0ppnMxQ3wGPoucB14=
-		</data>
-		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftmodule</key>
-		<data>
-		nIr7VqToDEaE1SZSdUdjGhw7Zhs=
+		VhobwvzeQAnIYgXDC0d1qBuzooc=
 		</data>
 		<key>OpenSans-Bold.ttf</key>
 		<data>
@@ -100,13 +76,33 @@
 		<data>
 		rT+KFILZYuuVmDDpLtj/toe8Yxw=
 		</data>
+		<key>ViewList.storyboardc/ConsentVC.nib/objects-13.0+.nib</key>
+		<data>
+		nbyM9Ro/7i7MQ6YJw/lY+KFYlyQ=
+		</data>
+		<key>ViewList.storyboardc/ConsentVC.nib/runtime.nib</key>
+		<data>
+		nbyM9Ro/7i7MQ6YJw/lY+KFYlyQ=
+		</data>
+		<key>ViewList.storyboardc/Info.plist</key>
+		<data>
+		69gSelEeGY6NyX7mbLXwLiOPWeo=
+		</data>
+		<key>ViewList.storyboardc/TRL-E4-4ZM-view-Bcr-30-cDM.nib/objects-13.0+.nib</key>
+		<data>
+		4+B2QdflBX/BMXshBgP1aODxkU4=
+		</data>
+		<key>ViewList.storyboardc/TRL-E4-4ZM-view-Bcr-30-cDM.nib/runtime.nib</key>
+		<data>
+		9i+z3e2/xovuALRNWcaY1wNPw8M=
+		</data>
 		<key>config.plist</key>
 		<data>
 		g3irsbuhebtF6sRH6yeXKn8s/o0=
 		</data>
 		<key>default.metallib</key>
 		<data>
-		ltRi1BU07UsLsMBAiFlzSgeOI+A=
+		2HN58KOPi8m08oScQCoZS3DbBx8=
 		</data>
 		<key>howto_back_id.json</key>
 		<data>
@@ -131,14 +127,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			k+8Huye/ep2IOEELL9WS6PUf6KxnAKrUfADmtgbW/eg=
+			U4jLduf994smWgziqVkOiqV9NCu5h9XGe81SYhrVYck=
 			</data>
 		</dict>
 		<key>Document.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GGMGlPW6F1U0IBPqw1zRKBHpzfXkm5fAljPorih7w2o=
+			W7HWIYtTb2HfSrTY7rezdE2t6N0esTsApXCftsCt6dg=
 			</data>
 		</dict>
 		<key>Document.strings</key>
@@ -152,7 +148,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			K0G5zXIa+fv/Do+Ph5QonXlOjCGDq5mKrlSl4cFskQI=
+			mnOjHfBJ+DN6Usw1hfOlHUmBvEO5Y3Kc20VUZ25odXI=
 			</data>
 		</dict>
 		<key>Headers/SocureSdk.h</key>
@@ -187,84 +183,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			W3TExCChxCsDaBjDeQw4XZwTSOqmHvGYAvK8VIHnZx0=
+			LAmeirCljHBzSYOZxjDN5qAx9XQVJ+srcVrV0AXuBqE=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			892U17GjPDHOnJQJrN953g/5L01mS+3t9USxD8JP3Co=
+			C9u3Z5cWB/IkCGZWXzYU/1qxruEtvQZmz7RT5TO04/I=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			iqU0kIviQL3OhRHUPvZChi6LgeY63ZlhMpOG8DQg8cM=
-			</data>
-		</dict>
-		<key>Modules/SocureSdk.swiftmodule/arm64.swiftdoc</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			W3TExCChxCsDaBjDeQw4XZwTSOqmHvGYAvK8VIHnZx0=
-			</data>
-		</dict>
-		<key>Modules/SocureSdk.swiftmodule/arm64.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			892U17GjPDHOnJQJrN953g/5L01mS+3t9USxD8JP3Co=
-			</data>
-		</dict>
-		<key>Modules/SocureSdk.swiftmodule/arm64.swiftmodule</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			iqU0kIviQL3OhRHUPvZChi6LgeY63ZlhMpOG8DQg8cM=
+			qwB9pJqhHaDOQSQLpuYKPPUCChC2R9hvBmrxbHp2nAI=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0qZEPLS92obmX1LGE1K/mtpLc0cQZR0fD6ge99di6Kg=
+			S994NeeTq7JVp507inVFZZu/kTXsfIW0fFKHYBu1eZA=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Mqw40LOInjWJiDE9M/1EXhNmzFAfZP9BTst2Cj1+MCs=
+			3iIqJE+C3ZVwR/vEsuQd1iiWgIHjI1SqlLYt22DrEjY=
 			</data>
 		</dict>
 		<key>Modules/SocureSdk.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BbpiLc3LRqWt2u18sm9V0a8W4mFLx4lp4AkhnOBjfhY=
-			</data>
-		</dict>
-		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftdoc</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			0qZEPLS92obmX1LGE1K/mtpLc0cQZR0fD6ge99di6Kg=
-			</data>
-		</dict>
-		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Mqw40LOInjWJiDE9M/1EXhNmzFAfZP9BTst2Cj1+MCs=
-			</data>
-		</dict>
-		<key>Modules/SocureSdk.swiftmodule/x86_64.swiftmodule</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			BbpiLc3LRqWt2u18sm9V0a8W4mFLx4lp4AkhnOBjfhY=
+			qkB+8fMIIGb/3rtU582Rfl5ZbtPZJEsQGP7nMcCM+hI=
 			</data>
 		</dict>
 		<key>OpenSans-Bold.ttf</key>
@@ -288,6 +242,41 @@
 			2G2aEa0aokLb9Q0qKjKVuqsqETSdz221vSjjYDa39sA=
 			</data>
 		</dict>
+		<key>ViewList.storyboardc/ConsentVC.nib/objects-13.0+.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iey9eOySX8MPMrMMCuAiVx/y00bPgHuDUBfXXAkuzTQ=
+			</data>
+		</dict>
+		<key>ViewList.storyboardc/ConsentVC.nib/runtime.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iey9eOySX8MPMrMMCuAiVx/y00bPgHuDUBfXXAkuzTQ=
+			</data>
+		</dict>
+		<key>ViewList.storyboardc/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TxSMLpHFs3lt6JpheW0UOFsSiQsqJ2xbn6bNGUL3hdg=
+			</data>
+		</dict>
+		<key>ViewList.storyboardc/TRL-E4-4ZM-view-Bcr-30-cDM.nib/objects-13.0+.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			uDzZSHb6BgIqg1KdIpxsdyLSbohGgSirdXmRRUn2/rM=
+			</data>
+		</dict>
+		<key>ViewList.storyboardc/TRL-E4-4ZM-view-Bcr-30-cDM.nib/runtime.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4VVwn1w7pbtynw3zZn/mJanC7tuhhLkfRPheT3rs7x0=
+			</data>
+		</dict>
 		<key>config.plist</key>
 		<dict>
 			<key>hash2</key>
@@ -299,7 +288,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			E5bhDI41lpmCNcofdeMyM/xOkYaWKpz+oMEFPfbVDPw=
+			4Xs9tEIcMtuh3W8TSJnsteLYmRftsuRA6FqJD6Ao+dY=
 			</data>
 		</dict>
 		<key>howto_back_id.json</key>

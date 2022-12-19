@@ -1,13 +1,13 @@
 PODS:
   - Flutter (1.0.0)
-  - socure_sdk (1.0.0):
+  - socure_flutter_sdk (1.0.0):
     - Flutter
     - TrustKit
-  - TrustKit (2.0.0)
+  - TrustKit (2.0.1)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - socure_sdk (from `.symlinks/plugins/socure_sdk/ios`)
+  - socure_flutter_sdk (from `.symlinks/plugins/socure_flutter_sdk/ios`)
 
 SPEC REPOS:
   trunk:
@@ -16,13 +16,13 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  socure_sdk:
-    :path: ".symlinks/plugins/socure_sdk/ios"
+  socure_flutter_sdk:
+    :path: ".symlinks/plugins/socure_flutter_sdk/ios"
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  socure_sdk: 39b2cc282c931c614062d3d628376cb17bdd5790
-  TrustKit: 610b8c71c07914756dd74c380040a3408a747798
+  socure_flutter_sdk: 3a48e4df1b5c027386edace002788588eb0a7bad
+  TrustKit: dad4c3a08248c21fcb9a3b5be3c2e2b9d4f9b973
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
