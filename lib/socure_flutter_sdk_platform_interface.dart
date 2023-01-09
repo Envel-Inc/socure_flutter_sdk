@@ -50,13 +50,14 @@ class ScanResult {
   final Uint8List? selfieImage;
   final MrzData? mrzData;
   final BarcodeData? barcodeData;
-  final String? referenceId; // will only be populated on the web. all the other fields will not be populated on the web.
+  final String? referenceId; // the reference ID. on the web only this and the uuid field will be populated
+  final String? uuid; // the document's UUID. // the reference ID. on the web only this and the referenceId field will be populated
   final bool autoCaptured;
   
-  const ScanResult(this.documentType, this.passportImage, this.licenseBackImage, this.licenseFrontImage, this.selfieImage, this.mrzData, this.barcodeData, this.autoCaptured, this.referenceId);
+  const ScanResult(this.documentType, this.passportImage, this.licenseBackImage, this.licenseFrontImage, this.selfieImage, this.mrzData, this.barcodeData, this.autoCaptured, this.referenceId, this.uuid);
   
   factory ScanResult.fromJson(Map<dynamic, dynamic> json) {
-    return ScanResult(json["documentType"], json["passportImage"], json["licenseBackImage"], json["licenseFrontImage"], json["selfieImage"], json["mrzData"] != null ? MrzData.fromJson(json["mrzData"]) : null, json["barcodeData"] != null ? BarcodeData.fromJson(json["barcodeData"]) : null, json["autoCaptured"] == true, null);
+    return ScanResult(json["documentType"], json["passportImage"], json["licenseBackImage"], json["licenseFrontImage"], json["selfieImage"], json["mrzData"] != null ? MrzData.fromJson(json["mrzData"]) : null, json["barcodeData"] != null ? BarcodeData.fromJson(json["barcodeData"]) : null, json["autoCaptured"] == true, json["referenceId"], json["uuid"]);
   }
 }
 

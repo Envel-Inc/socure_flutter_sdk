@@ -73,24 +73,30 @@ public class SwiftSocureFlutterSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUpl
   }
 }
 
-class SocureViewController: UIViewController, ImageCallback, MRZCallback, BarcodeCallback {
+class SocureViewController: UIViewController, ImageCallback, MRZCallback, BarcodeCallback, UploadCallback {
     var flutterResult: FlutterResult?
     var onlyNeedFrontPicture: Bool = false
+    var imageUploader = ImageUploader.init()
     
-    var frontPicture: Data?
+    var frontDocScanResult: DocScanResult?
+    var backDocScanResult: DocScanResult?
+    var selfieDocScanResult: SelfieScanResult?
     var mrz: MrzData?
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    private func sendFlutterResult(documentType: String, frontPicture: Data?, backPicture: Data?, passportPicture: Data?, selfiePicture: Data?, autoCaptured: Bool) {
-        let front = frontPicture != nil ? FlutterStandardTypedData.init(bytes: frontPicture!) : nil
-        let back = backPicture != nil ? FlutterStandardTypedData.init(bytes: backPicture!) : nil
-        let selfie = selfiePicture != nil ? FlutterStandardTypedData.init(bytes: selfiePicture!) : nil
-        let passport = passportPicture != nil ? FlutterStandardTypedData.init(bytes: passportPicture!) : nil
+    private func sendFlutterResult(documentType: String?, referenceId: String?, uuid: String?) {
+        let docType = documentType ?? (onlyNeedFrontPicture ? "PASSPORT": "LICENSE")
         
-        var map: [String: Any?] = ["documentType": documentType, "passportImage": passport, "licenseFrontImage": front, "licenseBackImage": back, "selfieImage": selfie, "autoCaptured": autoCaptured ]
+        let licenseFront = (docType != "LICENSE" ? nil : (frontDocScanResult != nil ? FlutterStandardTypedData.init(bytes: frontDocScanResult!.imageData!) : nil))
+        let licenseBack = (docType != "LICENSE" ? nil : (backDocScanResult != nil ? FlutterStandardTypedData.init(bytes: backDocScanResult!.imageData!) : nil))
+        let selfie = (docType != "SELFIE" ? nil : (selfieDocScanResult != nil ? FlutterStandardTypedData.init(bytes: selfieDocScanResult!.imageData!) : nil))
+        let passport = (docType != "PASSPORT" ? nil : (frontDocScanResult != nil ? FlutterStandardTypedData.init(bytes: frontDocScanResult!.imageData!) : nil))
+        let autoCaptured: Bool = ((frontDocScanResult ?? backDocScanResult)?.metaData["autoCaptured"] as? Bool) == true
+        
+        var map: [String: Any?] = ["documentType": docType, "passportImage": passport, "licenseFrontImage": licenseFront, "licenseBackImage": licenseBack, "selfieImage": selfie, "referenceId": referenceId, "uuid": uuid, "autoCaptured": autoCaptured]
         
         if (mrz != nil) {
             let mrzDataMap: [String: String?] = [
@@ -112,25 +118,31 @@ class SocureViewController: UIViewController, ImageCallback, MRZCallback, Barcod
         flutterResult?(map)
     }
     
+    public func documentUploadFinished(uploadResult: SocureSdk.UploadResult) {
+        sendFlutterResult(documentType: nil, referenceId: uploadResult.referenceId, uuid: uploadResult.uuid)
+    }
+
+    public func onUploadError(errorType: SocureSdk.SocureSDKErrorType, errorMessage: String) {
+        self.dismiss(animated: true, completion: nil)
+        flutterResult?(FlutterError.init(code: "-2", message: errorMessage, details: nil))
+        flutterResult = nil
+    }
+    
     public func documentFrontCallBack(docScanResult: DocScanResult) {
-        frontPicture = docScanResult.imageData
+        frontDocScanResult = docScanResult
         if (onlyNeedFrontPicture) {
-            let autoCaptured: Bool = (docScanResult.metaData["autoCaptured"] as? Bool) == true;
-            
-            sendFlutterResult(documentType: "PASSPORT", frontPicture: nil, backPicture: nil, passportPicture: frontPicture, selfiePicture: nil, autoCaptured: autoCaptured)
+            imageUploader.uploadPassport(UploadCallback: self, front: docScanResult.imageData!)
         }
     }
 
     public func documentBackCallBack(docScanResult: DocScanResult) {
-        let autoCaptured: Bool = (docScanResult.metaData["autoCaptured"] as? Bool) == true;
-        
-        sendFlutterResult(documentType: "LICENSE", frontPicture: frontPicture, backPicture: docScanResult.imageData, passportPicture: nil, selfiePicture: nil, autoCaptured: autoCaptured)
+        backDocScanResult = docScanResult
+        imageUploader.uploadLicense(UploadCallback: self, front: frontDocScanResult!.imageData!, back: docScanResult.imageData!);
     }
 
     public func selfieCallBack(selfieScanResult: SelfieScanResult) {
-        let autoCaptured: Bool = (selfieScanResult.metaData["autoCaptured"] as? Bool) == true;
-        
-        sendFlutterResult(documentType: "SELFIE", frontPicture: nil, backPicture: nil, passportPicture: nil, selfiePicture: selfieScanResult.imageData, autoCaptured: autoCaptured)
+        selfieDocScanResult = selfieScanResult
+        sendFlutterResult(documentType: "SELFIE", referenceId: nil, uuid: nil)
     }
 
     public func onScanCancelled() {

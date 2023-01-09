@@ -66,7 +66,8 @@ class _MyAppState extends State<MyApp> {
 
               _selfieResult?.selfieImage != null ? Image.memory(_selfieResult!.selfieImage!) : Text("No selfie scanned"),
               Text(_selfieResult?.mrzData?.fullName ?? "No selfie name"),
-              Text(_selfieResult?.referenceId ?? "No scan reference ID"),
+              Text(_selfieResult?.referenceId ?? _passportResult?.referenceId ?? _licenseResult?.referenceId  ?? "No scan reference ID"),
+              Text(_selfieResult?.uuid ?? _passportResult?.uuid ?? _licenseResult?.uuid  ?? "No document UUID"),
               ElevatedButton(onPressed: () => initiateSelfieScan(), child: Text("Scan selfie")),
             ],
           ),

@@ -2,17 +2,19 @@ package com.socure.socure_flutter_sdk;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.socure.idplus.SDKAppDataPublic;
 import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager;
-import com.socure.idplus.model.BarcodeData;
-import com.socure.idplus.model.MrzData;
-import com.socure.idplus.model.ScanResult;
-import com.socure.idplus.model.SelfieScanResult;
+import com.socure.idplus.error.SocureSdkError;
+import com.socure.idplus.interfaces.Interfaces;
+import com.socure.idplus.model.*;
 import com.socure.idplus.scanner.license.LicenseScannerActivity;
 import com.socure.idplus.scanner.passport.PassportScannerActivity;
 import com.socure.idplus.scanner.selfie.SelfieActivity;
+import com.socure.idplus.upload.ImageUploader;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -26,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SocureFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
     private static final String LOG_TAG = "Socure_Flutter";
@@ -38,6 +41,8 @@ public class SocureFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler,
     private MethodChannel channel;
     private Activity activity;
     private Result flutterResult;
+
+    private ImageUploader imageUploader;
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -88,7 +93,6 @@ public class SocureFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler,
                     obj.put("selfieImage", result.getSelfieImage());
                     obj.put("documentType", result.getDocumentType().toString());
 
-
                     if (result.getMrzData() != null) {
                         Log.d(LOG_TAG, "mrzData not null");
                         obj.put("mrzData", mrzToMap(result.getMrzData()));
@@ -102,7 +106,29 @@ public class SocureFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler,
                     if (result.getBarcodeData() != null)
                         obj.put("barcodeData", barcodeDataToMap(result.getBarcodeData()));
 
-                    flutterResult.success(obj);
+                    final Interfaces.UploadCallback callback = new Interfaces.UploadCallback() {
+                        @Override
+                        public void onDocumentUploadError(SocureSdkError socureSdkError) {
+                            flutterResult.error("-2", socureSdkError.getMessage(), null);
+                        }
+
+                        @Override
+                        public void onSocurePublicKeyError(SocureSdkError socureSdkError) {
+                            flutterResult.error("-2", socureSdkError.getMessage(), null);
+                        }
+
+                        @Override
+                        public void documentUploadFinished(UploadResult uploadResult) {
+                            obj.put("referenceId", uploadResult.getReferenceId());
+                            obj.put("uuid", uploadResult.getUuid());
+                            flutterResult.success(obj);
+                        }
+                    };
+
+                    if (requestCode == SCAN_PASSPORT_CODE)
+                        uploadPassport(Objects.requireNonNull(result.getPassportImage()), result.getSelfieImage(), callback);
+                    else
+                        uploadLicense(Objects.requireNonNull(result.getLicenseFrontImage()), result.getLicenseBackImage(), result.getSelfieImage(), callback);
                 } catch (Exception e) {
                     flutterResult.error("-2", e.getMessage(), null);
                 }
@@ -172,6 +198,44 @@ public class SocureFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler,
         return false;
     }
 
+    private void uploadLicense(@NonNull byte[] front, @Nullable byte[] back, @Nullable byte[] selfie, @NonNull final Interfaces.UploadCallback callback) {
+        imageUploader.uploadLicense(new Interfaces.UploadCallback() {
+            @Override
+            public void documentUploadFinished(UploadResult uploadResult) {
+
+            }
+
+            @Override
+            public void onDocumentUploadError(SocureSdkError socureSdkError) {
+
+            }
+
+            @Override
+            public void onSocurePublicKeyError(SocureSdkError socureSdkError) {
+
+            }
+        }, front, back, selfie);
+    }
+
+    private void uploadPassport(@NonNull byte[] front, @Nullable byte[] selfie, @NonNull final Interfaces.UploadCallback callback) {
+        imageUploader.uploadPassport(new Interfaces.UploadCallback() {
+            @Override
+            public void documentUploadFinished(UploadResult uploadResult) {
+                callback.documentUploadFinished(uploadResult);
+            }
+
+            @Override
+            public void onDocumentUploadError(SocureSdkError socureSdkError) {
+                callback.onDocumentUploadError(socureSdkError);
+            }
+
+            @Override
+            public void onSocurePublicKeyError(SocureSdkError socureSdkError) {
+                callback.onSocurePublicKeyError(socureSdkError);
+            }
+        }, front, selfie);
+    }
+
     private Map<String, Object> mrzToMap(MrzData mrzData) {
         HashMap<String, Object> mrzDataMap = new HashMap<>();
         mrzDataMap.put("documentNumber", mrzData.getDocumentNumber());
@@ -225,11 +289,14 @@ public class SocureFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler,
     public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
         activity = binding.getActivity();
         binding.addActivityResultListener(this);
+
+        imageUploader = new ImageUploader(activity);
     }
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
         activity = null;
+        imageUploader = null;
     }
 
     @Override

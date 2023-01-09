@@ -54,7 +54,7 @@ class SocureFlutterSdkWeb extends SocureFlutterSdkPlatform {
     await _initSocureDocv(onSuccess: (successResponse) {
       print("onSuccess");
       completer.complete(ScanResult(successResponse.verifyResult!.documentVerification.documentType.type, null, null, null, null, null, null, false,
-          successResponse.referenceId));
+          successResponse.referenceId, successResponse.documentUuid));
     }, onError: (errorResponse) {
       print("onError");
       completer.completeError(Exception("Scan failed"));
