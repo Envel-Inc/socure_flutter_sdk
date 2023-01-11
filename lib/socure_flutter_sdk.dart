@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 import 'socure_flutter_sdk_platform_interface.dart';
 
 class SocureFlutterSdk {
@@ -21,6 +23,19 @@ class SocureFlutterSdk {
   /// Initiates a selfie scan. The [selfieImage] of the ScanResult will be populated with the image.
   /// If the user cancels the flow, then a [CancelledException] will be thrown.
   Future<ScanResult> initiateSelfieScan() => SocureFlutterSdkPlatform.instance.initiateSelfieScan();
+  
+  /// Initiates a passport and selfie scan. Then uploads the image to Socure.
+  /// If the user cancels the flow, then a [CancelledException] will be thrown.
+  ///
+  /// On Web, the [documentType] is ignored and the user can select the type on the web UI.
+  Future<UploadedDocument> initiateAndUploadDocumentScanAndSelfie(ScanDocumentType documentType) => SocureFlutterSdkPlatform.instance.initiateAndUploadDocumentScanAndSelfie(documentType);
+
+  /// Only works on iOS and Android.
+  Future<UploadedDocument> uploadPassport(Uint8List front, Uint8List? selfie) => SocureFlutterSdkPlatform.instance.uploadPassport(front, selfie);
+
+  /// Only works on iOS and Android.
+  Future<UploadedDocument> uploadLicense(Uint8List front, Uint8List? back, Uint8List? selfie) => SocureFlutterSdkPlatform.instance.uploadLicense(front, back, selfie);
+  
   
   Future<void> setTracker() => SocureFlutterSdkPlatform.instance.setTracker();
   

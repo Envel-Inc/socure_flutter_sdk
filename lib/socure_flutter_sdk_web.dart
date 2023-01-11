@@ -40,21 +40,21 @@ class SocureFlutterSdkWeb extends SocureFlutterSdkPlatform {
   }
 
   @override
-  Future<ScanResult> initiateLicenseScan() => _initiateScan();
+  Future<ScanResult> initiateLicenseScan() => throw Exception("Not implemented on Web");
 
   @override
-  Future<ScanResult> initiatePassportScan() => _initiateScan();
+  Future<ScanResult> initiatePassportScan() => throw Exception("Not implemented on Web");
 
   @override
-  Future<ScanResult> initiateSelfieScan() => _initiateScan();
+  Future<ScanResult> initiateSelfieScan() => throw Exception("Not implemented on Web");
 
-  Future<ScanResult> _initiateScan() async {
-    final Completer<ScanResult> completer = Completer();
+  Future<UploadedDocument> _initiateScan() async {
+    final Completer<UploadedDocument> completer = Completer();
 
     await _initSocureDocv(onSuccess: (successResponse) {
       print("onSuccess");
-      completer.complete(ScanResult(successResponse.verifyResult!.documentVerification.documentType.type, null, null, null, null, null, null, false,
-          successResponse.referenceId, successResponse.documentUuid));
+      completer.complete(UploadedDocument(
+          successResponse.verifyResult!.documentVerification.documentType.type, successResponse.referenceId, successResponse.documentUuid));
     }, onError: (errorResponse) {
       print("onError");
       completer.completeError(Exception("Scan failed"));
@@ -67,7 +67,8 @@ class SocureFlutterSdkWeb extends SocureFlutterSdkPlatform {
     return completer.future;
   }
 
-  _initSocureDocv({required Function(SocureDocResponse) onSuccess, required Function(SocureDocResponse) onError, required Function(String) onProgress}) async {
+  _initSocureDocv(
+      {required Function(SocureDocResponse) onSuccess, required Function(SocureDocResponse) onError, required Function(String) onProgress}) async {
     final socurePublicKey = (html.window as JSWindow).socurePublicKey;
 
     if (socureDocV == null) {
@@ -96,4 +97,7 @@ class SocureFlutterSdkWeb extends SocureFlutterSdkPlatform {
 
   @override
   Future<void> setTracker() async {}
+
+  @override
+  Future<UploadedDocument> initiateAndUploadDocumentScanAndSelfie(ScanDocumentType documentType) => _initiateScan();
 }

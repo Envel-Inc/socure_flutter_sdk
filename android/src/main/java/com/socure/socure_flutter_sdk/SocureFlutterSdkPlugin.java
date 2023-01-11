@@ -69,6 +69,54 @@ public class SocureFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler,
         } else if (call.method.equals("setTracker")) {
             flutterResult.success(null);
             flutterResult = null;
+        } else if (call.method.equals("uploadPassport")) {
+            Map<String, Object> args = (Map<String, Object>) call.arguments;
+
+            final Interfaces.UploadCallback callback = new Interfaces.UploadCallback() {
+                @Override
+                public void onDocumentUploadError(SocureSdkError socureSdkError) {
+                    flutterResult.error("-2", socureSdkError.getMessage(), null);
+                }
+
+                @Override
+                public void onSocurePublicKeyError(SocureSdkError socureSdkError) {
+                    flutterResult.error("-2", socureSdkError.getMessage(), null);
+                }
+
+                @Override
+                public void documentUploadFinished(UploadResult uploadResult) {
+                    HashMap<String, Object> obj = new HashMap<>();
+                    obj.put("referenceId", uploadResult.getReferenceId());
+                    obj.put("uuid", uploadResult.getUuid());
+                    flutterResult.success(obj);
+                }
+            };
+
+            uploadPassport((byte[]) args.get("front"), args.get("selfie") != null ? (byte[]) args.get("selfie") : null, callback);
+        } else if (call.method.equals("uploadLicense")) {
+            Map<String, Object> args = (Map<String, Object>) call.arguments;
+
+            final Interfaces.UploadCallback callback = new Interfaces.UploadCallback() {
+                @Override
+                public void onDocumentUploadError(SocureSdkError socureSdkError) {
+                    flutterResult.error("-2", socureSdkError.getMessage(), null);
+                }
+
+                @Override
+                public void onSocurePublicKeyError(SocureSdkError socureSdkError) {
+                    flutterResult.error("-2", socureSdkError.getMessage(), null);
+                }
+
+                @Override
+                public void documentUploadFinished(UploadResult uploadResult) {
+                    HashMap<String, Object> obj = new HashMap<>();
+                    obj.put("referenceId", uploadResult.getReferenceId());
+                    obj.put("uuid", uploadResult.getUuid());
+                    flutterResult.success(obj);
+                }
+            };
+
+            uploadLicense((byte[]) args.get("front"), args.get("back") != null ? (byte[]) args.get("back") : null, args.get("selfie") != null ? (byte[]) args.get("selfie") : null, callback);
         } else {
             flutterResult = null;
             result.notImplemented();
@@ -106,29 +154,7 @@ public class SocureFlutterSdkPlugin implements FlutterPlugin, MethodCallHandler,
                     if (result.getBarcodeData() != null)
                         obj.put("barcodeData", barcodeDataToMap(result.getBarcodeData()));
 
-                    final Interfaces.UploadCallback callback = new Interfaces.UploadCallback() {
-                        @Override
-                        public void onDocumentUploadError(SocureSdkError socureSdkError) {
-                            flutterResult.error("-2", socureSdkError.getMessage(), null);
-                        }
-
-                        @Override
-                        public void onSocurePublicKeyError(SocureSdkError socureSdkError) {
-                            flutterResult.error("-2", socureSdkError.getMessage(), null);
-                        }
-
-                        @Override
-                        public void documentUploadFinished(UploadResult uploadResult) {
-                            obj.put("referenceId", uploadResult.getReferenceId());
-                            obj.put("uuid", uploadResult.getUuid());
-                            flutterResult.success(obj);
-                        }
-                    };
-
-                    if (requestCode == SCAN_PASSPORT_CODE)
-                        uploadPassport(Objects.requireNonNull(result.getPassportImage()), result.getSelfieImage(), callback);
-                    else
-                        uploadLicense(Objects.requireNonNull(result.getLicenseFrontImage()), result.getLicenseBackImage(), result.getSelfieImage(), callback);
+                    flutterResult.success(obj);
                 } catch (Exception e) {
                     flutterResult.error("-2", e.getMessage(), null);
                 }

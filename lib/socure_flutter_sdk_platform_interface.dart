@@ -27,16 +27,30 @@ abstract class SocureFlutterSdkPlatform extends PlatformInterface {
 
   /// Initiates a passport scan. The [passportImage] of the ScanResult will be populated with the image.
   /// If the user cancels the flow, then a [CancelledException] will be thrown.
+  ///
+  /// On Web, this is not implemented.
   Future<ScanResult> initiatePassportScan();
 
   /// Initiates an ID / driver's licence scan. The [licenseFrontImage] and [licenseBackImage] of the ScanResult will be populated with the image.
   /// If the user cancels the flow, then a [CancelledException] will be thrown.
+  ///
+  /// On Web, this is not implemented.
   Future<ScanResult> initiateLicenseScan();
 
   /// Initiates a selfie scan. The [selfieImage] of the ScanResult will be populated with the image.
   /// If the user cancels the flow, then a [CancelledException] will be thrown.
+  ///
+  /// On Web, this is not implemented.
   Future<ScanResult> initiateSelfieScan();
 
+  Future<UploadedDocument> initiateAndUploadDocumentScanAndSelfie(ScanDocumentType documentType);
+  
+  /// Only works on iOS and Android.
+  Future<UploadedDocument> uploadPassport(Uint8List front, Uint8List? selfie);
+
+  /// Only works on iOS and Android.
+  Future<UploadedDocument> uploadLicense(Uint8List front, Uint8List? back, Uint8List? selfie);
+  
   Future<void> setTracker();
 
   Future<String?> getDeviceSessionId();
@@ -50,15 +64,27 @@ class ScanResult {
   final Uint8List? selfieImage;
   final MrzData? mrzData;
   final BarcodeData? barcodeData;
-  final String? referenceId; // the reference ID. on the web only this and the uuid field will be populated
-  final String? uuid; // the document's UUID. // the reference ID. on the web only this and the referenceId field will be populated
   final bool autoCaptured;
   
-  const ScanResult(this.documentType, this.passportImage, this.licenseBackImage, this.licenseFrontImage, this.selfieImage, this.mrzData, this.barcodeData, this.autoCaptured, this.referenceId, this.uuid);
+  const ScanResult(this.documentType, this.passportImage, this.licenseBackImage, this.licenseFrontImage, this.selfieImage, this.mrzData, this.barcodeData, this.autoCaptured);
   
   factory ScanResult.fromJson(Map<dynamic, dynamic> json) {
-    return ScanResult(json["documentType"], json["passportImage"], json["licenseBackImage"], json["licenseFrontImage"], json["selfieImage"], json["mrzData"] != null ? MrzData.fromJson(json["mrzData"]) : null, json["barcodeData"] != null ? BarcodeData.fromJson(json["barcodeData"]) : null, json["autoCaptured"] == true, json["referenceId"], json["uuid"]);
+    return ScanResult(json["documentType"], json["passportImage"], json["licenseBackImage"], json["licenseFrontImage"], json["selfieImage"], json["mrzData"] != null ? MrzData.fromJson(json["mrzData"]) : null, json["barcodeData"] != null ? BarcodeData.fromJson(json["barcodeData"]) : null, json["autoCaptured"] == true);
   }
+}
+
+enum ScanDocumentType {
+  PASSPORT, DRIVERS_LICENSE
+}
+
+class UploadedDocument {
+  final String? documentType;
+  final String? referenceId;
+  final String? uuid;
+
+  const UploadedDocument(this.documentType, this.referenceId, this.uuid);
+
+  factory UploadedDocument.fromJson(Map<dynamic, dynamic> json) => UploadedDocument(json["documentType"], json["referenceId"], json["uuid"]);
 }
 
 class MrzData {

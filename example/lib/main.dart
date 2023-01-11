@@ -16,6 +16,7 @@ class _MyAppState extends State<MyApp> {
   ScanResult? _licenseResult;
   ScanResult? _selfieResult;
   String? deviceSessionId;
+  UploadedDocument? _uploadResult;
 
   @override
   void initState() {
@@ -35,6 +36,11 @@ class _MyAppState extends State<MyApp> {
   initiateSelfieScan() async {
     final res = await SocureFlutterSdk.instance.initiateSelfieScan();
     setState(() => _selfieResult = res);
+  }
+
+  initiateAndUploadDocumentScanAndSelfie() async {
+    final res = await SocureFlutterSdk.instance.initiateAndUploadDocumentScanAndSelfie(ScanDocumentType.PASSPORT);
+    setState(() => _uploadResult = res);
   }
   
   getDeviceSessionId() async {
@@ -66,9 +72,12 @@ class _MyAppState extends State<MyApp> {
 
               _selfieResult?.selfieImage != null ? Image.memory(_selfieResult!.selfieImage!) : Text("No selfie scanned"),
               Text(_selfieResult?.mrzData?.fullName ?? "No selfie name"),
-              Text(_selfieResult?.referenceId ?? _passportResult?.referenceId ?? _licenseResult?.referenceId  ?? "No scan reference ID"),
-              Text(_selfieResult?.uuid ?? _passportResult?.uuid ?? _licenseResult?.uuid  ?? "No document UUID"),
               ElevatedButton(onPressed: () => initiateSelfieScan(), child: Text("Scan selfie")),
+  
+  
+              _uploadResult?.referenceId != null ? Text(_uploadResult!.referenceId!) : Text("No reference ID"),
+              _uploadResult?.uuid != null ? Text(_uploadResult!.uuid!) : Text("No document UUID"),
+              ElevatedButton(onPressed: () => initiateAndUploadDocumentScanAndSelfie(), child: Text("Scan passport and selfie and upload")),
             ],
           ),
         ),

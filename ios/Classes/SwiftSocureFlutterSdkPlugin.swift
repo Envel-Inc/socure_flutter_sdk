@@ -3,11 +3,12 @@ import UIKit
 import SocureSdk
 import DeviceRisk
 
-public class SwiftSocureFlutterSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUploadCallback {
+public class SwiftSocureFlutterSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUploadCallback, UploadCallback {
   let docScanner = DocumentScanner()
   let selfieScanner = SelfieScanner()
   let deviceRiskManager = DeviceRiskManager.sharedInstance
   var flutterResult: FlutterResult?
+  var imageUploader = ImageUploader.init()
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "socure_sdk", binaryMessenger: registrar.messenger())
@@ -27,6 +28,17 @@ public class SwiftSocureFlutterSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUpl
 
     public func onError(errorType: DeviceRiskErrorType, errorMessage: String) {
         flutterResult?(FlutterError.init(code: "-1", message: errorMessage, details: nil))
+        flutterResult = nil
+    }
+    
+    public func documentUploadFinished(uploadResult: SocureSdk.UploadResult) {
+        let map: [String: Any?] = ["referenceId": uploadResult.referenceId, "uuid": uploadResult.uuid]
+        flutterResult?(map)
+        flutterResult = nil
+    }
+
+    public func onUploadError(errorType: SocureSdk.SocureSDKErrorType, errorMessage: String) {
+        flutterResult?(FlutterError.init(code: "-2", message: errorMessage, details: nil))
         flutterResult = nil
     }
 
@@ -67,16 +79,45 @@ public class SwiftSocureFlutterSdkPlugin: NSObject, FlutterPlugin, DeviceRiskUpl
             deviceRiskManager.setTracker(key: Bundle.main.object(forInfoDictionaryKey: "socurePublicKey") as! String, sources: [.device, .locale, .accessibility, .network, .location], existingUUID: deviceRiskManager.uuid, userConsent: true)
             result(nil)
             break
+        case "uploadLicense":
+            let args: [String: Any?] = call.arguments as! [String : Any?]
+            let front = args["front"] as! FlutterStandardTypedData
+            let back = args["back"] as! FlutterStandardTypedData
+            let selfie = args["selfie"] as? FlutterStandardTypedData
+        
+            flutterResult = result
+        
+            if (selfie == nil) {
+                imageUploader.uploadLicense(UploadCallback: self, front: front.data, back: back.data)
+            } else {
+                imageUploader.uploadLicense(UploadCallback: self, front: front.data, back: back.data, selfie: selfie!.data)
+            }
+        
+            break
+        case "uploadPassport":
+            let args: [String: Any?] = call.arguments as! [String : Any?]
+            let front = args["front"] as! FlutterStandardTypedData
+            let selfie = args["selfie"] as? FlutterStandardTypedData
+        
+            flutterResult = result
+        
+            if (selfie == nil) {
+                imageUploader.uploadPassport(UploadCallback: self, front: front.data)
+            } else {
+                imageUploader.uploadPassport(UploadCallback: self, front: front.data, selfie: selfie!.data)
+            }
+        
+            break
         default:
             break
     }
   }
 }
 
-class SocureViewController: UIViewController, ImageCallback, MRZCallback, BarcodeCallback, UploadCallback {
+class SocureViewController: UIViewController, ImageCallback, MRZCallback, BarcodeCallback {
     var flutterResult: FlutterResult?
     var onlyNeedFrontPicture: Bool = false
-    var imageUploader = ImageUploader.init()
+    
     
     var frontDocScanResult: DocScanResult?
     var backDocScanResult: DocScanResult?
@@ -87,7 +128,7 @@ class SocureViewController: UIViewController, ImageCallback, MRZCallback, Barcod
         super.viewDidLoad()
     }
 
-    private func sendFlutterResult(documentType: String?, referenceId: String?, uuid: String?) {
+    private func sendFlutterResult(documentType: String? = nil) {
         let docType = documentType ?? (onlyNeedFrontPicture ? "PASSPORT": "LICENSE")
         
         let licenseFront = (docType != "LICENSE" ? nil : (frontDocScanResult != nil ? FlutterStandardTypedData.init(bytes: frontDocScanResult!.imageData!) : nil))
@@ -96,7 +137,7 @@ class SocureViewController: UIViewController, ImageCallback, MRZCallback, Barcod
         let passport = (docType != "PASSPORT" ? nil : (frontDocScanResult != nil ? FlutterStandardTypedData.init(bytes: frontDocScanResult!.imageData!) : nil))
         let autoCaptured: Bool = ((frontDocScanResult ?? backDocScanResult)?.metaData["autoCaptured"] as? Bool) == true
         
-        var map: [String: Any?] = ["documentType": docType, "passportImage": passport, "licenseFrontImage": licenseFront, "licenseBackImage": licenseBack, "selfieImage": selfie, "referenceId": referenceId, "uuid": uuid, "autoCaptured": autoCaptured]
+        var map: [String: Any?] = ["documentType": docType, "passportImage": passport, "licenseFrontImage": licenseFront, "licenseBackImage": licenseBack, "selfieImage": selfie, "autoCaptured": autoCaptured]
         
         if (mrz != nil) {
             let mrzDataMap: [String: String?] = [
@@ -118,31 +159,21 @@ class SocureViewController: UIViewController, ImageCallback, MRZCallback, Barcod
         flutterResult?(map)
     }
     
-    public func documentUploadFinished(uploadResult: SocureSdk.UploadResult) {
-        sendFlutterResult(documentType: nil, referenceId: uploadResult.referenceId, uuid: uploadResult.uuid)
-    }
-
-    public func onUploadError(errorType: SocureSdk.SocureSDKErrorType, errorMessage: String) {
-        self.dismiss(animated: true, completion: nil)
-        flutterResult?(FlutterError.init(code: "-2", message: errorMessage, details: nil))
-        flutterResult = nil
-    }
-    
     public func documentFrontCallBack(docScanResult: DocScanResult) {
         frontDocScanResult = docScanResult
         if (onlyNeedFrontPicture) {
-            imageUploader.uploadPassport(UploadCallback: self, front: docScanResult.imageData!)
+            sendFlutterResult()
         }
     }
 
     public func documentBackCallBack(docScanResult: DocScanResult) {
         backDocScanResult = docScanResult
-        imageUploader.uploadLicense(UploadCallback: self, front: frontDocScanResult!.imageData!, back: docScanResult.imageData!);
+        sendFlutterResult()
     }
 
     public func selfieCallBack(selfieScanResult: SelfieScanResult) {
         selfieDocScanResult = selfieScanResult
-        sendFlutterResult(documentType: "SELFIE", referenceId: nil, uuid: nil)
+        sendFlutterResult(documentType: "SELFIE")
     }
 
     public func onScanCancelled() {
