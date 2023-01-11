@@ -81,10 +81,17 @@ class UploadedDocument {
   final String? documentType;
   final String? referenceId;
   final String? uuid;
+  final Uint8List? front; // this will be always null on the Web
+  final Uint8List? back; // this will be always null on the Web
+  final Uint8List? selfie; // this will be always null on the Web
 
-  const UploadedDocument(this.documentType, this.referenceId, this.uuid);
+  const UploadedDocument(this.documentType, this.referenceId, this.uuid, this.front, this.back, this.selfie);
 
-  factory UploadedDocument.fromJson(Map<dynamic, dynamic> json) => UploadedDocument(json["documentType"], json["referenceId"], json["uuid"]);
+  factory UploadedDocument.fromJson(Map<dynamic, dynamic> json) => UploadedDocument(json["documentType"], json["referenceId"], json["uuid"], json["front"], json["back"], json["selfie"]);
+
+  UploadedDocument copyWith({String? documentType, String? referenceId, String? uuid, Uint8List? front, Uint8List? back, Uint8List? selfie}) {
+    return UploadedDocument(documentType ?? this.documentType, referenceId ?? this.referenceId, uuid ?? this.uuid, front ?? this.front, back ?? this.back, selfie ?? this.selfie);
+  }
 }
 
 class MrzData {

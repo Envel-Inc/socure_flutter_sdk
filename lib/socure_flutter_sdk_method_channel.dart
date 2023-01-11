@@ -55,7 +55,7 @@ class MethodChannelSocureFlutterSdk extends SocureFlutterSdkPlatform {
     final resultMap = await _channel.invokeMapMethod<String, dynamic>("uploadLicense", {"front": front, "back": back, "selfie": selfie});
     if (resultMap == null) throw CancelledException();
 
-    return UploadedDocument.fromJson(resultMap);
+    return UploadedDocument.fromJson(resultMap).copyWith(front: front, back: back, selfie: selfie);
   }
 
   @override
@@ -63,7 +63,7 @@ class MethodChannelSocureFlutterSdk extends SocureFlutterSdkPlatform {
     final resultMap = await _channel.invokeMapMethod<String, dynamic>("uploadPassport", {"front": front, "selfie": selfie});
     if (resultMap == null) throw CancelledException();
   
-    return UploadedDocument.fromJson(resultMap);
+    return UploadedDocument.fromJson(resultMap).copyWith(front: front, selfie: selfie);
   }
 
   @override
